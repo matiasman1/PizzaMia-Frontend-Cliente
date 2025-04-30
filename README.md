@@ -17,7 +17,11 @@ pizza-mia-frontend/
 ├── public/
 ├── src/
 │   ├── assets/               # Imágenes, logos, fuentes, etc.
-│   ├── components/           # Componentes compartidos generales (si los hubiera)
+│   ├── components/           # Componentes divididos por dominio
+│   │   ├── Admin/              # Componentes reutilizables exclusivos del administrador
+│   │   ├── Client/             # Componentes reutilizables exclusivos del cliente
+│   │   ├── Landing/            # Componentes reutilizables exclusivos de la landing
+│   │   └── Global/             # Componentes compartidos generales (si los hubiera)
 │   ├── layouts/              # Layouts compartidos entre vistas
 │   ├── routes/               # Definiciones de rutas (React Router)
 │   ├── services/             # Servicios y llamadas HTTP a APIs
@@ -35,9 +39,6 @@ pizza-mia-frontend/
 │   │   ├── landing/          # Vistas de la landing page
 │   │   ├── client/           # Vistas del frontend para clientes
 │   │   └── admin/            # Vistas del panel de administración
-│   ├── components-landing/   # Componentes reutilizables exclusivos de la landing
-│   ├── components-client/    # Componentes reutilizables exclusivos del cliente
-│   ├── components-admin/     # Componentes reutilizables exclusivos del administrador
 │   ├── contexts/             # Context API (Auth, carrito, etc.)
 │   ├── hooks/                # Custom hooks (useAuth, useCart, etc.)
 │   ├── App.tsx               # Componente principal
@@ -54,6 +55,19 @@ pizza-mia-frontend/
 -   `/` ➜ Landing page
 -   `/client/*` ➜ Portal de clientes (compras, productos, perfil, etc.)
 -   `/admin/*` ➜ Portal de administradores (gestión de productos, pedidos, etc.)
+
+## 📦 Dependencias Instaladas
+
+Estas son las principales dependencias utilizadas en el proyecto:
+
+```bash
+npm install react-router-dom
+
+```
+
+-   **react-router-dom**: para el manejo de rutas en la SPA.
+
+A medida que se agreguen más funcionalidades (como manejo de estado, peticiones HTTP, validaciones, etc.), se irán agregando más dependencias como Axios, Zod, Zustand, etc.
 
 ## 📃 Nombre de la Arquitectura
 

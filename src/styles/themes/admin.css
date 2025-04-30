@@ -1,0 +1,16 @@
+.admin-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.admin-layout {
+    display: flex;
+    flex: 1;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+}
