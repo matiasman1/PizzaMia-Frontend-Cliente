@@ -1,16 +1,32 @@
+@import '../base/admin-variables.css';
+
+/* Estilos específicos para la página de administrador */
 .admin-page {
-    display: flex;
-    flex-direction: column;
+    background-color: var(primary-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
     height: 100vh;
 }
 
 .admin-layout {
     display: flex;
     flex: 1;
+    height: calc(100vh - 80px); /* Resta la altura del navbar */
 }
 
 .admin-content {
     flex: 1;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--background-color);
+    overflow-y: auto; /* Permite scroll si el contenido es muy grande */
+    margin-left: 250px; /* Ancho del sidebar */
+    margin-top: 80px; /* Altura del navbar */
+    width: calc(100% - 250px); /* Ocupa el ancho restante después del sidebar */
+    height: calc(100vh - 80px); /* Ocupa el alto restante después del navbar */
+    box-sizing: border-box;
+    position: fixed; /* Fija el contenido */
+    top: 0;
+    right: 0;
+    border-top-left-radius: 30px; /* Curvatura más pronunciada */
+    
 }

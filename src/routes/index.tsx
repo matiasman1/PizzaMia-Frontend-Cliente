@@ -14,7 +14,9 @@ const AppRoutes = () => {
                 <Route path="/client/*" element={<ClientPage />} />
                 
                 {/* Rutas para el administrador */}
-                <Route path="/admin/*" element={<AdminPage />} />
+                <Route path="/admin" element={<AdminPage />}>
+
+                </Route>
                 
             </Routes>
         </Router>

@@ -1,0 +1,48 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px; /* Alto fijo */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px; /* Cambiado de 20px a 30px para tener margin left y right de 30px */
+    box-sizing: border-box;
+    z-index: 1000; /* Asegura que el NavBar esté encima del contenido */
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 180px; /* Espacio entre PizzaMía y Dashboard */
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre los enlaces */
+}
+
+.navbar h3 {
+    font-size: var(--h3-size);
+    color: var(--text-color);
+    margin: 0;
+}
+
+.navbar h4 {
+    font-size: var(--h4-size);
+    color: var(--text-color);
+    margin: 0;
+}
+
+.navbar a {
+    color: var(--text-color);
+    font-size: var(--button-text-size);
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}

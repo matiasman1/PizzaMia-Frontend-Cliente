@@ -1,11 +1,14 @@
 import React from "react";
-import "./NavBar.css";
+import styles from "./NavBar.module.css";
 
 const NavBar: React.FC = () => {
     return (
-        <nav className="navbar">
-            <h1>Admin Panel</h1>
-            <div className="navbar-links">
+        <nav className={styles.navbar}>
+            <div className={styles.leftSection}>
+                <h3>PizzaMía</h3>
+                <h4>Dashboard</h4>
+            </div>
+            <div className={styles.rightSection}>
                 <a href="/profile">Profile</a>
                 <a href="/logout">Logout</a>
             </div>

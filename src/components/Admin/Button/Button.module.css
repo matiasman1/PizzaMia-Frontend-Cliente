@@ -1,0 +1,43 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--button-text-size);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    background-color: #FFFFFF;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.button:hover:not(:disabled) {
+    background-color: #F0F0F0;
+}
+
+/* Estado seleccionado */
+.selected {
+    background-color: var(--button-color);
+    color: #FFFFFF;
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Ancho completo */
+.fullWidth {
+    width: 100%;
+}
+
+/* Label centrado */
+.label {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
