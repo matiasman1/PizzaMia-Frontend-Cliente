@@ -1,64 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./SideBar.module.css";
 
 const SideBar: React.FC = () => {
-    const [selectedOption, setSelectedOption] = useState<string>("administracion");
-
-    const handleOptionClick = (option: string) => {
-        setSelectedOption(option);
-    };
-
     return (
         <aside className={styles.sidebar}>
             <hr className={styles.divider} />
             <ul className={styles.menuList}>
                 <li>
-                    <button 
-                        className={`${styles.menuButton} ${selectedOption === "administracion" ? styles.selected : ""}`}
-                        onClick={() => handleOptionClick("administracion")}
+                    <NavLink 
+                        to="/admin/administracion"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
                     >
                         Administración
-                    </button>
+                    </NavLink>
                 </li>
                 <li>
-                    <button 
-                        className={`${styles.menuButton} ${selectedOption === "insumos" ? styles.selected : ""}`}
-                        onClick={() => handleOptionClick("insumos")}
+                    <NavLink 
+                        to="/admin/insumos"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
                     >
                         Insumos
-                    </button>
+                    </NavLink>
                 </li>
                 <li>
-                    <button 
-                        className={`${styles.menuButton} ${selectedOption === "productos" ? styles.selected : ""}`}
-                        onClick={() => handleOptionClick("productos")}
+                    <NavLink 
+                        to="/admin/productos"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
                     >
                         Productos
-                    </button>
+                    </NavLink>
                 </li>
                 <li>
-                    <button 
-                        className={`${styles.menuButton} ${selectedOption === "gestion" ? styles.selected : ""}`}
-                        onClick={() => handleOptionClick("gestion")}
+                    <NavLink 
+                        to="/admin/gestion"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
                     >
                         Gestión
-                    </button>
+                    </NavLink>
                 </li>
                 <li>
-                    <button 
-                        className={`${styles.menuButton} ${selectedOption === "estadisticas" ? styles.selected : ""}`}
-                        onClick={() => handleOptionClick("estadisticas")}
+                    <NavLink 
+                        to="/admin/estadisticas"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
                     >
                         Estadísticas
-                    </button>
+                    </NavLink>
                 </li>
                 <li>
-                    <button 
-                        className={`${styles.menuButton} ${selectedOption === "seguridad" ? styles.selected : ""}`}
-                        onClick={() => handleOptionClick("seguridad")}
+                    <NavLink 
+                        to="/admin/seguridad"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
                     >
                         Seguridad
-                    </button>
+                    </NavLink>
                 </li>
             </ul>
         </aside>

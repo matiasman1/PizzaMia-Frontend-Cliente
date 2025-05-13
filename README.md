@@ -36,9 +36,15 @@ pizza-mia-frontend/
 │   │   ├── variables.css     # Variables CSS globales (colores, fuentes, etc.)
 │   │   └── index.css         # Entrada principal de estilos globales
 │   ├── pages/
-│   │   ├── landing/          # Vistas de la landing page
-│   │   ├── client/           # Vistas del frontend para clientes
-│   │   └── admin/            # Vistas del panel de administración
+│   │   ├── landing/
+│   │   │   └── sections/     # (opcional) Secciones reutilizables o vistas divididas por áreas temáticas
+│   │   ├── client/
+│   │   │   └── sections/     # (opcional) Secciones si se dividen vistas del cliente
+│   │   └── admin/
+│   │       └── sections/     # Vistas por sección del panel admin
+│   │           ├── AdministracionSection.tsx
+│   │           └── AdministracionSection.module.css
+│   │       
 │   ├── contexts/             # Context API (Auth, carrito, etc.)
 │   ├── hooks/                # Custom hooks (useAuth, useCart, etc.)
 │   ├── App.tsx               # Componente principal
@@ -47,7 +53,6 @@ pizza-mia-frontend/
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
-
 ```
 
 ## 🔄 Rutas Principales
@@ -62,35 +67,10 @@ Estas son las principales dependencias utilizadas en el proyecto:
 
 ```bash
 npm install react-router-dom
-
 ```
 
 -   **react-router-dom**: para el manejo de rutas en la SPA.
 
-A medida que se agreguen más funcionalidades (como manejo de estado, peticiones HTTP, validaciones, etc.), se irán agregando más dependencias como Axios, Zod, Zustand, etc.
-
-## 📃 Nombre de la Arquitectura
-
-La arquitectura utilizada se denomina:
-
-**Feature-Based Modular Frontend Architecture con separación de dominios por rol (Landing, Cliente, Admin)**
-
-Se basa en los siguientes principios:
-
--   **Feature-Based Modular Structure**: Agrupación del código por dominio funcional.
--   **Separation of Concerns (SoC)**: Separación clara de responsabilidades.
--   **Domain-Driven Design (DDD)** (adaptado al frontend): División basada en los roles y secciones del sistema.
-
-## ✅ Buenas Prácticas Aplicadas
-
-Esta arquitectura es altamente recomendada para proyectos con varios dominios funcionales, como Pizza Mia, ya que ofrece:
-
--   **Escalabilidad**: Estructura preparada para crecer sin volverse caótica.
--   **Mantenibilidad**: Código organizado y fácil de navegar.
--   **Separación de responsabilidades**: Admin, cliente y landing trabajan en contextos aislados.
--   **Facilita testing y colaboración en equipo**.
-
-No es ideal para proyectos pequeños o prototipos simples, ya que podría ser innecesariamente compleja en esos casos.
 
 ## 🌐 Repositorio del Proyecto
 

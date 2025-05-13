@@ -19,6 +19,17 @@
     gap: 180px; /* Espacio entre PizzaMía y Dashboard */
 }
 
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el logo y el texto */
+}
+
+.logo {
+    width: 25px; /* Ajusta el tamaño según necesites */
+    height: 25px;
+}
+
 .rightSection {
     display: flex;
     align-items: center;

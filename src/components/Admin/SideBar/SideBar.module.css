@@ -17,6 +17,7 @@
     border: none;
     height: 4px;
     background-color: #000000; /* Color de la línea */
+    position: absolute;
 }
 
 .menuList {
@@ -41,7 +42,9 @@
     cursor: pointer;
     transition: all 0.2s ease;
     display: block;
-    text-decoration: none;
+    text-decoration: none; /* Elimina el subrayado de enlaces */
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .menuButton:hover {
@@ -51,4 +54,8 @@
 .menuButton.selected {
     background-color: var(--button-color);
     color: #FFFFFF;
+}
+
+.menuButton:focus {
+    outline: none;
 }
