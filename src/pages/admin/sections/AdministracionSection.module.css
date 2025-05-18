@@ -4,124 +4,114 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--primary-color);
-    margin-top: 50px;
-    border-radius: 30px;
+    margin-top: 40px;
+    border-radius: 24px;
     height: auto;
-    padding: 20px 0;
+    padding: 14px 0;
 }
 
 .adminButtonsContainer {
     display: flex;
     justify-content: center; 
-    margin-bottom: 30px;
-    max-Width: 600px;
-    margin: 30px auto 0px auto; 
-    gap: 50px;
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin: 20px auto 0px auto; 
+    gap: 24px;
+}
+
+.adminButton {
+    min-width: 280px;
+    font-size: 16px;
+    padding: 12px 12px;
 }
 
 /* Asegúrate de que los encabezados de tabla permanezcan fijos */
 .rolesTable thead {
     position: sticky;
     top: 0;
-    background-color: var(--primary-color); /* Mismo color de fondo */
-    z-index: 1; /* Asegura que los encabezados estén por encima del contenido */
+    background-color: var(--primary-color);
+    z-index: 1;
 }
 
 /* Estilos para la barra de desplazamiento (scroll) en navegadores webkit */
 .tableContainer::-webkit-scrollbar {
-    width: 8px; /* Ancho de la barra de desplazamiento */
+    width: 8px;
 }
-
 .tableContainer::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color de fondo del track */
-    border-radius: 4px; /* Borde redondeado del track */
+    background: #f1f1f1;
+    border-radius: 4px;
 }
-
 .tableContainer::-webkit-scrollbar-thumb {
-    background: var(--button-color); /* Color de la barra de desplazamiento */
-    border-radius: 4px; /* Borde redondeado de la barra */
+    background: var(--button-color);
+    border-radius: 4px;
 }
-
 .tableContainer::-webkit-scrollbar-thumb:hover {
-    background: #4567B6; /* Color al pasar el cursor por la barra */
-}
-
-.adminButton {
-    min-width: 360px; /* Sobrescribe el min-width del botón */
+    background: #4567B6;
 }
 
 /* Estilos para la tabla de roles */
 .tableContainer {
-    width: 90%; 
-    margin: 20px auto;
-    max-height: 400px; /* Altura máxima para el contenedor */
-    overflow-y: auto; /* Permite scroll vertical */
-    overflow-x: hidden; /* Oculta scroll horizontal */
+    width: 90%;
+    margin: 16px auto;
+    max-height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .adminContentRoles p {
-    font-size: var(--large-text-size);
+    font-size: 18px;
     color: var(--text-color);
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     text-align: center;
-    padding: 0 20px; /* Añadido padding horizontal */
-}
-
-/* Estilos para la tabla de roles */
-.tableContainer {
-    width: 90%; 
-    margin: 20px auto;
-    overflow-x: auto;
+    padding: 0 12px;
 }
 
 .rolesTable {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background-color: transparent; /* Sin color de fondo */
-    table-layout: fixed; /* Ancho fijo de columnas */
+    background-color: transparent;
+    table-layout: fixed;
 }
 
 .rolesTable th, .rolesTable td {
-    justify-content: space-around; /* Distribución de espacio alrededor */
+    justify-content: space-around;
     text-align: center;
+    padding: 8px 10px;
+    font-size: 16px;
 }
 
 .tableHeader {
-    padding: 15px 20px;
-    font-size: var(--large-text-size);
+    font-size: 16px;
     color: var(--text-color);
     font-weight: 600;
-    background-color: transparent; /* Sin fondo */
+    background-color: transparent;
     text-align: center;
-    border: none; /* Sin bordes */
+    border: none;
 }
 
 .rolName {
-    padding: 15px 20px;
-    font-size: var(--large-text-size);
+    font-size: 16px;
     color: var(--text-color);
     text-align: center;
-    border-bottom: 1px solid #000000; /* Solo línea inferior */
+    border-bottom: 1px solid #000000;
 }
 
 .statusActive {
-    color: var(--success-color); /* Color de texto en verde */
-    font-size: var(--large-text-size);
-
+    color: var(--success-color);
+    font-size: 16px;
 }
 
 .statusInactive {
-    color: var(--error-color); /* Color de texto en rojo */
-    font-size: var(--large-text-size);
-
+    color: var(--error-color);
+    font-size: 16px;
 }
 
 .actionColumn {
     text-align: center;
-    padding: 15px;
-    border-bottom: 1px solid #000000; /* Solo línea inferior */
+    padding: 8px;
+    border-bottom: 1px solid #000000;
 }
 
 .actionButton {
@@ -136,15 +126,14 @@
 }
 
 .actionIcon {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
 }
 
 /* Remover bordes de primera y última fila */
 .rolesTable tr:first-child td {
     border-top: none;
 }
-
 .rolesTable tr:last-child td {
     border-bottom: none;
 }
@@ -156,5 +145,5 @@
 
 /* Estado de celda hover */
 .rolesTable tbody tr:hover td {
-    background-color: rgba(0, 0, 0, 0.02); /* Sutil cambio al hacer hover */
+    background-color: rgba(0, 0, 0, 0.02);
 }

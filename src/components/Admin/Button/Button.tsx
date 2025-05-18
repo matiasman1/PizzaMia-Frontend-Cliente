@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Button.module.css";
 
 interface ButtonProps {
-    label: string;
+    label: string | React.ReactNode;
     onClick?: () => void;
     selected?: boolean;
     fullWidth?: boolean;

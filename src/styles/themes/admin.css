@@ -1,10 +1,22 @@
 @import '../base/admin-variables.css';
 
 /* Estilos específicos para la página de administrador */
-.admin-page {
-    background-color: var(primary-color);
-    color: var(--text-color);
+:root {
     font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--primary-color);
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    margin: 0;
+    padding: 0;    
+}
+
+
+.admin-page {
     height: auto;
 }
 
@@ -16,7 +28,8 @@
 
 .admin-content {
     flex: 1;
-    padding: 20px;
+
+    padding: 20px 40px;
     background-color: var(--background-color);
     overflow-y: auto; /* Permite scroll si el contenido es muy grande */
     margin-left: 250px; /* Ancho del sidebar */

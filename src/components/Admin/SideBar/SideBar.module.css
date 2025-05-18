@@ -11,13 +11,15 @@
     position: fixed;
 }
 
+
 .divider {
-    width: 180px; /* Ancho personalizado */
-    margin: -30px auto 20px; /* Centrado horizontalmente con margen inferior */
+    width: 180px;
+    margin: -20px auto 24px auto; /* Centrado y con margen inferior */
     border: none;
-    height: 4px;
-    background-color: #000000; /* Color de la línea */
-    position: absolute;
+    height: 2px;
+    background-color: #000000;
+    border-radius: 2px;
+    display: absolute;
 }
 
 .menuList {

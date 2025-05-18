@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../../components/admin/Button/Button";
 
-// Importar las imágenes SVG correctamente
+// Importar las imágenes SVG 
 import chevronUp from "../../../assets/admin/circle-chevron-up.svg";
 import chevronDown from "../../../assets/admin/circle-chevron-down.svg";
 

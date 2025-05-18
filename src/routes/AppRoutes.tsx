@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LandingPage from '../pages/landing/LandingPage.tsx';
 import ClientPage from '../pages/client/ClientPage.tsx';
 import AdminPage from '../pages/admin/AdminPage.tsx';
+import LoginAdmin from '../pages/admin/LoginAdmin/LoginAdmin'; 
+
+
 
 const AppRoutes = () => {
     return (
@@ -12,6 +15,9 @@ const AppRoutes = () => {
                 
                 {/* Rutas para el cliente */}
                 <Route path="/client/*" element={<ClientPage />} />
+                
+                {/* Ruta de login para el administrador */}
+                <Route path="/admin/login" element={<LoginAdmin />} />
                 
                 {/* Rutas para el administrador */}
                 {/* Redirigir la ruta administracion para que siempre vaya a roles por defecto */}
