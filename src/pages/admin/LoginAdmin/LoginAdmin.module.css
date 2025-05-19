@@ -17,10 +17,10 @@
 
 .form {
     background: var(--primary-color);
-    border-radius: 18px;
+    border-radius: 5px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     padding: 38px 130px 28px 130px; /* Más padding lateral */
-    min-width: 380px;             /* Más ancho mínimo */
+    min-width: 280px;             /* Más ancho mínimo */
     max-width: 480px;             /* Más ancho máximo */
     width: 100%;
     display: flex;

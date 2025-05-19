@@ -36,33 +36,33 @@ const NavBar: React.FC = () => {
 
     return (
         <nav className={styles.navbar}>
-            <div className={styles.leftSection}>
-                <div className={styles.logoContainer}>
+            <div className={styles.navContent}>
+                <div className={styles.logoSection}>
                     <h3>PizzaMía</h3>
                     <img src={pizzaLogo} alt="Pizza Mía Logo" className={styles.logo} />
+                    <h4 className={styles.dashboardTitle}>Dashboard</h4>
                 </div>
-                <h4>Dashboard</h4>
+                {user && (
+                    <div className={styles.rightSection}>
+                        <img
+                            src={avatarLogo}
+                            alt="Avatar"
+                            className={styles.avatar}
+                            onClick={() => setMenuOpen((open) => !open)}
+                            style={{ cursor: "pointer" }}
+                        />
+                        {menuOpen && (
+                            <div className={styles.avatarMenu} ref={menuRef}>
+                                <Button
+                                    label="Cerrar sesión"
+                                    onClick={handleLogout}
+                                    className={styles.logoutButton}
+                                />
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
-            {user && (
-                <div className={styles.rightSection}>
-                    <img
-                        src={avatarLogo}
-                        alt="Avatar"
-                        className={styles.avatar}
-                        onClick={() => setMenuOpen((open) => !open)}
-                        style={{ cursor: "pointer" }}
-                    />
-                    {menuOpen && (
-                        <div className={styles.avatarMenu} ref={menuRef}>
-                            <Button
-                                label="Cerrar sesión"
-                                onClick={handleLogout}
-                                className={styles.logoutButton}
-                            />
-                        </div>
-                    )}
-                </div>
-            )}
         </nav>
     );
 };

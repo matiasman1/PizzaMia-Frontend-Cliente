@@ -6,12 +6,12 @@ import NavBar from "../../components/admin/NavBar/NavBar";
 import "../../styles/themes/admin.css";
 
 // Importar las secciones
-import { AdministracionSection } from "./Sections/AdministracionSection";
-import { InsumosSection } from "./Sections/InsumosSection";
-import { ProductosSection } from "./Sections/ProductosSection";
-import { GestionSection }  from "./Sections/GestionSection";
-import { EstadisticasSection } from "./Sections/EstadisticasSection";
-import { SeguridadSection } from "./Sections/SeguridadSection";
+import { AdministracionSection } from "./modules/Administracion/AdministracionSection";
+import { InsumosSection } from "./modules/Insumos/InsumosSection";
+import { ProductosSection } from "./modules/Productos/ProductosSection";
+import { GestionSection }  from "./modules/Gestion/GestionSection";
+import { EstadisticasSection } from "./modules/Estadisticas/EstadisticasSection";
+import { SeguridadSection } from "./modules/Seguridad/SeguridadSection";
 
 const AdminPage: React.FC = () => {
     const location = useLocation();

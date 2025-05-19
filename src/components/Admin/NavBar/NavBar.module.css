@@ -2,48 +2,49 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 80px; /* Alto fijo */
-    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 80px;
+    width: 100%;
     background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.navContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 50px; /* Cambiado de 20px a 30px para tener margin left y right de 30px */
-    box-sizing: border-box;
-    z-index: 1000; /* Asegura que el NavBar esté encima del contenido */
+    width: 100%;
 }
 
-.leftSection {
+.logoSection {
     display: flex;
     align-items: center;
-    gap: 180px; /* Espacio entre PizzaMía y Dashboard */
-}
-
-.logoContainer {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espacio entre el logo y el texto */
+    gap: 10px;
+    margin-left: -10px;
 }
 
 .logo {
-    width: 25px; /* Ajusta el tamaño según necesites */
+    width: 25px;
     height: 25px;
+}
+
+.dashboardTitle {
+    margin-left: 40px;
+    font-size: var(--h4-size);
+    color: var(--text-color);
 }
 
 .rightSection {
     display: flex;
     align-items: center;
-    gap: 15px; /* Espacio entre los enlaces */
+    gap: 15px;
 }
 
 .navbar h3 {
     font-size: var(--h3-size);
-    color: var(--text-color);
-    margin: 0;
-}
-
-.navbar h4 {
-    font-size: var(--h4-size);
     color: var(--text-color);
     margin: 0;
 }
@@ -79,9 +80,8 @@
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    padding: 10px 14px; 
-    z-index: 2000;
-    min-width: 100px;   
+    padding: 10px 14px;
+    min-width: 100px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

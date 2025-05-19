@@ -37,13 +37,11 @@ pizza-mia-frontend/
 │   │   └── index.css         # Entrada principal de estilos globales
 │   ├── pages/
 │   │   ├── landing/
-│   │   │   └── sections/     # (opcional) Secciones reutilizables o vistas divididas por áreas temáticas
+│   │   │   └── modules/     # (opcional) Secciones reutilizables o vistas divididas por áreas temáticas
 │   │   ├── client/
-│   │   │   └── sections/     # (opcional) Secciones si se dividen vistas del cliente
+│   │   │   └── modules/     # (opcional) Secciones si se dividen vistas del cliente
 │   │   └── admin/
-│   │       └── sections/     # Vistas por sección del panel admin
-│   │           ├── AdministracionSection.tsx
-│   │           └── AdministracionSection.module.css
+│   │       └── modules/     # Vistas por sección del panel admin
 │   │       
 │   ├── contexts/             # Context API (Auth, carrito, etc.)
 │   ├── hooks/                # Custom hooks (useAuth, useCart, etc.)
