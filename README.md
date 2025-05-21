@@ -65,6 +65,12 @@ Estas son las principales dependencias utilizadas en el proyecto:
 
 ```bash
 npm install react-router-dom
+npm install chart.js react-chartjs-2
+npm install xlsx
+npm install file-saver
+npm install --save-dev @types/file-saver
+npm install exceljs 
+npm install html2canvas
 ```
 
 -   **react-router-dom**: para el manejo de rutas en la SPA.
