@@ -19,6 +19,16 @@ const SideBar: React.FC = () => {
                 </li>
                 <li>
                     <NavLink 
+                        to="/admin/rubros"
+                        className={({ isActive }) => 
+                            `${styles.menuButton} ${isActive ? styles.selected : ""}`
+                        }
+                    >
+                        Rubros
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
                         to="/admin/insumos"
                         className={({ isActive }) => 
                             `${styles.menuButton} ${isActive ? styles.selected : ""}`

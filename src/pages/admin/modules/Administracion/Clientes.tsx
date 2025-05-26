@@ -4,7 +4,7 @@ import chevronUp from "../../../../assets/admin/circle-chevron-up.svg";
 import chevronDown from "../../../../assets/admin/circle-chevron-down.svg";
 import iconEdit from "../../../../assets/admin/icon-edit.svg";
 import Button from "../../../../components/admin/Button/Button";
-import styles from "./roles.module.css";
+import styles from "./Clientes.module.css";
 
 const initialClientes = [
     { nombre: "Mariano", apellido: "Lugano", usuario: "Marian99", estado: "Activo" },

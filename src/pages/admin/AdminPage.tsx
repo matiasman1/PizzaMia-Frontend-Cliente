@@ -7,6 +7,7 @@ import "../../styles/themes/admin.css";
 
 // Importar las secciones
 import { AdministracionSection } from "./modules/Administracion/AdministracionSection";
+import { RubrosSection } from "./modules/Rubros/RubrosSection";
 import { InsumosSection } from "./modules/Insumos/InsumosSection";
 import { ProductosSection } from "./modules/Productos/ProductosSection";
 import { GestionSection }  from "./modules/Gestion/GestionSection";
@@ -15,26 +16,32 @@ import { SeguridadSection } from "./modules/Seguridad/SeguridadSection";
 
 const AdminPage: React.FC = () => {
     const location = useLocation();
-    const path = location.pathname.split("/").pop() || "";
-
+    const pathname = location.pathname;
+    
     // Renderizar contenido según la ruta actual
     const renderContent = () => {
-        switch (path) {
-            case "administracion":
-                return <AdministracionSection />;
-            case "insumos":
-                return <InsumosSection />;
-            case "productos":
-                return <ProductosSection />;
-            case "gestion":
-                return <GestionSection />;
-            case "estadisticas":
-                return <EstadisticasSection />;
-            case "seguridad":
-                return <SeguridadSection />;
-            default:
-                return <AdministracionSection />;
+        if (pathname.startsWith("/admin/administracion")) {
+            return <AdministracionSection />;
         }
+        if (pathname.startsWith("/admin/rubros")) {
+            return <RubrosSection />;
+        }
+        if (pathname.startsWith("/admin/insumos")) {
+            return <InsumosSection />;
+        }
+        if (pathname.startsWith("/admin/productos")) {
+            return <ProductosSection />;
+        }
+        if (pathname.startsWith("/admin/gestion")) {
+            return <GestionSection />;
+        }
+        if (pathname.startsWith("/admin/estadisticas")) {
+            return <EstadisticasSection />;
+        }
+        if (pathname.startsWith("/admin/seguridad")) {
+            return <SeguridadSection />;
+        }
+        return <AdministracionSection />;
     };
 
     return (

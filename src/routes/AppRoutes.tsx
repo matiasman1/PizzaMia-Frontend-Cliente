@@ -22,11 +22,14 @@ const AppRoutes = () => {
                 {/* Rutas para el administrador */}
                 {/* Redirigir la ruta administracion para que siempre vaya a roles por defecto */}
                 <Route path="/admin/administracion" element={<Navigate to="/admin/administracion/roles" replace />} />
+                <Route path="/admin/rubros" element={<Navigate to="/admin/rubros/insumos" replace />} />
                 
                 {/* Rutas específicas para la sección administración */}
                 <Route path="/admin/administracion/:section" element={<AdminPage />} />
+                <Route path="/admin/rubros/:section" element={<AdminPage />} />
                 
                 {/* Otras rutas del admin */}
+                <Route path="/admin/rubros" element={<AdminPage />} />
                 <Route path="/admin/insumos" element={<AdminPage />} />
                 <Route path="/admin/productos" element={<AdminPage />} />
                 <Route path="/admin/gestion" element={<AdminPage />} />
