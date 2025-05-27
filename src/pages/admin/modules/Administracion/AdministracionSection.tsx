@@ -7,6 +7,7 @@ import Empleados from "./Empleados";
 import Clientes from "./Clientes";
 
 import styles from "./AdministracionSection.module.css";
+import shared from "../styles/Common.module.css";
 
 export const AdministracionSection: React.FC = () => {
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ export const AdministracionSection: React.FC = () => {
     };
 
     return (
-        <div className={styles.administracionSection}>
+        <div className={shared.administracionSection}>
             
             <div className={styles.adminButtonsContainer}>
                 <Button 

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import GenericTable from "../../../../components/admin/GenericTable/GenericTable";
-import chevronUp from "../../../../assets/admin/circle-chevron-up.svg";
-import chevronDown from "../../../../assets/admin/circle-chevron-down.svg";
-import iconEdit from "../../../../assets/admin/icon-edit.svg";
+import { getGenericColumns } from "../../../../components/admin/GenericTable/getGenericColumns";
 import Button from "../../../../components/admin/Button/Button";
 import styles from "./Roles.module.css";
+import shared from "../styles/Common.module.css";
 
 const initialRoles = [
     { rol: "Admin", estado: "Activo" },
@@ -50,114 +49,55 @@ const Roles: React.FC = () => {
 
     const columns = [
         { header: "Rol", key: "rol" },
-        {
-            header: "Estado",
-            key: "estado",
-            render: (value: string) => (
-                <span
-                    style={{
-                        color: value === "Activo" ? "#5ACD40" : "#D64C4C",
-                        fontWeight: 600,
-                    }}
-                >
-                    {value}
-                </span>
-            ),
-        },
-        {
-            header: "Alta",
-            key: "alta",
-            render: (_: any, _row: any, rowIndex: number) => (
-                <button
-                    className={styles.actionButton}
-                    onClick={() => {
-                        if (roles[rowIndex].estado === "Inactivo") toggleEstado(rowIndex);
-                    }}
-                    disabled={roles[rowIndex].estado === "Activo"}
-                    type="button"
-                >
-                    <img
-                        src={chevronUp}
-                        alt="Alta"
-                        className={styles.actionIcon}
-                        style={{ opacity: roles[rowIndex].estado === "Activo" ? 0.4 : 1 }}
-                    />
-                </button>
-            ),
-        },
-        {
-            header: "Baja",
-            key: "baja",
-            render: (_: any, _row: any, rowIndex: number) => (
-                <button
-                    className={styles.actionButton}
-                    onClick={() => {
-                        if (roles[rowIndex].estado === "Activo") toggleEstado(rowIndex);
-                    }}
-                    disabled={roles[rowIndex].estado === "Inactivo"}
-                    type="button"
-                >
-                    <img
-                        src={chevronDown}
-                        alt="Baja"
-                        className={styles.actionIcon}
-                        style={{ opacity: roles[rowIndex].estado === "Inactivo" ? 0.4 : 1 }}
-                    />
-                </button>
-            ),
-        },
-        {
-            header: "Editar",
-            key: "editar",
-            render: (_: any, _row: any, rowIndex: number) => (
-                <button
-                    className={styles.actionButton}
-                    onClick={() => alert(`Editar rol: ${roles[rowIndex].rol}`)}
-                    type="button"
-                >
-                    <img
-                        src={iconEdit}
-                        alt="Editar"
-                        className={styles.actionIcon}
-                    />
-                </button>
-            ),
-        },
+        ...getGenericColumns({
+            onAlta: (_row, rowIndex) => {
+                if (roles[rowIndex].estado === "Inactivo") toggleEstado(rowIndex);
+            },
+            onBaja: (_row, rowIndex) => {
+                if (roles[rowIndex].estado === "Activo") toggleEstado(rowIndex);
+            },
+            onEditar: (_: any, rowIndex) => {
+                alert(`Editar rol: ${roles[rowIndex].rol}`);
+                // Aquí puedes abrir tu modal de edición
+            },
+            disabledAlta: row => row.estado === "Activo",
+            disabledBaja: row => row.estado === "Inactivo",
+        }),
     ];
 
     return (
-        <div className={styles.adminContent}>
-            <div className={styles.adminContentRoles}>
+        <div className={shared.adminContent}>
+            <div className={shared.adminContentSection}>
                 <p>Administrador de Roles</p>
                 <Button
                     label="Nuevo +"
                     onClick={handleNuevoRol}
-                    className={styles.nuevoButton}
+                    className={shared.nuevoButton}
                 />
                 <GenericTable columns={columns} data={roles} />
 
                 {showModal && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalContent}>
+                    <div className={shared.modalOverlay}>
+                        <div className={`${shared.modalContent} ${styles.modalContent}`}>
                             <h2>Nuevo rol</h2>
                             <label>Nombre</label>
                             <input
-                                className={styles.input}
+                                className={`${shared.input} ${styles.input}`}
                                 type="text"
                                 placeholder="Nombre del nuevo rol"
                                 value={nuevoRol}
                                 onChange={e => setNuevoRol(e.target.value)}
                             />
-                            {error && <div className={styles.error}>{error}</div>}
-                            <div className={styles.modalActions}>
+                            {error && <div className={shared.error}>{error}</div>}
+                            <div className={shared.modalActions}>
                                 <button
-                                    className={styles.enviarButton}
+                                    className={shared.enviarButton}
                                     onClick={handleEnviar}
                                 >
                                     Enviar
                                 </button>
                                 <button
-                                    className={styles.salirButton}
+                                    className={shared.salirButton}
                                     onClick={() => setShowModal(false)}
                                 >
                                     Salir

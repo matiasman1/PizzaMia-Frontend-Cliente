@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import GenericTable from "../../../../components/admin/GenericTable/GenericTable";
-import chevronUp from "../../../../assets/admin/circle-chevron-up.svg";
-import chevronDown from "../../../../assets/admin/circle-chevron-down.svg";
-import iconEdit from "../../../../assets/admin/icon-edit.svg";
+import { getGenericColumns } from "../../../../components/admin/GenericTable/getGenericColumns";
 import Button from "../../../../components/admin/Button/Button";
 import styles from "./Clientes.module.css";
+import shared from "../styles/Common.module.css";
 
 const initialClientes = [
     { nombre: "Mariano", apellido: "Lugano", usuario: "Marian99", estado: "Activo" },
@@ -53,127 +52,68 @@ const Clientes: React.FC = () => {
         { header: "Nombre", key: "nombre" },
         { header: "Apellido", key: "apellido" },
         { header: "Usuario", key: "usuario" },
-        {
-            header: "Estado",
-            key: "estado",
-            render: (value: string) => (
-                <span
-                    style={{
-                        color: value === "Activo" ? "#5ACD40" : "#D64C4C",
-                        fontWeight: 600,
-                    }}
-                >
-                    {value}
-                </span>
-            ),
-        },
-        {
-            header: "Alta",
-            key: "alta",
-            render: (_: any, _row: any, rowIndex: number) => (
-                <button
-                    className={styles.actionButton}
-                    onClick={() => {
-                        if (clientes[rowIndex].estado === "Inactivo") toggleEstado(rowIndex);
-                    }}
-                    disabled={clientes[rowIndex].estado === "Activo"}
-                    type="button"
-                >
-                    <img
-                        src={chevronUp}
-                        alt="Alta"
-                        className={styles.actionIcon}
-                        style={{ opacity: clientes[rowIndex].estado === "Activo" ? 0.4 : 1 }}
-                    />
-                </button>
-            ),
-        },
-        {
-            header: "Baja",
-            key: "baja",
-            render: (_: any, _row: any, rowIndex: number) => (
-                <button
-                    className={styles.actionButton}
-                    onClick={() => {
-                        if (clientes[rowIndex].estado === "Activo") toggleEstado(rowIndex);
-                    }}
-                    disabled={clientes[rowIndex].estado === "Inactivo"}
-                    type="button"
-                >
-                    <img
-                        src={chevronDown}
-                        alt="Baja"
-                        className={styles.actionIcon}
-                        style={{ opacity: clientes[rowIndex].estado === "Inactivo" ? 0.4 : 1 }}
-                    />
-                </button>
-            ),
-        },
-        {
-            header: "Editar",
-            key: "editar",
-            render: (_: any, _row: any, rowIndex: number) => (
-                <button
-                    className={styles.actionButton}
-                    onClick={() => alert(`Editar cliente: ${clientes[rowIndex].nombre} ${clientes[rowIndex].apellido}`)}
-                    type="button"
-                >
-                    <img
-                        src={iconEdit}
-                        alt="Editar"
-                        className={styles.actionIcon}
-                    />
-                </button>
-            ),
-        },
+        ...getGenericColumns({
+            onAlta: (_row, rowIndex) => {
+                if (clientes[rowIndex].estado === "Inactivo") toggleEstado(rowIndex);
+            },
+            onBaja: (_row, rowIndex) => {
+                if (clientes[rowIndex].estado === "Activo") toggleEstado(rowIndex);
+            },
+            onEditar: (_rowIndex) => {
+                alert(`Editar cliente: ${clientes[_rowIndex].nombre} ${clientes[_rowIndex].apellido}`);
+                // Aquí puedes abrir tu modal de edición
+            },
+            disabledAlta: row => row.estado === "Activo",
+            disabledBaja: row => row.estado === "Inactivo",
+        }),
     ];
 
     return (
-        <div className={styles.adminContent}>
-            <div className={styles.adminContentRoles}>
+        <div className={shared.adminContent}>
+            <div className={shared.adminContentSection}>
                 <p>Administrador de Clientes</p>
                 <Button
                     label="Nuevo +"
                     onClick={handleNuevoCliente}
-                    className={styles.nuevoButton}
+                    className={shared.nuevoButton}
                 />
                 <GenericTable columns={columns} data={clientes} />
 
                 {showModal && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalContent}>
+                    <div className={shared.modalOverlay}>
+                        <div className={`${shared.modalContent} ${styles.modalContent}`}>
                             <h2>Nuevo cliente</h2>
                             <input
-                                className={styles.input}
+                                className={`${shared.input} ${styles.input}`}
                                 type="text"
                                 placeholder="Ingrese su nombre"
                                 value={nuevoCliente.nombre}
                                 onChange={e => setNuevoCliente({ ...nuevoCliente, nombre: e.target.value })}
                             />
                             <input
-                                className={styles.input}
+                                className={`${shared.input} ${styles.input}`}
                                 type="text"
                                 placeholder="Ingrese su apellido"
                                 value={nuevoCliente.apellido}
                                 onChange={e => setNuevoCliente({ ...nuevoCliente, apellido: e.target.value })}
                             />
                             <input
-                                className={styles.input}
+                                className={`${shared.input} ${styles.input}`}
                                 type="text"
                                 placeholder="Ingrese su usuario"
                                 value={nuevoCliente.usuario}
                                 onChange={e => setNuevoCliente({ ...nuevoCliente, usuario: e.target.value })}
                             />
-                            {error && <div className={styles.error}>{error}</div>}
-                            <div className={styles.modalActions}>
+                            {error && <div className={shared.error}>{error}</div>}
+                            <div className={shared.modalActions}>
                                 <button
-                                    className={styles.enviarButton}
+                                    className={shared.enviarButton}
                                     onClick={handleEnviar}
                                 >
                                     Confirmar
                                 </button>
                                 <button
-                                    className={styles.salirButton}
+                                    className={shared.salirButton}
                                     onClick={() => setShowModal(false)}
                                 >
                                     Salir
