@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../../../components/admin/Button/Button";
 
-import Insumos from "./Insumos";
-import Productos from "./Productos";
+import Insumos from "./Insumos/Insumos";
+import Productos from "./Productos/Productos";
 
 import styles from "./RubrosSection.module.css";
 

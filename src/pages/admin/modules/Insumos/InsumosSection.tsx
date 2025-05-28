@@ -1,133 +1,162 @@
-import React, { useState } from "react";
-import GenericTable from "../../../../components/admin/GenericTable/GenericTable";
-import iconReplenish from "../../../../assets/admin/icon-replenish.svg";
-import Button from "../../../../components/admin/Button/Button";
-import lupaIcon from "../../../../assets/admin/icon-lupa.svg";
-import { getGenericColumns } from "../../../../components/admin/GenericTable/getGenericColumns";
-
+import React, { useState, useEffect } from "react";
+import { InsumoApi, RubroApi } from "../../../../types/typesAdmin";
+import { fetchInsumos, patchEstadoInsumo, createInsumo, updateInsumo, fetchRubros } from "../../../../api/apiAdmin";
+import InsumosTable from "./ui/InsumosTable";
+import SearchHeader from "./ui/SearchHeader";
+import NuevoInsumoModal from "./ui/NuevoInsumoModal";
+import EditarInsumoModal from "./ui/EditarInsumoModal";
+import ReponerStockModal from "./ui/ReponerStockModal";
 import styles from "./InsumosSection.module.css";
 import shared from "../styles/Common.module.css";
 
-// Datos de ejemplo para insumos
-const initialInsumos = [
-    { insumo: "Mozarella", rubro: "Queso", stock: "1000 gr", estado: "Activo" },
-    { insumo: "Tomate", rubro: "Verdura", stock: "4000 gr", estado: "Activo" },
-    { insumo: "Aceite Oliva", rubro: "Aceite", stock: "0 ml", estado: "Inactivo" },
-    { insumo: "Sal", rubro: "Condimento", stock: "2000 gr", estado: "Activo" },
-    { insumo: "Pimienta", rubro: "Condimento", stock: "1500 gr", estado: "Activo" },
-    { insumo: "Rucula", rubro: "Verdura", stock: "200 gr", estado: "Activo" },
-    { insumo: "Sal", rubro: "Condimento", stock: "2000 gr", estado: "Activo" },
-];
-
 export const InsumosSection: React.FC = () => {
-    const [insumos, setInsumos] = useState(initialInsumos);
+    const [insumos, setInsumos] = useState<InsumoApi[]>([]);
+    const [rubros, setRubros] = useState<RubroApi[]>([]);
     const [search, setSearch] = useState("");
+    
+    // Estados para modales
+    const [showNuevoModal, setShowNuevoModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showReponerModal, setShowReponerModal] = useState(false);
+    
+    // Estados para datos de modales
+    const [insumoToEdit, setInsumoToEdit] = useState<InsumoApi | null>(null);
+    const [insumoToReponer, setInsumoToReponer] = useState<InsumoApi | null>(null);
 
-    const getStockValue = (stock: string) => {
-        const match = stock.match(/^(\d+)/);
-        return match ? parseInt(match[1], 10) : 0;
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        try {
+            const [insumosData, rubrosData] = await Promise.all([
+                fetchInsumos(),
+                fetchRubros()
+            ]);
+            setInsumos(insumosData);
+            setRubros(rubrosData);
+        } catch (error) {
+            console.error("Error al cargar datos:", error);
+            setInsumos([]);
+            setRubros([]);
+        }
     };
 
-    const columns = [
-        { header: "Insumo", key: "insumo" },
-        { header: "Rubro", key: "rubro" },
-        {
-            header: "Stock",
-            key: "stock",
-            render: (value: string) => {
-                const stockValue = getStockValue(value);
-                let color = "#5ACD40";
-                if (stockValue === 0) color = "#D64C4C";
-                else if (stockValue < 1000) color = "#FAAE42";
-                return (
-                    <span
-                        style={{
-                            background: color,
-                            color: "#fff",
-                            borderRadius: 12,
-                            padding: "4px 12px",
-                            display: "inline-block",
-                            minWidth: 60,
-                        }}
-                    >
-                        {value}
-                    </span>
-                );
-            },
-        },
-        {
-            header: "Reponer",
-            key: "reponer",
-            render: (_: any, row: any) => (
-                <button
-                    className={shared.actionButton}
-                    onClick={() => alert(`Reponer insumo: ${row.insumo}`)}
-                    type="button"
-                >
-                    <img
-                        src={iconReplenish}
-                        alt="Reponer"
-                        className={shared.actionIcon}
-                    />
-                </button>
-            ),
-        },
-        ...getGenericColumns({
-            onAlta: (row, rowIndex) => {
-                if (row.estado === "Inactivo") {
-                    setInsumos(insumos =>
-                        insumos.map((ins, i) =>
-                            i === rowIndex ? { ...ins, estado: "Activo" } : ins
-                        )
-                    );
-                }
-            },
-            onBaja: (row, rowIndex) => {
-                if (row.estado === "Activo") {
-                    setInsumos(insumos =>
-                        insumos.map((ins, i) =>
-                            i === rowIndex ? { ...ins, estado: "Inactivo" } : ins
-                        )
-                    );
-                }
-            },
-            onEditar: (row) => {
-                alert(`Editar insumo: ${row.insumo}`);
-                // Aquí puedes abrir tu modal de edición
-            },
-            disabledAlta: row => row.estado === "Activo",
-            disabledBaja: row => row.estado === "Inactivo",
-        }),
-    ];
+    const handleToggleEstado = async (id: number) => {
+        try {
+            await patchEstadoInsumo(id);
+            await loadData(); // Recargar datos después del cambio
+        } catch (error) {
+            alert("Error al cambiar el estado del insumo");
+        }
+    };
 
+    const handleNuevoInsumo = async (insumoData: {
+        denominacion: string;
+        rubro: string;
+        subRubro: string;
+        unidadMedida: string;
+    }) => {
+        const body = {
+            denominacion: insumoData.denominacion,
+            unidadMedida: insumoData.unidadMedida,
+            rubro: { id: insumoData.subRubro || insumoData.rubro },
+            precioCompra: 0,
+            precioVenta: 0,
+            esParaElaborar: false,
+        };
+
+        await createInsumo(body);
+        await loadData(); // Recargar datos después de crear
+    };
+
+    const handleEditarInsumo = async (id: number, insumoData: any) => {
+        await updateInsumo(id, insumoData);
+        await loadData(); // Recargar datos después de editar
+    };
+
+    const handleReponerStock = async (insumo: InsumoApi, cantidad: number) => {
+        const nuevoStock = (insumo.stockActual || 0) + cantidad;
+        const body = {
+            ...insumo,
+            stockActual: nuevoStock,
+            rubro: { id: insumo.rubro.id },
+            imagen: insumo.imagen,
+        };
+
+        await updateInsumo(insumo.id, body);
+        await loadData(); // Recargar datos después de reponer stock
+    };
+
+    const handleEditClick = (insumo: InsumoApi) => {
+        setInsumoToEdit(insumo);
+        setShowEditModal(true);
+    };
+
+    const handleReponerClick = (insumo: InsumoApi) => {
+        setInsumoToReponer(insumo);
+        setShowReponerModal(true);
+    };
+
+    const handleCloseEditModal = () => {
+        setShowEditModal(false);
+        setInsumoToEdit(null);
+    };
+
+    const handleCloseReponerModal = () => {
+        setShowReponerModal(false);
+        setInsumoToReponer(null);
+    };
+
+    // Filtrar insumos basado en la búsqueda
     const filteredInsumos = insumos.filter((item) =>
-        item.insumo.toLowerCase().includes(search.toLowerCase()) ||
-        item.rubro.toLowerCase().includes(search.toLowerCase()) ||
-        item.stock.toLowerCase().includes(search.toLowerCase())
+        item.denominacion.toLowerCase().includes(search.toLowerCase()) ||
+        (item.rubro?.denominacion?.toLowerCase() || "").includes(search.toLowerCase()) ||
+        String(item.stockActual).toLowerCase().includes(search.toLowerCase())
     );
 
     return (
         <div className={`${shared.adminContent} ${styles.adminContent}`}>
             <div className={shared.adminContentSection}>
-                <div className={styles.adminContentTop}>
-                    <Button
-                        label="Nuevo +"
-                        onClick={() => alert("Agregar nuevo insumo")}
-                        className={shared.nuevoButton}
-                    />
-                    <p className={styles.tituloCentrado}>Administrador de insumos</p>
-                    <div className={styles.searchContainer}>
-                        <input
-                            type="text"
-                            placeholder="Buscar"
-                            value={search}
-                            onChange={e => setSearch(e.target.value)}
-                            className={styles.inputSearch}
-                        />
-                        <img src={lupaIcon} alt="Buscar" className={styles.lupaIcon} />
-                    </div>
-                </div>
-                <GenericTable columns={columns} data={filteredInsumos}/>
+                <SearchHeader
+                    onNewClick={() => setShowNuevoModal(true)}
+                    title="Administrador de insumos"
+                    search={search}
+                    onSearchChange={setSearch}
+                    placeholder="Buscar insumos..."
+                />
+
+                <InsumosTable
+                    insumos={filteredInsumos}
+                    onToggleEstado={handleToggleEstado}
+                    onEditInsumo={handleEditClick}
+                    onReponerStock={handleReponerClick}
+                />
+
+                {/* Modal Nuevo Insumo */}
+                <NuevoInsumoModal
+                    isOpen={showNuevoModal}
+                    onClose={() => setShowNuevoModal(false)}
+                    onSubmit={handleNuevoInsumo}
+                    rubros={rubros}
+                />
+
+                {/* Modal Editar Insumo */}
+                <EditarInsumoModal
+                    isOpen={showEditModal}
+                    onClose={handleCloseEditModal}
+                    onSubmit={handleEditarInsumo}
+                    insumo={insumoToEdit}
+                    rubros={rubros}
+                />
+
+                {/* Modal Reponer Stock */}
+                <ReponerStockModal
+                    isOpen={showReponerModal}
+                    onClose={handleCloseReponerModal}
+                    onSubmit={handleReponerStock}
+                    insumo={insumoToReponer}
+                />
             </div>
         </div>
     );
