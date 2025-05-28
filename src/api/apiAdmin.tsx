@@ -1,4 +1,4 @@
-import { InsumoApi, RubroApi, RubroTable } from "../types/typesAdmin";
+import { InsumoApi, RegistroInsumoApi, RubroApi, RubroTable } from "../types/typesAdmin";
 
 // Funciones para manejar Insumos en InsumosSection en el backend
 export const fetchInsumos = async (): Promise<InsumoApi[]> => {
@@ -88,5 +88,17 @@ export const updateRubro = async (id: number | string, rubroData: {
         body: JSON.stringify(rubroData),
     });
     if (!res.ok) throw new Error('Error al actualizar el rubro');
+    return res.json();
+};
+
+// Funciones para manejar Registro de Insumos en RegistroInsumosSection en el backend
+// Nueva función para registrar movimiento de stock (entrada)
+export const createRegistroInsumo = async (registroData: RegistroInsumoApi) => {
+    const res = await fetch("/api/registros-insumo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(registroData),
+    });
+    if (!res.ok) throw new Error('Error al registrar movimiento de stock');
     return res.json();
 };

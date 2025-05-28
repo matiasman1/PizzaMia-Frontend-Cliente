@@ -16,6 +16,11 @@
     margin-bottom: 12px;
 }
 
+.textArea {
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    margin-bottom: 12px;
+}
 .adminContentTop {
     display: flex;
     align-items: center;

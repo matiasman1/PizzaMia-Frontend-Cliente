@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { InsumoApi, RubroApi } from "../../../../types/typesAdmin";
-import { fetchInsumos, patchEstadoInsumo, createInsumo, updateInsumo, fetchRubros } from "../../../../api/apiAdmin";
+import { InsumoApi, RegistroInsumoApi, RubroApi } from "../../../../types/typesAdmin";
+import { fetchInsumos, patchEstadoInsumo, createInsumo, updateInsumo, fetchRubros, createRegistroInsumo } from "../../../../api/apiAdmin";
 import InsumosTable from "./ui/InsumosTable";
 import SearchHeader from "./ui/SearchHeader";
 import NuevoInsumoModal from "./ui/NuevoInsumoModal";
@@ -75,18 +75,28 @@ export const InsumosSection: React.FC = () => {
         await loadData(); // Recargar datos después de editar
     };
 
-    const handleReponerStock = async (insumo: InsumoApi, cantidad: number) => {
-        const nuevoStock = (insumo.stockActual || 0) + cantidad;
-        const body = {
-            ...insumo,
-            stockActual: nuevoStock,
-            rubro: { id: insumo.rubro.id },
-            imagen: insumo.imagen,
+    const handleReponerStock = async (insumo: InsumoApi, cantidad: number, motivo: string) => {
+    try {
+        // Creamos el objeto RegistroInsumo
+        const registroData: RegistroInsumoApi = {
+            cantidad: cantidad,
+            tipoMovimiento: "INGRESO", // Asumiendo que reponer es un ingreso
+            motivo: motivo,
+            articuloInsumo: { id: insumo.id },
+            sucursal: { id: 1 }, // Deberías obtener la sucursal activa del usuario o del sistema
         };
-
-        await updateInsumo(insumo.id, body);
-        await loadData(); // Recargar datos después de reponer stock
-    };
+        
+        // Llamamos a la API para registrar el movimiento
+        await createRegistroInsumo(registroData);
+        
+        // Refrescamos los insumos para obtener el stock actualizado
+        await loadData();
+        
+    } catch (error) {
+        console.error("Error al reponer stock:", error);
+        alert("Error al actualizar el stock");
+    }
+};
 
     const handleEditClick = (insumo: InsumoApi) => {
         setInsumoToEdit(insumo);

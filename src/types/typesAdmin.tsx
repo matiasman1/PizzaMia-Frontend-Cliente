@@ -13,6 +13,15 @@ export type InsumoApi = {
     imagen?: { urlImagen: string }; // <-- Cambia aquí
 };
 
+// Nuevo tipo para RegistroInsumo
+export type RegistroInsumoApi = {
+    cantidad: number;
+    tipoMovimiento: "INGRESO" | "EGRESO"; // Asumiendo que estos son los tipos
+    motivo?: string;
+    articuloInsumo: { id: number };
+    sucursal: { id: number };
+};
+
 // Para Insumos.tsx (Rubros)
 export type RubroApi = {
     id: number | string;

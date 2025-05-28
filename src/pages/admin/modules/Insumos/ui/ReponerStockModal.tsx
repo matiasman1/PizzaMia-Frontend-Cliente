@@ -6,7 +6,7 @@ import shared from "../../styles/Common.module.css";
 interface ReponerStockModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (insumo: InsumoApi, cantidad: number) => Promise<void>;
+    onSubmit: (insumo: InsumoApi, cantidad: number, motivo: string) => Promise<void>;
     insumo: InsumoApi | null;
 }
 
@@ -17,12 +17,14 @@ export const ReponerStockModal: React.FC<ReponerStockModalProps> = ({
     insumo,
 }) => {
     const [cantidadReponer, setCantidadReponer] = useState("");
+    const [motivo, setMotivo] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (insumo) {
             setCantidadReponer("");
+            setMotivo("");
             setError("");
         }
     }, [insumo]);
@@ -33,12 +35,18 @@ export const ReponerStockModal: React.FC<ReponerStockModalProps> = ({
             return;
         }
         
+        if (!motivo.trim()) {
+            setError("Ingrese un motivo para el registro");
+            return;
+        }
+        
         if (!insumo) return;
 
         setIsLoading(true);
         try {
-            await onSubmit(insumo, Number(cantidadReponer));
+            await onSubmit(insumo, Number(cantidadReponer), motivo);
             setCantidadReponer("");
+            setMotivo("");
             setError("");
             onClose();
         } catch (err) {
@@ -50,6 +58,7 @@ export const ReponerStockModal: React.FC<ReponerStockModalProps> = ({
 
     const handleClose = () => {
         setCantidadReponer("");
+        setMotivo("");
         setError("");
         onClose();
     };
@@ -74,6 +83,14 @@ export const ReponerStockModal: React.FC<ReponerStockModalProps> = ({
                     onChange={e => setCantidadReponer(e.target.value)}
                     min={1}
                     disabled={isLoading}
+                />
+                <textarea
+                    className={`${shared.input} ${styles.textArea}`}
+                    placeholder="Motivo del ingreso"
+                    value={motivo}
+                    onChange={e => setMotivo(e.target.value)}
+                    disabled={isLoading}
+                    style={{ marginTop: 10, minHeight: 80, resize: 'vertical' }}
                 />
                 {error && <div className={shared.error}>{error}</div>}
                 <div className={shared.modalActions}>
