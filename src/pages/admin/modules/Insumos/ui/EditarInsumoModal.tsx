@@ -105,8 +105,12 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
             rubro: { id: editInsumo.subRubro || editInsumo.rubro },
             esParaElaborar: editInsumo.esParaElaborar,
             stockActual: editInsumo.stockActual,
-            // Si hay imagen existente y no se seleccionó una nueva, mantener la referencia
-            imagen: editInsumo.imagen && !selectedFile ? { id: editInsumo.imagen.id } : undefined
+            // Mantener la imagen existente solo si no se seleccionó una nueva
+            // y si hay una imagen existente con ID
+            imagen: !selectedFile && editInsumo.imagen?.id ? { 
+                id: editInsumo.imagen.id,
+                urlImagen: editInsumo.imagen.urlImagen 
+            } : undefined
         };
 
         setIsLoading(true);
