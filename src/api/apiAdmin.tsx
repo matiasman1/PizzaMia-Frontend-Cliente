@@ -14,32 +14,65 @@ export const patchEstadoInsumo = async (id: number) => {
     await fetch(`/api/insumos/${id}/estado`, { method: "PATCH" });
 };
 
-export const createInsumo = async (insumoData: {
-    denominacion: string;
-    unidadMedida: string;
-    rubro: { id: string };
-    precioCompra: number;
-    precioVenta: number;
-    esParaElaborar: boolean;
-}) => {
+
+export const createInsumo = async (
+    insumoData: {
+        denominacion: string;
+        unidadMedida: string;
+        rubro: { id: string };
+        precioCompra: number;
+        precioVenta: number;
+        esParaElaborar: boolean;
+    }, 
+    imageFile?: File
+) => {
+    // Crear FormData
+    const formData = new FormData();
+    
+    // Agregar el JSON del insumo
+    formData.append("insumo", new Blob([JSON.stringify(insumoData)], {
+        type: 'application/json'
+    }));
+    
+    // Agregar el archivo si existe
+    if (imageFile) {
+        formData.append("file", imageFile);
+    }
+    
     const res = await fetch("/api/insumos", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(insumoData),
+        // No establecer Content-Type, lo hará automáticamente el navegador para FormData
+        body: formData,
     });
+    
     if (!res.ok) throw new Error('Error al crear el insumo');
     return res.json();
 };
 
-export const updateInsumo = async (id: number, insumoData: any) => {
+export const updateInsumo = async (id: number, insumoData: any, imageFile?: File) => {
+    // Crear FormData
+    const formData = new FormData();
+    
+    // Agregar el JSON del insumo
+    formData.append("insumo", new Blob([JSON.stringify(insumoData)], {
+        type: 'application/json'
+    }));
+    
+    // Agregar el archivo si existe
+    if (imageFile) {
+        formData.append("file", imageFile);
+    }
+    
     const res = await fetch(`/api/insumos/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(insumoData),
+        body: formData,
     });
+    
     if (!res.ok) throw new Error('Error al actualizar el insumo');
     return res.json();
 };
+
+
 
 export const fetchRubros = async (): Promise<RubroApi[]> => {
     const res = await fetch("/api/rubros");

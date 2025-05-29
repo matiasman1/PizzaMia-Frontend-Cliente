@@ -28,6 +28,23 @@ export const InsumosTable: React.FC<InsumosTableProps> = ({
     onReponerStock,
 }) => {
     const columns = [
+        { 
+            header: "Imagen",
+            key: "imagen",
+            render: (_: any, row: InsumoApi) => (
+                <div className={shared.tableImageContainer}>
+                    {row.imagen?.urlImagen ? (
+                        <img 
+                            src={row.imagen.urlImagen} 
+                            alt={row.denominacion}
+                            className={shared.tableImage}
+                        />
+                    ) : (
+                        <div className={shared.noTableImage}>-</div>
+                    )}
+                </div>
+            ),
+        },
         { header: "Insumo", key: "denominacion" },
         { 
             header: "Rubro", 

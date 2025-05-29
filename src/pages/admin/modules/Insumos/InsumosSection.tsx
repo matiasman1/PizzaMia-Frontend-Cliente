@@ -51,27 +51,29 @@ export const InsumosSection: React.FC = () => {
         }
     };
 
-    const handleNuevoInsumo = async (insumoData: {
+    const handleNuevoInsumo = async (
+    insumoData: {
         denominacion: string;
         rubro: string;
         subRubro: string;
         unidadMedida: string;
-    }) => {
-        const body = {
-            denominacion: insumoData.denominacion,
-            unidadMedida: insumoData.unidadMedida,
-            rubro: { id: insumoData.subRubro || insumoData.rubro },
-            precioCompra: 0,
-            precioVenta: 0,
-            esParaElaborar: false,
-        };
-
-        await createInsumo(body);
+    },
+    imageFile?: File
+    ) => {
+    const body = {
+        denominacion: insumoData.denominacion,
+        unidadMedida: insumoData.unidadMedida,
+        rubro: { id: insumoData.subRubro || insumoData.rubro },
+        precioCompra: 0,
+        precioVenta: 0,
+        esParaElaborar: false,
+    };
+        await createInsumo(body, imageFile);
         await loadData(); // Recargar datos después de crear
     };
 
-    const handleEditarInsumo = async (id: number, insumoData: any) => {
-        await updateInsumo(id, insumoData);
+    const handleEditarInsumo = async (id: number, insumoData: any, imageFile?: File) => {
+        await updateInsumo(id, insumoData, imageFile);
         await loadData(); // Recargar datos después de editar
     };
 

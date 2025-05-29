@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { RubroApi } from "../../../../../types/typesAdmin";
 import styles from "../InsumosSection.module.css";
 import shared from "../../styles/Common.module.css";
@@ -11,7 +11,7 @@ interface NuevoInsumoModalProps {
         rubro: string;
         subRubro: string;
         unidadMedida: string;
-    }) => Promise<void>;
+    }, imageFile?: File) => Promise<void>;
     rubros: RubroApi[];
 }
 
@@ -35,6 +35,10 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
     });
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Rubros principales (sin padre)
     const rubrosPrincipales = rubros.filter(r => r.tipoRubro === "INSUMO" && r.rubroPadre == null);
@@ -42,6 +46,20 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
     const subRubros = rubros.filter(
         r => r.rubroPadre && r.rubroPadre.id === Number(nuevoInsumo.rubro)
     );
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setSelectedFile(file);
+            
+            // Crear preview de la imagen
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleSubmit = async () => {
         if (!nuevoInsumo.denominacion.trim()) {
@@ -59,8 +77,10 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
 
         setIsLoading(true);
         try {
-            await onSubmit(nuevoInsumo);
+            await onSubmit(nuevoInsumo, selectedFile || undefined);
             setNuevoInsumo({ denominacion: "", rubro: "", subRubro: "", unidadMedida: "" });
+            setSelectedFile(null);
+            setPreviewUrl(null);
             setError("");
             onClose();
         } catch (err) {
@@ -72,6 +92,8 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
 
     const handleClose = () => {
         setNuevoInsumo({ denominacion: "", rubro: "", subRubro: "", unidadMedida: "" });
+        setSelectedFile(null);
+        setPreviewUrl(null);
         setError("");
         onClose();
     };
@@ -123,6 +145,40 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
                         <option key={u.value} value={u.value}>{u.label}</option>
                     ))}
                 </select>
+                
+                {/* Selector de imágenes */}
+                <div className={styles.imageUploadContainer}>
+                    <div className={styles.imagePreviewArea}>
+                        {previewUrl ? (
+                            <img 
+                                src={previewUrl} 
+                                alt="Vista previa" 
+                                className={styles.imagePreview} 
+                            />
+                        ) : (
+                            <div className={styles.noImagePlaceholder}>
+                                Sin imagen
+                            </div>
+                        )}
+                    </div>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                        disabled={isLoading}
+                    />
+                    <button
+                        type="button"
+                        className={styles.selectImageButton}
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isLoading}
+                    >
+                        Seleccionar Imagen
+                    </button>
+                </div>
+                
                 {error && <div className={shared.error}>{error}</div>}
                 <div className={shared.modalActions}>
                     <button

@@ -10,7 +10,7 @@ export type InsumoApi = {
     fechaAlta: string;
     fechaBaja: string | null;
     estado?: string;
-    imagen?: { urlImagen: string }; // <-- Cambia aquí
+    imagen?: { id?: number; urlImagen: string }; 
 };
 
 // Nuevo tipo para RegistroInsumo

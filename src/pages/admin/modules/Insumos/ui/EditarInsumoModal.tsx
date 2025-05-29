@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { InsumoApi, RubroApi } from "../../../../../types/typesAdmin";
 import styles from "../InsumosSection.module.css";
 import shared from "../../styles/Common.module.css";
@@ -6,7 +6,7 @@ import shared from "../../styles/Common.module.css";
 interface EditarInsumoModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (id: number, insumoData: any) => Promise<void>;
+    onSubmit: (id: number, insumoData: any, imageFile?: File) => Promise<void>;
     insumo: InsumoApi | null;
     rubros: RubroApi[];
 }
@@ -27,6 +27,10 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
     const [editInsumo, setEditInsumo] = useState<any>(null);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Rubros principales (sin padre)
     const rubrosPrincipales = rubros.filter(r => r.tipoRubro === "INSUMO" && r.rubroPadre == null);
@@ -41,13 +45,34 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
                 ...insumo,
                 rubro: insumo.rubro?.id ? String(insumo.rubro.id) : "",
                 subRubro: "",
-                imagen: insumo.imagen?.urlImagen || "",
-                stockActual: typeof insumo.stockActual === "number" ? insumo.stockActual : 0,
                 esParaElaborar: typeof insumo.esParaElaborar === "boolean" ? insumo.esParaElaborar : false,
             });
+            
+            // Si hay imagen, mostrarla en el preview
+            if (insumo.imagen?.urlImagen) {
+                setPreviewUrl(insumo.imagen.urlImagen);
+            } else {
+                setPreviewUrl(null);
+            }
+            
+            setSelectedFile(null);
             setError("");
         }
     }, [insumo]);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setSelectedFile(file);
+            
+            // Crear preview de la imagen
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleSubmit = async () => {
         if (!editInsumo.denominacion.trim()) {
@@ -80,12 +105,13 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
             rubro: { id: editInsumo.subRubro || editInsumo.rubro },
             esParaElaborar: editInsumo.esParaElaborar,
             stockActual: editInsumo.stockActual,
-            imagen: editInsumo.imagen ? { urlImagen: editInsumo.imagen } : undefined,
+            // Si hay imagen existente y no se seleccionó una nueva, mantener la referencia
+            imagen: editInsumo.imagen && !selectedFile ? { id: editInsumo.imagen.id } : undefined
         };
 
         setIsLoading(true);
         try {
-            await onSubmit(editInsumo.id, body);
+            await onSubmit(editInsumo.id, body, selectedFile || undefined);
             onClose();
         } catch (err) {
             setError("Error al editar el insumo");
@@ -177,14 +203,39 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
                                 <option key={u.value} value={u.value}>{u.label}</option>
                             ))}
                         </select>
-                        <input
-                            className={`${shared.input} ${styles.input}`}
-                            type="text"
-                            placeholder="URL Imagen"
-                            value={editInsumo.imagen}
-                            onChange={e => setEditInsumo({ ...editInsumo, imagen: e.target.value })}
-                            disabled={isLoading}
-                        />
+                        
+                        {/* Selector de imágenes */}
+                        <div className={styles.imageUploadContainer}>
+                            <div className={styles.imagePreviewArea}>
+                                {previewUrl ? (
+                                    <img 
+                                        src={previewUrl} 
+                                        alt="Vista previa" 
+                                        className={styles.imagePreview} 
+                                    />
+                                ) : (
+                                    <div className={styles.noImagePlaceholder}>
+                                        Sin imagen
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                                disabled={isLoading}
+                            />
+                            <button
+                                type="button"
+                                className={styles.selectImageButton}
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={isLoading}
+                            >
+                                Cambiar Imagen
+                            </button>
+                        </div>
                     </div>
                 </div>
                 {error && <div className={shared.error}>{error}</div>}
