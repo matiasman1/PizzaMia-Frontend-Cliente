@@ -1,10 +1,8 @@
-// EditRubroModal.tsx
-import React, { useState } from "react";
-import styles from "../Insumos.module.css";
-import shared from "../../../styles/Common.module.css";
-import { RubroApi } from "../../../../../../types/typesAdmin";
+import React, { useState, useEffect } from "react";
+import shared from "../../styles/Common.module.css";
+import { RubroApi } from "../../../../../types/typesAdmin";
 
-interface EditRubroModalProps {
+interface GenericEditRubroModalProps {
     show: boolean;
     onClose: () => void;
     onSubmit: (rubroData: {
@@ -14,14 +12,18 @@ interface EditRubroModalProps {
     }) => Promise<void>;
     rubro: RubroApi | null;
     rubrosApi: RubroApi[];
+    tipoRubroDefault: "INSUMO" | "MANUFACTURADO";
+    modalStyles: any;
 }
 
-const EditRubroModal: React.FC<EditRubroModalProps> = ({ 
+const GenericEditRubroModal: React.FC<GenericEditRubroModalProps> = ({ 
     show, 
     onClose, 
     onSubmit, 
     rubro, 
-    rubrosApi 
+    rubrosApi,
+    tipoRubroDefault,
+    modalStyles
 }) => {
     const [editData, setEditData] = useState<{
         denominacion: string;
@@ -29,13 +31,13 @@ const EditRubroModal: React.FC<EditRubroModalProps> = ({
         rubroPadre?: { id: string | number } | null;
     }>({ 
         denominacion: "", 
-        tipoRubro: "INSUMO",
+        tipoRubro: tipoRubroDefault,
         rubroPadre: null
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (rubro) {
             setEditData({
                 denominacion: rubro.denominacion,
@@ -66,17 +68,17 @@ const EditRubroModal: React.FC<EditRubroModalProps> = ({
 
     return (
         <div className={shared.modalOverlay}>
-            <div className={`${shared.modalContent} ${styles.modalContent}`}>
+            <div className={`${shared.modalContent} ${modalStyles.modalContent}`}>
                 <h2>Editar Rubro</h2>
                 <input
-                    className={`${shared.input} ${styles.input}`}
+                    className={`${shared.input} ${modalStyles.input}`}
                     type="text"
                     placeholder="Nombre del rubro"
                     value={editData.denominacion}
                     onChange={e => setEditData({...editData, denominacion: e.target.value})}
                 />
                 <select
-                    className={`${shared.input} ${styles.input}`}
+                    className={`${shared.input} ${modalStyles.input}`}
                     value={editData.tipoRubro}
                     onChange={e => setEditData({...editData, tipoRubro: e.target.value})}
                 >
@@ -84,7 +86,7 @@ const EditRubroModal: React.FC<EditRubroModalProps> = ({
                     <option value="MANUFACTURADO">MANUFACTURADO</option>
                 </select>
                 <select
-                    className={`${shared.input} ${styles.input}`}
+                    className={`${shared.input} ${modalStyles.input}`}
                     value={editData.rubroPadre?.id || ""}
                     onChange={e => {
                         const padre = rubrosApi.find(r => String(r.id) === e.target.value);
@@ -123,4 +125,4 @@ const EditRubroModal: React.FC<EditRubroModalProps> = ({
     );
 };
 
-export default EditRubroModal;
+export default GenericEditRubroModal;

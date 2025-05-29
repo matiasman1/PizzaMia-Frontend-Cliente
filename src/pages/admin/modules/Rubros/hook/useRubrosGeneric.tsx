@@ -1,4 +1,3 @@
-// useRubros.ts
 import { useState, useEffect } from "react";
 import { 
     fetchRubrosTable, 
@@ -6,10 +5,10 @@ import {
     fetchRubros, 
     createRubro, 
     updateRubro 
-} from "../../../../../../api/apiAdmin";
-import { RubroTable, RubroApi } from "../../../../../../types/typesAdmin";
+} from "../../../../../api/apiAdmin";
+import { RubroTable, RubroApi } from "../../../../../types/typesAdmin";
 
-export const useRubros = () => {
+export const useRubrosGeneric = (tipoRubro: "INSUMO" | "MANUFACTURADO") => {
     const [rubros, setRubros] = useState<RubroTable[]>([]);
     const [rubrosApi, setRubrosApi] = useState<RubroApi[]>([]);
     const [loading, setLoading] = useState(true);
@@ -42,11 +41,17 @@ export const useRubros = () => {
 
     const handleCreateRubro = async (rubroData: {
         denominacion: string;
-        tipoRubro: string;
+        tipoRubro?: string;
         rubroPadre?: { id: string | number } | null;
     }) => {
         try {
-            await createRubro(rubroData);
+            // Asegurarse de que el tipo de rubro es el correcto
+            const dataToSend = {
+                ...rubroData,
+                tipoRubro: tipoRubro
+            };
+            
+            await createRubro(dataToSend);
             await loadData();
         } catch (error) {
             console.error("Error creating rubro:", error);

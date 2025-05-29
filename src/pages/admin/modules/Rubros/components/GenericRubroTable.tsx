@@ -1,25 +1,26 @@
-// RubrosTable.tsx
 import React, { useMemo } from "react";
-import GenericTable from "../../../../../../components/admin/GenericTable/GenericTable";
-import { getGenericColumns } from "../../../../../../components/admin/GenericTable/getGenericColumns";
-import iconAdd from "../../../../../../assets/admin/icon-add.svg";
-import { RubroTable, RubroApi } from "../../../../../../types/typesAdmin";
-import shared from "../../../styles/Common.module.css";
+import GenericTable from "../../../../../components/admin/GenericTable/GenericTable";
+import { getGenericColumns } from "../../../../../components/admin/GenericTable/getGenericColumns";
+import iconAdd from "../../../../../assets/admin/icon-add.svg";
+import { RubroTable, RubroApi } from "../../../../../types/typesAdmin";
+import shared from "../../styles/Common.module.css";
 
-interface RubrosTableProps {
+interface GenericRubroTableProps {
     rubros: RubroTable[];
     rubrosApi: RubroApi[];
     onToggleEstado: (rowIndex: number) => void;
     onAddSubrubro: (padre: string) => void;
     onEditRubro: (rowIndex: number) => void;
+    tipoRubro: "INSUMO" | "MANUFACTURADO";
 }
 
-const RubrosTable: React.FC<RubrosTableProps> = ({
+const GenericRubroTable: React.FC<GenericRubroTableProps> = ({
     rubros,
     rubrosApi,
     onToggleEstado,
     onAddSubrubro,
-    onEditRubro
+    onEditRubro,
+    tipoRubro
 }) => {
     // Reorganizar rubros usando la información de rubrosApi para relaciones jerárquicas más precisas
     const organizedRubros = useMemo(() => {
@@ -29,14 +30,8 @@ const RubrosTable: React.FC<RubrosTableProps> = ({
             rubroMap.set(rubro.id, rubro);
         });
         
-        // Crear un mapa para acceder fácilmente a los objetos RubroApi por su denominación
-        const rubroApiByName = new Map<string, RubroApi>();
-        rubrosApi.forEach(rubro => {
-            rubroApiByName.set(rubro.denominacion, rubro);
-        });
-        
-        // Identificar los rubros padre (sin rubroPadre) que sean de tipo MANUFACTURADO
-        const padres = rubrosApi.filter(r => !r.rubroPadre && r.tipoRubro === "MANUFACTURADO");
+        // Identificar los rubros padre (sin rubroPadre) del tipo especificado
+        const padres = rubrosApi.filter(r => !r.rubroPadre && r.tipoRubro === tipoRubro);
         
         // Función recursiva para agregar padres y sus hijos en orden jerárquico
         const getHierarchy = (rubrosArr: RubroApi[]): RubroTable[] => {
@@ -50,13 +45,13 @@ const RubrosTable: React.FC<RubrosTableProps> = ({
                     // Agregar el padre
                     result.push(padreTable);
                     
-                    // Buscar sus hijos directos usando rubrosApi (solo los de tipo MANUFACTURADO)
-                const hijos = rubrosApi.filter(r => 
-                    r.rubroPadre && 
-                    r.rubroPadre.id === padre.id && 
-                    r.tipoRubro === "MANUFACTURADO"
-                );
-                    
+                    // Buscar sus hijos directos usando rubrosApi (solo del tipo especificado)
+                    const hijos = rubrosApi.filter(r => 
+                        r.rubroPadre && 
+                        r.rubroPadre.id === padre.id && 
+                        r.tipoRubro === tipoRubro
+                    );
+                        
                     // Si tiene hijos, procesarlos recursivamente
                     if (hijos.length > 0) {
                         // Convertir hijos de RubroApi a RubroTable
@@ -74,7 +69,7 @@ const RubrosTable: React.FC<RubrosTableProps> = ({
         };
         
         return getHierarchy(padres);
-    }, [rubros, rubrosApi]);
+    }, [rubros, rubrosApi, tipoRubro]);
 
     // Crear un mapeo de índices originales a nuevos índices organizados
     const indexMap = useMemo(() => {
@@ -139,4 +134,4 @@ const RubrosTable: React.FC<RubrosTableProps> = ({
     return <GenericTable columns={columns} data={organizedRubros} />;
 };
 
-export default RubrosTable;
+export default GenericRubroTable;

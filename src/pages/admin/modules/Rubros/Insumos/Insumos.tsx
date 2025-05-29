@@ -1,12 +1,14 @@
-// Insumos.tsx
 import React, { useState } from "react";
-import RubrosTable from "./ui/RubrosTable";
-import RubroModal from "./ui/RubroModal";
-import EditRubroModal from "./ui/EditRubroModal";
 import Button from "../../../../../components/admin/Button/Button";
-import { useRubros } from "./hooks/useRubros";
+import { useRubrosGeneric } from "../hook/useRubrosGeneric";
 import shared from "../../styles/Common.module.css";
 import { RubroApi } from "../../../../../types/typesAdmin";
+import styles from "./Insumos.module.css";
+
+// Importar componentes genéricos
+import GenericRubroTable from "../components/GenericRubroTable";
+import GenericRubroModal from "../components/GenericRubroModal";
+import GenericEditRubroModal from "../components/GenericEditRubroModal";
 
 const Insumos: React.FC = () => {
     const {
@@ -16,7 +18,7 @@ const Insumos: React.FC = () => {
         toggleEstado,
         handleCreateRubro,
         handleUpdateRubro
-    } = useRubros();
+    } = useRubrosGeneric("INSUMO");
 
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -49,21 +51,21 @@ const Insumos: React.FC = () => {
                     onClick={() => handleNuevoRubro("")}
                     className={shared.nuevoButton}
                 />
-                <RubrosTable
+                <GenericRubroTable
                     rubros={rubros}
                     rubrosApi={rubrosApi}
                     onToggleEstado={toggleEstado}
                     onAddSubrubro={handleNuevoRubro}
                     onEditRubro={handleEditRubro}
+                    tipoRubro="INSUMO"
                 />
 
-                <RubroModal
+                <GenericRubroModal
                     show={showModal}
                     onClose={() => setShowModal(false)}
                     onSubmit={async ({ denominacion }) => {
                         await handleCreateRubro({
                             denominacion,
-                            tipoRubro: "INSUMO",
                             rubroPadre: currentPadre 
                                 ? { id: rubros.find(r => r.rubro === currentPadre)?.id || "" }
                                 : undefined
@@ -71,9 +73,10 @@ const Insumos: React.FC = () => {
                         setShowModal(false);
                     }}
                     padre={currentPadre}
+                    modalStyles={styles}
                 />
 
-                <EditRubroModal
+                <GenericEditRubroModal
                     show={showEditModal}
                     onClose={() => setShowEditModal(false)}
                     onSubmit={async (rubroData) => {
@@ -84,6 +87,8 @@ const Insumos: React.FC = () => {
                     }}
                     rubro={rubroToEdit}
                     rubrosApi={rubrosApi}
+                    tipoRubroDefault="INSUMO"
+                    modalStyles={styles}
                 />
             </div>
         </div>

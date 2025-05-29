@@ -1,12 +1,14 @@
-// Insumos.tsx
 import React, { useState } from "react";
-import RubrosTable from "./ui/RubrosTableProductos";
-import RubroModal from "./ui/RubroModalProductos";
-import EditRubroModal from "./ui/EditRubroModalProductos";
 import Button from "../../../../../components/admin/Button/Button";
-import { useRubros } from "../Insumos/hooks/useRubros";
+import { useRubrosGeneric } from "../hook/useRubrosGeneric";
 import shared from "../../styles/Common.module.css";
 import { RubroApi } from "../../../../../types/typesAdmin";
+import styles from "./Productos.module.css";
+
+// Importar componentes genéricos
+import GenericRubroTable from "../components/GenericRubroTable";
+import GenericRubroModal from "../components/GenericRubroModal";
+import GenericEditRubroModal from "../components/GenericEditRubroModal";
 
 const Productos: React.FC = () => {
     const {
@@ -16,7 +18,7 @@ const Productos: React.FC = () => {
         toggleEstado,
         handleCreateRubro,
         handleUpdateRubro
-    } = useRubros();
+    } = useRubrosGeneric("MANUFACTURADO");
 
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -49,21 +51,21 @@ const Productos: React.FC = () => {
                     onClick={() => handleNuevoRubro("")}
                     className={shared.nuevoButton}
                 />
-                <RubrosTable
+                <GenericRubroTable
                     rubros={rubros}
                     rubrosApi={rubrosApi}
                     onToggleEstado={toggleEstado}
                     onAddSubrubro={handleNuevoRubro}
                     onEditRubro={handleEditRubro}
+                    tipoRubro="MANUFACTURADO"
                 />
 
-                <RubroModal
+                <GenericRubroModal
                     show={showModal}
                     onClose={() => setShowModal(false)}
                     onSubmit={async ({ denominacion }) => {
                         await handleCreateRubro({
                             denominacion,
-                            tipoRubro: "INSUMO",
                             rubroPadre: currentPadre 
                                 ? { id: rubros.find(r => r.rubro === currentPadre)?.id || "" }
                                 : undefined
@@ -71,9 +73,10 @@ const Productos: React.FC = () => {
                         setShowModal(false);
                     }}
                     padre={currentPadre}
+                    modalStyles={styles}
                 />
 
-                <EditRubroModal
+                <GenericEditRubroModal
                     show={showEditModal}
                     onClose={() => setShowEditModal(false)}
                     onSubmit={async (rubroData) => {
@@ -84,10 +87,12 @@ const Productos: React.FC = () => {
                     }}
                     rubro={rubroToEdit}
                     rubrosApi={rubrosApi}
+                    tipoRubroDefault="MANUFACTURADO"
+                    modalStyles={styles}
                 />
             </div>
         </div>
     );
 };
 
-export default Productos; // Changed from Insumos to Productos to match the file name
+export default Productos;

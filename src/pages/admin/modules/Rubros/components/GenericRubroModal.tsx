@@ -1,16 +1,21 @@
-// RubroModal.tsx
 import React, { useState } from "react";
-import styles from "../Insumos.module.css";
-import shared from "../../../styles/Common.module.css";
+import shared from "../../styles/Common.module.css";
 
-interface RubroModalProps {
+interface GenericRubroModalProps {
     show: boolean;
     onClose: () => void;
     onSubmit: (rubroData: { denominacion: string }) => Promise<void>;
     padre?: string;
+    modalStyles: any;
 }
 
-const RubroModal: React.FC<RubroModalProps> = ({ show, onClose, onSubmit, padre }) => {
+const GenericRubroModal: React.FC<GenericRubroModalProps> = ({ 
+    show, 
+    onClose, 
+    onSubmit, 
+    padre,
+    modalStyles 
+}) => {
     const [nombre, setNombre] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -37,12 +42,12 @@ const RubroModal: React.FC<RubroModalProps> = ({ show, onClose, onSubmit, padre 
 
     return (
         <div className={shared.modalOverlay}>
-            <div className={`${shared.modalContent} ${styles.modalContent}`}>
+            <div className={`${shared.modalContent} ${modalStyles.modalContent}`}>
                 <h2>
                     {padre ? `Nuevo sub-rubro de: ${padre}` : "Nuevo rubro padre"}
                 </h2>
                 <input
-                    className={`${shared.input} ${styles.input}`}
+                    className={`${shared.input} ${modalStyles.input}`}
                     type="text"
                     placeholder="Ingrese el nombre del rubro"
                     value={nombre}
@@ -70,4 +75,4 @@ const RubroModal: React.FC<RubroModalProps> = ({ show, onClose, onSubmit, padre 
     );
 };
 
-export default RubroModal;
+export default GenericRubroModal;
