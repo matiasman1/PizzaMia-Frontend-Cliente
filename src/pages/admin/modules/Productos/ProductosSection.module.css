@@ -1,0 +1,246 @@
+/* Estilos específicos para Insumos */
+
+.adminContent {
+    margin-top: 15px;
+    padding: 20px 30px;
+}
+
+.modalContent {
+    padding: 10px 28px 24px 28px;
+    min-width: 320px;
+}
+
+.input {
+    border-radius: 38px;
+    border: 1px solid #d0d0d0;
+    margin-bottom: 12px;
+}
+
+.textArea {
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    margin-bottom: 12px;
+}
+.adminContentTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 2px 10px 2px 8px;
+    border: 1px solid #d0d0d0;
+    min-width: 200px;
+    max-width: 200px;
+    width: 100%;
+    position: relative;
+}
+
+.inputSearch {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 15px;
+    padding: 6px 28px 6px 4px;
+    border-radius: 6px;
+    width: 100%;
+    color: var(--text-color);
+}
+
+.lupaIcon {
+    position: absolute;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.editarModalTitle {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 22px;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.editarModalGrid {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.editarModalCol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Carga imagen */
+
+.imageUploadContainer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imagePreviewArea {
+    width: 120px;
+    height: 120px;
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.imagePreview {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.noImagePlaceholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.selectImageButton {
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.selectImageButton:hover {
+    background-color: #e0e0e0;
+}
+
+.selectImageButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Estilos para el modal de receta */
+.recetaModalContent {
+    padding: 0 0 20px 0;
+    max-width: 550px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.recetaHeader {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.recetaImageBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6);
+}
+
+.recetaHeaderContent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+}
+
+.recetaTitulo {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.recetaTiempo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.recetaIngredientes {
+    padding: 0 25px;
+}
+
+.recetaIngredientes h3 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+
+.ingredientesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ingredienteRecetaItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+}
+
+.ingredienteRecetaItem:last-child {
+    border-bottom: none;
+}
+
+.ingredienteNombre {
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}
+
+.ingredienteCantidad {
+    font-size: 15px;
+    color: #666;
+    background: #f5f5f5;
+    padding: 4px 10px;
+    border-radius: 15px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.noIngredientes {
+    text-align: center;
+    color: #999;
+    padding: 20px 0;
+    font-style: italic;
+}

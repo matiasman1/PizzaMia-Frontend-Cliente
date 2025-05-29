@@ -1,0 +1,10 @@
+.modalContent {
+    padding: 10px 28px 24px 28px;
+    min-width: 320px;
+}
+
+.input {
+    border-radius: 38px;
+    border: 1px solid #d0d0d0;
+    margin-bottom: 12px;
+}

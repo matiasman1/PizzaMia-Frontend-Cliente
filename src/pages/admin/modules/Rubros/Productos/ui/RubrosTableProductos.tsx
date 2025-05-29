@@ -35,8 +35,8 @@ const RubrosTable: React.FC<RubrosTableProps> = ({
             rubroApiByName.set(rubro.denominacion, rubro);
         });
         
-        // Identificar los rubros padre (sin rubroPadre) que sean de tipo INSUMO
-        const padres = rubrosApi.filter(r => !r.rubroPadre && r.tipoRubro === "INSUMO");
+        // Identificar los rubros padre (sin rubroPadre) que sean de tipo MANUFACTURADO
+        const padres = rubrosApi.filter(r => !r.rubroPadre && r.tipoRubro === "MANUFACTURADO");
         
         // Función recursiva para agregar padres y sus hijos en orden jerárquico
         const getHierarchy = (rubrosArr: RubroApi[]): RubroTable[] => {
@@ -50,11 +50,11 @@ const RubrosTable: React.FC<RubrosTableProps> = ({
                     // Agregar el padre
                     result.push(padreTable);
                     
-                    // Buscar sus hijos directos usando rubrosApi (solo los de tipo INSUMO)
+                    // Buscar sus hijos directos usando rubrosApi (solo los de tipo MANUFACTURADO)
                 const hijos = rubrosApi.filter(r => 
                     r.rubroPadre && 
                     r.rubroPadre.id === padre.id && 
-                    r.tipoRubro === "INSUMO"
+                    r.tipoRubro === "MANUFACTURADO"
                 );
                     
                     // Si tiene hijos, procesarlos recursivamente

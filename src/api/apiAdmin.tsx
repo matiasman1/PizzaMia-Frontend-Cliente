@@ -1,4 +1,11 @@
-import { InsumoApi, RegistroInsumoApi, RubroApi, RubroTable } from "../types/typesAdmin";
+import { 
+    InsumoApi, 
+    RegistroInsumoApi, 
+    RubroApi, 
+    RubroTable, 
+    ArticuloManufacturadoApi,
+    ArticuloManufacturadoDetalleApi
+} from "../types/typesAdmin";
 
 // Funciones para manejar Insumos en InsumosSection en el backend
 export const fetchInsumos = async (): Promise<InsumoApi[]> => {
@@ -134,4 +141,87 @@ export const createRegistroInsumo = async (registroData: RegistroInsumoApi) => {
     });
     if (!res.ok) throw new Error('Error al registrar movimiento de stock');
     return res.json();
+};
+
+// Funciones para manejar Artículos Manufacturados
+export const fetchArticulosManufacturados = async (): Promise<ArticuloManufacturadoApi[]> => {
+    const res = await fetch("/api/manufacturados");
+    const data: ArticuloManufacturadoApi[] = await res.json();
+    return data.map(articulo => ({
+        ...articulo,
+        estado: articulo.fechaBaja === null ? "Activo" : "Inactivo"
+    }));
+};
+
+export const patchEstadoArticuloManufacturado = async (id: number) => {
+    await fetch(`/api/manufacturados/${id}/estado`, { method: "PATCH" });
+};
+
+export const createArticuloManufacturado = async (
+    articuloData: {
+        denominacion: string;
+        descripcion: string;
+        tiempoEstimadoProduccion: number;
+        rubro: { id: string | number };
+        detalles: ArticuloManufacturadoDetalleApi[];
+        precioVenta?: number;
+        precioCosto?: number;
+    }, 
+    imageFile?: File
+) => {
+    // Crear FormData
+    const formData = new FormData();
+    
+    // Agregar el JSON del artículo manufacturado
+    formData.append("manufacturado", new Blob([JSON.stringify(articuloData)], {
+        type: 'application/json'
+    }));
+    
+    // Agregar el archivo si existe
+    if (imageFile) {
+        formData.append("file", imageFile);
+    }
+    
+    const res = await fetch("/api/manufacturados", {
+        method: "POST",
+        // No establecer Content-Type, lo hará automáticamente el navegador para FormData
+        body: formData,
+    });
+    
+    if (!res.ok) throw new Error('Error al crear el artículo manufacturado');
+    return res.json();
+};
+
+export const updateArticuloManufacturado = async (id: number, articuloData: any, imageFile?: File) => {
+    // Crear FormData
+    const formData = new FormData();
+    
+    // Agregar el JSON del artículo manufacturado
+    formData.append("manufacturado", new Blob([JSON.stringify(articuloData)], {
+        type: 'application/json'
+    }));
+    
+    // Agregar el archivo si existe
+    if (imageFile) {
+        formData.append("file", imageFile);
+    }
+    
+    const res = await fetch(`/api/manufacturados/${id}`, {
+        method: "PUT",
+        body: formData,
+    });
+    
+    if (!res.ok) throw new Error('Error al actualizar el artículo manufacturado');
+    return res.json();
+};
+
+// Obtener un artículo manufacturado por ID (conveniente para edición)
+export const fetchArticuloManufacturadoById = async (id: number): Promise<ArticuloManufacturadoApi> => {
+    const res = await fetch(`/api/manufacturados/${id}`);
+    if (!res.ok) throw new Error('Error al obtener el artículo manufacturado');
+    const data = await res.json();
+    return {
+        ...data,
+        estado: data.fechaBaja === null ? "Activo" : "Inactivo"
+    };
 };
