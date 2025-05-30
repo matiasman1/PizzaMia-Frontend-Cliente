@@ -1,0 +1,206 @@
+.landingPageDesktop {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero section styling */
+.heroSection {
+  padding: 100px 20px;
+  text-align: center;
+  background-color: var(--landing-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroSection h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: var(--landing-primary-color);
+}
+
+.heroSection p {
+  font-size: 24px;
+  color: var(--landing-text-dark);
+}
+
+/* Main content styling */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 873px;
+  position: relative;
+  padding: 20px;
+}
+
+.nuestroMenu {
+  text-align: center;
+  color: #FF7622;
+  font-size: 26px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+.exploreButton {
+  width: 221px;
+  height: 64px;
+  padding: 22px 10px;
+  background: #FF7622;
+  border-radius: 12px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.explorarMenu {
+  color: white;
+  font-size: 17px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.09px;
+}
+
+.leftSidebar, .rightSidebar {
+  width: 130px;
+  height: 873px;
+  position: absolute;
+  top: 0;
+  background: white;
+  z-index: 2;
+}
+
+.leftSidebar {
+  left: 0;
+}
+
+.rightSidebar {
+  right: 0;
+}
+
+/* Footer styling */
+.footerSections {
+  width: 100%;
+  background: var(--landing-secondary-color);
+  overflow: hidden;
+  position: relative;
+  margin-top: auto;
+  padding: 60px 0;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.brandSection, .linksSection, .contactSection {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.brandSection {
+  flex: 1;
+  min-width: 300px;
+}
+
+.linksSection, .contactSection {
+  flex: 1;
+  min-width: 250px;
+}
+
+.enlacesRapidos, .ponteEnContacto {
+  color: var(--landing-text-dark);
+  font-size: 20px;
+  font-family: 'Readex Pro', sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.home, .menu, .nostros, .asiFunciona, .phone, .email {
+  color: var(--landing-text-light);
+  font-size: 18px;
+  font-family: 'Readex Pro', sans-serif;
+  font-weight: 400;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.pizzaMia {
+  color: var(--landing-text-dark);
+  font-size: 48px;
+  font-family: 'Readex Pro', sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.food2 {
+  width: 47px;
+  height: 47px;
+  position: relative;
+  display: inline-block;
+  transform: rotate(20deg);
+  margin-left: 10px;
+}
+
+.pizzaOutline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bxBxlFacebook {
+  margin-top: 20px;
+  display: block;
+}
+
+/* For smaller screens */
+@media (max-width: 1440px) {
+  .leftSidebar, .rightSidebar {
+    width: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .leftSidebar, .rightSidebar {
+    display: none;
+  }
+  
+  .mainContent {
+    padding: 10px;
+  }
+  
+  .footerContent {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .brandSection, .linksSection, .contactSection {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .heroSection h1 {
+    font-size: 36px;
+  }
+  
+  .heroSection p {
+    font-size: 18px;
+  }
+}
