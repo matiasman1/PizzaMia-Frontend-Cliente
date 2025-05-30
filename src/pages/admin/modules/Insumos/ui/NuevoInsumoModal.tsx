@@ -37,7 +37,7 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    
+
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Rubros principales (sin padre)
@@ -51,7 +51,7 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             setSelectedFile(file);
-            
+
             // Crear preview de la imagen
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -103,82 +103,87 @@ export const NuevoInsumoModal: React.FC<NuevoInsumoModalProps> = ({
     return (
         <div className={shared.modalOverlay}>
             <div className={`${shared.modalContent} ${styles.modalContent}`}>
-                <h2>Nuevo Insumo</h2>
-                <input
-                    className={`${shared.input} ${styles.input}`}
-                    type="text"
-                    placeholder="Nombre Insumo"
-                    value={nuevoInsumo.denominacion}
-                    onChange={e => setNuevoInsumo({ ...nuevoInsumo, denominacion: e.target.value })}
-                    disabled={isLoading}
-                />
-                <select
-                    className={`${shared.input} ${styles.input}`}
-                    value={nuevoInsumo.rubro}
-                    onChange={e => setNuevoInsumo({ ...nuevoInsumo, rubro: e.target.value, subRubro: "" })}
-                    disabled={isLoading}
-                >
-                    <option value="">Seleccione un rubro</option>
-                    {rubrosPrincipales.map(r => (
-                        <option key={r.id} value={r.id}>{r.denominacion}</option>
-                    ))}
-                </select>
-                <select
-                    className={`${shared.input} ${styles.input}`}
-                    value={nuevoInsumo.subRubro}
-                    onChange={e => setNuevoInsumo({ ...nuevoInsumo, subRubro: e.target.value })}
-                    disabled={!nuevoInsumo.rubro || subRubros.length === 0 || isLoading}
-                >
-                    <option value="">Seleccione un sub-rubro</option>
-                    {subRubros.map(r => (
-                        <option key={r.id} value={r.id}>{r.denominacion}</option>
-                    ))}
-                </select>
-                <select
-                    className={`${shared.input} ${styles.input}`}
-                    value={nuevoInsumo.unidadMedida}
-                    onChange={e => setNuevoInsumo({ ...nuevoInsumo, unidadMedida: e.target.value })}
-                    disabled={isLoading}
-                >
-                    <option value="">Seleccione una unidad</option>
-                    {UNIDADES.map(u => (
-                        <option key={u.value} value={u.value}>{u.label}</option>
-                    ))}
-                </select>
-                
-                {/* Selector de imágenes */}
-                <div className={styles.imageUploadContainer}>
-                    <div className={styles.imagePreviewArea}>
-                        {previewUrl ? (
-                            <img 
-                                src={previewUrl} 
-                                alt="Vista previa" 
-                                className={styles.imagePreview} 
-                            />
-                        ) : (
-                            <div className={styles.noImagePlaceholder}>
-                                Sin imagen
-                            </div>
-                        )}
+                <h2 className={styles.editarModalTitle}>Nuevo Insumo</h2>
+                <div className={styles.editarModalGrid}>
+                    {/* Columna 1: Datos */}
+                    <div className={styles.editarModalCol}>
+                        <input
+                            className={`${shared.input} ${styles.input}`}
+                            type="text"
+                            placeholder="Nombre Insumo"
+                            value={nuevoInsumo.denominacion}
+                            onChange={e => setNuevoInsumo({ ...nuevoInsumo, denominacion: e.target.value })}
+                            disabled={isLoading}
+                        />
+                        <select
+                            className={`${shared.input} ${styles.input}`}
+                            value={nuevoInsumo.rubro}
+                            onChange={e => setNuevoInsumo({ ...nuevoInsumo, rubro: e.target.value, subRubro: "" })}
+                            disabled={isLoading}
+                        >
+                            <option value="">Seleccione un rubro</option>
+                            {rubrosPrincipales.map(r => (
+                                <option key={r.id} value={r.id}>{r.denominacion}</option>
+                            ))}
+                        </select>
+                        <select
+                            className={`${shared.input} ${styles.input}`}
+                            value={nuevoInsumo.subRubro}
+                            onChange={e => setNuevoInsumo({ ...nuevoInsumo, subRubro: e.target.value })}
+                            disabled={!nuevoInsumo.rubro || subRubros.length === 0 || isLoading}
+                        >
+                            <option value="">Seleccione un sub-rubro</option>
+                            {subRubros.map(r => (
+                                <option key={r.id} value={r.id}>{r.denominacion}</option>
+                            ))}
+                        </select>
+                        <select
+                            className={`${shared.input} ${styles.input}`}
+                            value={nuevoInsumo.unidadMedida}
+                            onChange={e => setNuevoInsumo({ ...nuevoInsumo, unidadMedida: e.target.value })}
+                            disabled={isLoading}
+                        >
+                            <option value="">Seleccione una unidad</option>
+                            {UNIDADES.map(u => (
+                                <option key={u.value} value={u.value}>{u.label}</option>
+                            ))}
+                        </select>
                     </div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                        disabled={isLoading}
-                    />
-                    <button
-                        type="button"
-                        className={styles.selectImageButton}
-                        onClick={() => fileInputRef.current?.click()}
-                        disabled={isLoading}
-                    >
-                        Seleccionar Imagen
-                    </button>
+                    {/* Columna 2: Imagen */}
+                    <div className={styles.editarModalCol} style={{ alignItems: "center", justifyContent: "center" }}>
+                        <div className={styles.imageUploadContainer}>
+                            <div className={styles.imagePreviewArea}>
+                                {previewUrl ? (
+                                    <img
+                                        src={previewUrl}
+                                        alt="Vista previa"
+                                        className={styles.imagePreview}
+                                    />
+                                ) : (
+                                    <div className={styles.noImagePlaceholder}>
+                                        Sin imagen
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                                disabled={isLoading}
+                            />
+                            <button
+                                type="button"
+                                className={styles.selectImageButton}
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={isLoading}
+                            >
+                                Seleccionar Imagen
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
                 {error && <div className={shared.error}>{error}</div>}
                 <div className={shared.modalActions}>
                     <button

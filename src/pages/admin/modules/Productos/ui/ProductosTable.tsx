@@ -4,6 +4,7 @@ import { getGenericColumns } from "../../../../../components/admin/GenericTable/
 import { ArticuloManufacturadoApi } from "../../../../../types/typesAdmin";
 import shared from "../../styles/Common.module.css";
 // Importa el ícono para ver la receta (puedes usar uno adecuado)
+import styles from "../ProductosSection.module.css"; // Asegúrate de tener este archivo CSS
 import iconRecipe from "../../../../../assets/admin/icon-recipe.svg"; // Asegúrate de tener este ícono
 
 interface ProductosTableProps {
@@ -101,7 +102,7 @@ export const ProductosTable: React.FC<ProductosTableProps> = ({
         }),
     ];
 
-    return <GenericTable columns={columns} data={productos} />;
+    return <GenericTable columns={columns} data={productos} className={styles.tableContainer}/>;
 };
 
 export default ProductosTable;

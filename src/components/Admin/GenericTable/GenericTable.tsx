@@ -11,10 +11,11 @@ type Column = {
 interface GenericTableProps {
     columns: Column[];
     data: any[];
+    className?: string;
 }
 
-const GenericTable: React.FC<GenericTableProps> = ({ columns, data }) => (
-    <div className={styles.tableContainer}>
+const GenericTable: React.FC<GenericTableProps> = ({ columns, data, className }) => (
+    <div className={`${styles.tableContainer} ${className || ''}`}>
         <table className={styles.rolesTable}>
             <thead>
                 <tr>

@@ -152,8 +152,6 @@ export const EditarProductoModal: React.FC<EditarProductoModalProps> = ({
             return;
         }
 
-  
-
         // Construir el objeto para la API
         const body = {
             denominacion: editProducto.denominacion,
@@ -194,12 +192,11 @@ export const EditarProductoModal: React.FC<EditarProductoModalProps> = ({
     return (
         <div className={shared.modalOverlay}>
             <div className={`${shared.modalContent} ${styles.modalContent}`} style={{ minWidth: 700, maxWidth: 900 }}>
-                <h2 className={styles.editarModalTitle}>Editar Producto</h2>
+                <h2>Editar Producto</h2>
                 
-                {/* Sección principal */}
-                <div className={styles.editarModalGrid}>
-                    {/* Columna izquierda */}
-                    <div className={styles.editarModalCol}>
+                <div className={styles.nuevoProductoGrid}>
+                    {/* Columna 1: Datos principales */}
+                    <div className={styles.nuevoProductoCol}>
                         <input
                             className={`${shared.input} ${styles.input}`}
                             type="text"
@@ -224,7 +221,14 @@ export const EditarProductoModal: React.FC<EditarProductoModalProps> = ({
                             onChange={e => setEditProducto({ ...editProducto, tiempoEstimadoProduccion: e.target.value })}
                             disabled={isLoading}
                         />
-                        
+                        <input
+                            className={`${shared.input} ${styles.input}`}
+                            type="number"
+                            placeholder="Precio de venta ($)"
+                            value={editProducto.precioVenta}
+                            onChange={e => setEditProducto({ ...editProducto, precioVenta: e.target.value })}
+                            disabled={isLoading}
+                        />
                         <select
                             className={`${shared.input} ${styles.input}`}
                             value={editProducto.rubro}
@@ -236,74 +240,9 @@ export const EditarProductoModal: React.FC<EditarProductoModalProps> = ({
                                 <option key={r.id} value={r.id}>{r.denominacion}</option>
                             ))}
                         </select>
-                        
-                        {/* Selector de imágenes */}
-                        <div className={styles.imageUploadContainer}>
-                            <div className={styles.imagePreviewArea}>
-                                {previewUrl ? (
-                                    <img 
-                                        src={previewUrl} 
-                                        alt="Vista previa" 
-                                        className={styles.imagePreview} 
-                                    />
-                                ) : (
-                                    <div className={styles.noImagePlaceholder}>
-                                        Sin imagen
-                                    </div>
-                                )}
-                            </div>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                ref={fileInputRef}
-                                onChange={handleFileChange}
-                                style={{ display: 'none' }}
-                                disabled={isLoading}
-                            />
-                            <button
-                                type="button"
-                                className={styles.selectImageButton}
-                                onClick={() => fileInputRef.current?.click()}
-                                disabled={isLoading}
-                            >
-                                Cambiar Imagen
-                            </button>
-                        </div>
                     </div>
-                    
-                    {/* Columna derecha - Ingredientes */}
-                    <div className={styles.editarModalCol}>
-                        <h3 className={styles.ingredientesTitle}>Ingredientes</h3>
-                        
-                        {/* Lista de ingredientes actuales */}
-                        <div className={styles.ingredientesList}>
-                            {detalles.length === 0 ? (
-                                <p className={styles.noIngredientes}>No hay ingredientes agregados</p>
-                            ) : (
-                                detalles.map((detalle, index) => (
-                                    <div key={index} className={styles.ingredienteItem}>
-                                        <div className={styles.ingredienteInfo}>
-                                            <span className={styles.ingredienteNombre}>
-                                                {detalle.articuloInsumo.denominacion}
-                                            </span>
-                                            <span className={styles.ingredienteCantidad}>
-                                                {detalle.cantidad} {detalle.articuloInsumo.unidadMedida?.toLowerCase()}
-                                            </span>
-                                        </div>
-                                        <button 
-                                            type="button"
-                                            className={styles.removeIngredienteButton}
-                                            onClick={() => handleRemoveDetalle(index)}
-                                            disabled={isLoading}
-                                        >
-                                            ✕
-                                        </button>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                        
-                        {/* Formulario para agregar ingredientes */}
+                    {/* Columna 2: Ingredientes */}
+                    <div className={styles.nuevoProductoCol}>
                         <div className={styles.agregarIngredienteForm}>
                             <select
                                 className={`${shared.input} ${styles.input}`}
@@ -334,11 +273,70 @@ export const EditarProductoModal: React.FC<EditarProductoModalProps> = ({
                             >
                                 Agregar
                             </button>
+                            <h3 className={styles.ingredientesTitle}>Ingredientes</h3>
+                            <div className={styles.ingredientesList}>
+                                {detalles.length === 0 ? (
+                                    <p className={styles.noIngredientes}>No hay ingredientes agregados</p>
+                                ) : (
+                                    detalles.map((detalle, index) => (
+                                        <div key={index} className={styles.ingredienteItem}>
+                                            <div className={styles.ingredienteInfo}>
+                                                <span className={styles.ingredienteNombre}>
+                                                    {detalle.articuloInsumo.denominacion}
+                                                </span>
+                                                <span className={styles.ingredienteCantidad}>
+                                                    {detalle.cantidad} {detalle.articuloInsumo.unidadMedida?.toLowerCase()}
+                                                </span>
+                                            </div>
+                                            <button 
+                                                type="button"
+                                                className={styles.removeIngredienteButton}
+                                                onClick={() => handleRemoveDetalle(index)}
+                                                disabled={isLoading}
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                            <div className={styles.costoInfo}>
+                                <p>Costo total de ingredientes: ${calcularPrecioCosto().toFixed(2)}</p>
+                            </div>
                         </div>
-                        
-                        {/* Información de costo */}
-                        <div className={styles.costoInfo}>
-                            <p>Costo total de ingredientes: ${calcularPrecioCosto().toFixed(2)}</p>
+                    </div>
+                    {/* Columna 3: Imagen */}
+                    <div className={styles.nuevoProductoCol} style={{ alignItems: "center", justifyContent: "center" }}>
+                        <div className={styles.imageUploadContainer}>
+                            <div className={styles.imagePreviewArea}>
+                                {previewUrl ? (
+                                    <img
+                                        src={previewUrl}
+                                        alt="Vista previa"
+                                        className={styles.imagePreview}
+                                    />
+                                ) : (
+                                    <div className={styles.noImagePlaceholder}>
+                                        Sin imagen
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                                disabled={isLoading}
+                            />
+                            <button
+                                type="button"
+                                className={styles.selectImageButton}
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={isLoading}
+                            >
+                                Cambiar Imagen
+                            </button>
                         </div>
                     </div>
                 </div>

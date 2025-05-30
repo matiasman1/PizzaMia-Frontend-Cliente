@@ -1,26 +1,38 @@
-/* Estilos específicos para Insumos */
+/* =========================
+Estilos compartidos entre múltiples componentes
+========================= */
 
+/* Contenedor principal del área de administración */
 .adminContent {
-    margin-top: 15px;
-    padding: 20px 30px;
+    width: 100%;
+    padding: 30px 0;
 }
 
-.modalContent {
-    padding: 10px 28px 24px 28px;
-    min-width: 320px;
-}
-
+/* Estilos base para inputs */
 .input {
     border-radius: 38px;
     border: 1px solid #d0d0d0;
     margin-bottom: 12px;
+    min-width: 260px;
+    width: 95%;
+    max-width: 420px;
+    font-size: 16px;
+    padding: 10px 16px;
+    box-sizing: border-box;
 }
 
+/* Estilos para textareas */
 .textArea {
     border-radius: 8px;
     border: 1px solid #d0d0d0;
     margin-bottom: 12px;
 }
+
+/* =========================
+SearchHeader.tsx
+========================= */
+
+/* Contenedor superior con botón y búsqueda */
 .adminContentTop {
     display: flex;
     align-items: center;
@@ -32,6 +44,7 @@
     box-sizing: border-box;
 }
 
+/* Contenedor de búsqueda */
 .searchContainer {
     display: flex;
     align-items: center;
@@ -45,6 +58,7 @@
     position: relative;
 }
 
+/* Input de búsqueda */
 .inputSearch {
     border: none;
     background: transparent;
@@ -56,6 +70,7 @@
     color: var(--text-color);
 }
 
+/* Icono de lupa */
 .lupaIcon {
     position: absolute;
     right: 8px;
@@ -65,30 +80,64 @@
     pointer-events: none;
 }
 
-.editarModalTitle {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 18px;
-    font-size: 22px;
-    color: var(--text-color);
-    font-weight: 700;
+/* =========================
+InsumosTable.tsx
+========================= */
+
+/* Contenedor de imágenes en la tabla */
+.tableImageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Imágenes en la tabla */
+.tableImage {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+}
+
+/* Placeholder para celdas sin imagen */
+.noTableImage {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    color: #999;
+    border-radius: 4px;
+}
+
+/* =========================
+NuevoInsumoModal.tsx
+EditarInsumoModal.tsx
+========================= */
+
+/* Layout del modal de edición/creación */
+.modalContent {
+    padding: 10px 28px 24px 28px;
+    min-width: 500px;
+}
+
+/* Grid de columnas en el modal */
 .editarModalGrid {
     display: flex;
-    gap: 15px;
+    gap: 24px;
     width: 100%;
 }
 
+/* Layout de columnas individuales */
 .editarModalCol {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 12px;
+    min-width: 0;
 }
 
-/* Carga imagen */
-
+/* Contenedor para carga de imágenes */
 .imageUploadContainer {
     margin-top: 10px;
     display: flex;
@@ -96,6 +145,7 @@
     align-items: center;
 }
 
+/* Área de previsualización de imagen */
 .imagePreviewArea {
     width: 120px;
     height: 120px;
@@ -109,17 +159,20 @@
     overflow: hidden;
 }
 
+/* Estilos para la imagen previsualizada */
 .imagePreview {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
 
+/* Placeholder cuando no hay imagen */
 .noImagePlaceholder {
     color: #999;
     font-size: 14px;
 }
 
+/* Botón para seleccionar imagen */
 .selectImageButton {
     padding: 8px 16px;
     background-color: #f0f0f0;
@@ -130,11 +183,24 @@
     transition: all 0.2s;
 }
 
+/* Efecto hover para botón de imagen */
 .selectImageButton:hover {
     background-color: #e0e0e0;
 }
 
+/* Estado deshabilitado del botón */
 .selectImageButton:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+/* =========================
+ReponerStockModal.tsx
+========================= */
+
+/* Estilos específicos para textarea en modal de reposición */
+.textArea {
+    min-height: 80px;
+    resize: vertical;
+    margin-top: 10px;
 }

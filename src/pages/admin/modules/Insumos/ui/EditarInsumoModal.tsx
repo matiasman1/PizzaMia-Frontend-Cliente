@@ -29,7 +29,7 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    
+
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Rubros principales (sin padre)
@@ -47,14 +47,14 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
                 subRubro: "",
                 esParaElaborar: typeof insumo.esParaElaborar === "boolean" ? insumo.esParaElaborar : false,
             });
-            
+
             // Si hay imagen, mostrarla en el preview
             if (insumo.imagen?.urlImagen) {
                 setPreviewUrl(insumo.imagen.urlImagen);
             } else {
                 setPreviewUrl(null);
             }
-            
+
             setSelectedFile(null);
             setError("");
         }
@@ -64,7 +64,7 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             setSelectedFile(file);
-            
+
             // Crear preview de la imagen
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -105,11 +105,9 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
             rubro: { id: editInsumo.subRubro || editInsumo.rubro },
             esParaElaborar: editInsumo.esParaElaborar,
             stockActual: editInsumo.stockActual,
-            // Mantener la imagen existente solo si no se seleccionó una nueva
-            // y si hay una imagen existente con ID
-            imagen: !selectedFile && editInsumo.imagen?.id ? { 
+            imagen: !selectedFile && editInsumo.imagen?.id ? {
                 id: editInsumo.imagen.id,
-                urlImagen: editInsumo.imagen.urlImagen 
+                urlImagen: editInsumo.imagen.urlImagen
             } : undefined
         };
 
@@ -133,10 +131,10 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
 
     return (
         <div className={shared.modalOverlay}>
-            <div className={`${shared.modalContent} ${styles.modalContent}`} style={{ minWidth: 600, maxWidth: 700 }}>
-                <h2 className={styles.editarModalTitle}>Editar Insumo</h2>
-                <div className={styles.editarModalGrid}>
-                    {/* Sección Izquierda */}
+            <div className={`${shared.modalContent} ${styles.modalContent}`} style={{ minWidth: 800, maxWidth: 900 }}>
+                <h2>Editar Insumo</h2>
+                <div style={{ display: "flex", gap: 24, width: "100%" }}>
+                    {/* Columna 1 */}
                     <div className={styles.editarModalCol}>
                         <input
                             className={`${shared.input} ${styles.input}`}
@@ -172,7 +170,7 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
                             <option value="false">¿Es para elaborar? No</option>
                         </select>
                     </div>
-                    {/* Sección Derecha */}
+                    {/* Columna 2 */}
                     <div className={styles.editarModalCol}>
                         <select
                             className={`${shared.input} ${styles.input}`}
@@ -207,15 +205,16 @@ export const EditarInsumoModal: React.FC<EditarInsumoModalProps> = ({
                                 <option key={u.value} value={u.value}>{u.label}</option>
                             ))}
                         </select>
-                        
-                        {/* Selector de imágenes */}
+                    </div>
+                    {/* Columna 3: Imagen */}
+                    <div className={styles.editarModalCol} style={{ alignItems: "center", justifyContent: "center" }}>
                         <div className={styles.imageUploadContainer}>
                             <div className={styles.imagePreviewArea}>
                                 {previewUrl ? (
-                                    <img 
-                                        src={previewUrl} 
-                                        alt="Vista previa" 
-                                        className={styles.imagePreview} 
+                                    <img
+                                        src={previewUrl}
+                                        alt="Vista previa"
+                                        className={styles.imagePreview}
                                     />
                                 ) : (
                                     <div className={styles.noImagePlaceholder}>

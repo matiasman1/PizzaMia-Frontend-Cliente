@@ -32,7 +32,7 @@ export const VerRecetaModal: React.FC<VerRecetaModalProps> = ({
                 <div className={styles.recetaHeader}>
                     {producto.imagen?.urlImagen && (
                         <div className={styles.recetaImageBackground} 
-                             style={{backgroundImage: `url(${producto.imagen.urlImagen})`}}>
+                            style={{backgroundImage: `url(${producto.imagen.urlImagen})`}}>
                         </div>
                     )}
                     <div className={styles.recetaHeaderContent}>
