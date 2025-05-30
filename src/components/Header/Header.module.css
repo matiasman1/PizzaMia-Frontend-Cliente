@@ -1,0 +1,93 @@
+.navbarSections {
+  height: 86px;
+  background: #FFC736;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.pizzaMia {
+  font-family: 'Sen', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: #1D1D1D;
+}
+
+.foodIcon {
+  margin-left: 10px;
+  transform: rotate(20deg);
+}
+
+.menuItems {
+  display: flex;
+  gap: 28px;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  color: rgba(28, 28, 28, 0.70);
+}
+
+.navButton.active {
+  color: #1D1D1D;
+  position: relative;
+}
+
+.navButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #FF7622;
+  border-radius: 2px;
+}
+
+@media (max-width: 992px) {
+  .navbarSections {
+    padding: 0 3%;
+  }
+  
+  .menuItems {
+    gap: 16px;
+  }
+  
+  .navButton {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbarSections {
+    height: auto;
+    flex-direction: column;
+    padding: 10px 5%;
+  }
+  
+  .logoContainer {
+    margin-bottom: 10px;
+  }
+  
+  .menuItems {
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

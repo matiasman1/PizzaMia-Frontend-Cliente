@@ -1,206 +1,460 @@
+/* Remove styles that have been moved to component-specific CSS modules */
+
 .landingPageDesktop {
   width: 100%;
-  min-height: 100vh;
   position: relative;
   background: white;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  overflow-x: hidden;
 }
 
-/* Hero section styling */
-.heroSection {
-  padding: 100px 20px;
-  text-align: center;
-  background-color: var(--landing-background);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.heroSection h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-  color: var(--landing-primary-color);
-}
-
-.heroSection p {
-  font-size: 24px;
-  color: var(--landing-text-dark);
-}
-
-/* Main content styling */
-.mainContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 873px;
+/* Section styles */
+.heroSections, 
+.asiFuncionaSections,
+.menuSections,
+.favoritasSections,
+.promocionSections,
+.nosotrosSections {
+  width: 100%;
   position: relative;
-  padding: 20px;
+  overflow: hidden;
 }
 
-.nuestroMenu {
+/* Hero section */
+.heroSections {
+  padding-top: 86px;
+  height: calc(640px + 86px);
+  background: #FFC736;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  position: relative;
+}
+
+.heroSections .content {
+  width: 50%;
+  z-index: 2;
+}
+
+.heroTitle {
+  color: #1D1D1D;
+  font-size: 50px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+}
+
+.accentText {
+  color: #FF7622;
+}
+
+.heroDescription {
+  margin: 20px 0 40px 0;
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+}
+
+.heroSections .images {
+  width: 50%;
+  height: 640px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image positioning in hero section */
+.heroMainImg {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 500px;
+  height: auto;
+  z-index: 1;
+}
+
+.heroSideImg1 {
+  position: absolute;
+  bottom: 100px;
+  right: 300px;
+  width: 200px;
+  height: auto;
+  z-index: 2;
+}
+
+.heroSideImg2 {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  width: 260px;
+  height: auto;
+  z-index: 3;
+}
+
+/* Así Funciona section */
+.asiFuncionaSections {
+  height: 640px;
+  background: white;
+  padding: 50px 5%;
   text-align: center;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sectionTag {
   color: #FF7622;
   font-size: 26px;
   font-family: 'Sen', sans-serif;
   font-weight: 500;
-  margin-bottom: 40px;
 }
 
-.exploreButton {
-  width: 221px;
-  height: 64px;
-  padding: 22px 10px;
-  background: #FF7622;
-  border-radius: 12px;
-  border: none;
+.sectionTitle {
+  color: #1D1D1D;
+  font-size: 32px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+.sectionDescription {
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  max-width: 610px;
+  margin: 0 auto;
+}
+
+.features {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.featureItem {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  cursor: pointer;
+}
+
+.featureImage img {
+  width: 180px;
+  height: 180px;
+}
+
+.featureTitle {
+  color: #1D1D1D;
+  font-size: 28px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+.featureDescription {
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 20px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+}
+
+/* Menu section */
+.menuSections {
+  background: white;
+  padding: 50px 0;
+}
+
+/* Favoritas section */
+.favoritasSections {
+  height: auto;
+  background: white;
+  padding: 50px 5%;
+  text-align: center;
+}
+
+/* Carousel styles */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  margin: 50px auto;
+  overflow: hidden;
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.pizzaCard {
+  min-width: 330px;
+  height: 409px;
+  background: #FFC736;
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  margin: 0 15px;
+}
+
+.pizzaImage img {
+  width: 308px;
+  height: auto;
+  max-height: 205px;
+  margin-top: 10px;
+}
+
+.pizzaTitle {
+  color: black;
+  font-size: 24.62px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
   margin-top: 30px;
 }
 
-.explorarMenu {
-  color: white;
-  font-size: 17px;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 600;
-  line-height: 20px;
-  letter-spacing: 0.09px;
+.pizzaPrice {
+  color: black;
+  font-size: 28.73px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+  margin-top: 20px;
 }
 
-.leftSidebar, .rightSidebar {
-  width: 130px;
-  height: 873px;
+.cartIcon {
   position: absolute;
-  top: 0;
-  background: white;
-  z-index: 2;
-}
-
-.leftSidebar {
-  left: 0;
-}
-
-.rightSidebar {
-  right: 0;
-}
-
-/* Footer styling */
-.footerSections {
-  width: 100%;
-  background: var(--landing-secondary-color);
-  overflow: hidden;
-  position: relative;
-  margin-top: auto;
-  padding: 60px 0;
-}
-
-.footerContent {
-  max-width: 1200px;
-  margin: 0 auto;
+  bottom: 20px;
+  right: 20px;
+  width: 46px;
+  height: 51px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 }
 
-.brandSection, .linksSection, .contactSection {
-  position: relative;
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  color: #FF7622;
+  font-size: 20px;
+}
+
+.carouselButton.left {
+  left: 10px;
+}
+
+.carouselButton.right {
+  right: 10px;
+}
+
+/* Promocion section */
+.promocionSections {
+  height: auto;
+  background: white;
+  padding: 50px 0;
+}
+
+.promoContainer {
+  height: 600px;
+  background: #FFC736;
+  display: flex;
+  padding: 0 5%;
+}
+
+.promoContent {
+  width: 50%;
+  padding: 50px 0;
+  padding-left: 5%;
+}
+
+.promoCategory {
+  color: black;
+  font-size: 38px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+}
+
+.promoTitle {
+  color: black;
+  font-size: 78px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+.promoTime {
+  color: black;
+  font-size: 33px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
   margin-bottom: 30px;
 }
 
-.brandSection {
-  flex: 1;
-  min-width: 300px;
+.promoImage {
+  width: 50%;
 }
 
-.linksSection, .contactSection {
-  flex: 1;
-  min-width: 250px;
+.promoImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.enlacesRapidos, .ponteEnContacto {
-  color: var(--landing-text-dark);
-  font-size: 20px;
-  font-family: 'Readex Pro', sans-serif;
-  font-weight: 500;
-  margin-bottom: 20px;
+/* Nosotros section */
+.nosotrosSections {
+  height: auto;
+  padding: 50px 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.home, .menu, .nostros, .asiFunciona, .phone, .email {
-  color: var(--landing-text-light);
-  font-size: 18px;
-  font-family: 'Readex Pro', sans-serif;
-  font-weight: 400;
-  margin-bottom: 15px;
-  cursor: pointer;
+.nosotrosSections .sectionHeader {
+  width: 100%;
+  margin-bottom: 40px;
 }
 
-.pizzaMia {
-  color: var(--landing-text-dark);
-  font-size: 48px;
-  font-family: 'Readex Pro', sans-serif;
-  font-weight: 600;
-  margin-bottom: 20px;
+.mapContainer {
+  width: 45%;
+  height: 600px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1.4px solid white;
 }
 
-.food2 {
-  width: 47px;
-  height: 47px;
-  position: relative;
-  display: inline-block;
-  transform: rotate(20deg);
-  margin-left: 10px;
+.mapContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
-.pizzaOutline {
+.nosotrosInfo {
+  width: 45%;
+}
+
+.locationInfo {
+  margin-bottom: 50px;
+}
+
+.infoHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-bottom: 30px;
 }
 
-.bxBxlFacebook {
-  margin-top: 20px;
-  display: block;
+.infoIcon {
+  font-size: 30px;
+  color: #FF7622;
+  margin-right: 10px;
 }
 
-/* For smaller screens */
-@media (max-width: 1440px) {
-  .leftSidebar, .rightSidebar {
-    width: 50px;
+.infoTitle {
+  color: #1D1D1D;
+  font-size: 32px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+}
+
+.infoText {
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1200px) {
+  .heroMainImg {
+    width: 400px;
+  }
+  
+  .heroSideImg1 {
+    width: 160px;
+    right: 250px;
+  }
+  
+  .heroSideImg2 {
+    width: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .heroSections .content {
+    width: 60%;
+  }
+  
+  .heroSections .images {
+    width: 40%;
+  }
+  
+  .heroMainImg {
+    width: 350px;
+  }
+  
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .featureItem {
+    width: 80%;
+    margin-bottom: 40px;
+  }
+  
+  .mapContainer, .nosotrosInfo {
+    width: 100%;
+    margin-bottom: 30px;
   }
 }
 
 @media (max-width: 768px) {
-  .leftSidebar, .rightSidebar {
+  .heroSections {
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 50px;
+  }
+  
+  .heroSections .content, .heroSections .images {
+    width: 100%;
+  }
+  
+  .heroSections .images {
+    height: 400px;
+  }
+  
+  .heroMainImg {
+    position: relative;
+    margin: 0 auto;
+  }
+  
+  .heroSideImg1, .heroSideImg2 {
     display: none;
   }
   
-  .mainContent {
-    padding: 10px;
-  }
-  
-  .footerContent {
+  .promoContainer {
+    height: auto;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
   }
   
-  .brandSection, .linksSection, .contactSection {
+  .promoContent, .promoImage {
     width: 100%;
-    text-align: center;
   }
   
-  .heroSection h1 {
-    font-size: 36px;
-  }
-  
-  .heroSection p {
-    font-size: 18px;
+  .promoTitle {
+    font-size: 48px;
   }
 }
