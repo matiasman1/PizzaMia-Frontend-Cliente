@@ -1,0 +1,45 @@
+.layoutContainer {
+    display: flex;
+    min-height: 100vh;
+    background-color: #ffffff;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.sidebarWrapper {
+    flex: 0 0 540px;
+    position: relative;
+}
+
+.contentWrapper {
+    flex: 1;
+    margin-left: 0;
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+@media (max-width: 1200px) {
+    .sidebarWrapper {
+        flex: 0 0 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .layoutContainer {
+        flex-direction: column;
+    }
+    
+    .sidebarWrapper {
+        flex: none;
+        height: auto;
+    }
+    
+    .contentWrapper {
+        margin-left: 0;
+        padding: 15px 20px;
+    }
+}

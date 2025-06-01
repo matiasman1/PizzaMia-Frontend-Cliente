@@ -1,0 +1,58 @@
+.tableContainer {
+    width: 90%;
+    margin: 16px auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Scroll personalizado para navegadores webkit */
+.tableContainer::-webkit-scrollbar {
+    width: 8px;
+}
+.tableContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+.tableContainer::-webkit-scrollbar-thumb {
+    background: var(--button-color);
+    border-radius: 4px;
+}
+.tableContainer::-webkit-scrollbar-thumb:hover {
+    background: #4567B6;
+}
+
+.rolesTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: transparent;
+    table-layout: fixed;
+}
+
+.tableHeader {
+    font-size: 16px;
+    color: var(--text-color);
+    font-weight: 600;
+    background-color: transparent;
+    text-align: center;
+    border: none;
+    padding: 8px 10px;
+}
+
+td {
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #000000;
+}
+
+tr:first-child td {
+    border-top: none;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: rgba(0, 0, 0, 0.02);
+}

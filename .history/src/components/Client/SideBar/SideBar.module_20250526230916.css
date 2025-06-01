@@ -1,0 +1,180 @@
+.sidebarContainer {
+    width: 540px;
+    height: 100%;
+    background-color: #f8f8f8;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    border-right: 1px solid #a39c9c;
+    border-radius: 0 10px 10px 0;
+}
+
+.headerSection {
+    padding: 0;
+    margin-bottom: 0; /* Eliminamos el margen inferior */
+}
+
+.navigationHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px; /* Distancia entre "Perfil Usuario" y "Nombre Usuario" */
+    position: relative;
+    padding: 0 40px 0 155px; /* Mantenemos el padding horizontal aquí */
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 10px;
+    text-decoration: none;
+    position: relative;
+    left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.backIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.userName {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0 0 24px 0; /* Distancia entre "Nombre Usuario" y los grupos de menú */
+    padding: 0 40px 0 155px; /* Mismo padding horizontal que navigationHeader y menuGroups */
+}
+
+.menuGroups {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 40px 0 155px;
+}
+
+.menuGroup {
+    background-color: #F0F5FA;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Aumentamos el ancho para que ocupen más espacio */
+    width: 100%;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    /* Aumentamos el padding horizontal para dar más espacio al contenido */
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #333;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.menuGroup .menuItem:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.menuItem:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.menuItem.active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.menuIconContainer {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.emptyCircleIcon {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 1.5px solid #999;
+    border-radius: 50%;
+}
+
+.menuText {
+    flex: 1;
+    /* Aumentamos un poco el tamaño del texto */
+    font-size: 15px;
+}
+
+.arrow {
+    font-size: 18px;
+    color: #999;
+    /* Añadimos un poco de margen izquierdo para separar más la flecha del texto */
+    margin-left: 8px;
+}
+
+.logout {
+    margin-top: auto;
+    border-radius: 12px;
+    background-color: #F0F5FA;
+}
+
+@media (max-width: 1200px) {
+    .sidebarContainer {
+        width: 380px;
+    }
+    
+    .navigationHeader,
+    .userName,
+    .menuGroups {
+        padding-left: 80px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebarContainer {
+        width: 100%;
+        position: static;
+        height: auto;
+        border-radius: 0;
+        border-right: none;
+        border-bottom: 1px solid #000000;
+    }
+    
+    .navigationHeader,
+    .userName,
+    .menuGroups {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .backButton {
+        position: static;
+        margin-right: 10px;
+    }
+}

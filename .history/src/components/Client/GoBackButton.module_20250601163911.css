@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 0;
+}
+
+.backIcon {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #333;
+}
