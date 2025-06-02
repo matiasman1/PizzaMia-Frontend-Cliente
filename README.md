@@ -1,17 +1,18 @@
-```markdown
-# Frontend - Proyecto "Pizza Mia"
+# 🍕 Frontend - Proyecto "Pizza Mia"
 
-## 🏢 Descripción General
+## 🏠 Descripción General
 
-El proyecto "Pizza Mia" consiste en el desarrollo de una aplicación frontend utilizando React + TypeScript + Vite, que incluye:
+"Pizza Mia" es una aplicación web desarrollada con **React + TypeScript + Vite**, que simula un sistema completo de ecommerce para una pizzería. El frontend está dividido en tres áreas principales:
 
--   Una landing page de acceso público.
--   Un sistema de ecommerce para clientes.
--   Un panel de administración exclusivo para el administrador.
+- 🎯 **Landing Page**: acceso público para atraer nuevos clientes.
+- 🛍️ **Portal de Cliente**: experiencia de compra, gestión de perfil, pedidos y carrito.
+- ⚙️ **Panel de Administración**: gestión interna exclusiva para administradores.
 
-Cada una de estas tres áreas tiene sus propios componentes y vistas. No se comparten componentes reutilizables entre cliente, administrador o landing.
+Cada área mantiene su propio conjunto de componentes, vistas y estilos. No se comparten componentes entre dominios.
 
-## 📁 Estructura de Carpetas Actualizada
+---
+
+## 📁 Estructura de Carpetas
 
 ```
 pizza-mia-frontend/
@@ -90,31 +91,40 @@ pizza-mia-frontend/
 └── vite.config.ts
 ```
 
-## 🔄 Rutas Principales Actualizadas
+---
 
--   `/` ➜ Landing page
--   `/client/*` ➜ Portal de clientes
-    - `/client/profile/personal-info` ➜ Información personal del usuario
-    - `/client/profile/addresses` ➜ Gestión de direcciones del usuario
-    - `/client/orders` ➜ Historial de pedidos realizados
-    - `/client/cart` ➜ Carrito de compras
--   `/admin/*` ➜ Portal de administradores
-    - `/admin/login` ➜ Inicio de sesión para administradores
+## 🔀 Rutas Principales
+
+- `/` → Landing page
+- `/client/*` → Portal de cliente:
+  - `/client/profile/personal-info`
+  - `/client/profile/addresses`
+  - `/client/orders`
+  - `/client/cart`
+- `/admin/*` → Panel de administrador:
+  - `/admin/login`
+
+---
 
 ## 🧩 Funcionalidades Implementadas
 
-### Portal Cliente
-- **Perfil de Usuario**: Visualización y edición de información personal
-- **Gestión de Direcciones**: Añadir, editar y eliminar direcciones de entrega
-- **Historial de Pedidos**: Visualización de pedidos realizados con detalles y estado
-- **Carrito de Compras**: Gestión de productos seleccionados y proceso de compra
-  - Selección de método de pago (Efectivo/MercadoPago)
-  - Selección de dirección de entrega
-  - Visualización de resumen de compra
+### Cliente
+- 👤 **Perfil de Usuario**: ver y editar datos personales.
+- 📍 **Direcciones**: gestión de múltiples direcciones de entrega.
+- 🧾 **Pedidos**: historial con detalles y estado.
+- 🛒 **Carrito de Compras**:
+  - Selección de método de pago (Efectivo / MercadoPago).
+  - Selección de dirección de entrega.
+  - Resumen y confirmación del pedido.
+
+### Administrador (en desarrollo)
+- 📊 Estadísticas generales
+- 📦 Gestión de productos y pedidos
+- 👥 Gestión de usuarios
+
+---
 
 ## 📦 Dependencias Instaladas
-
-Estas son las principales dependencias utilizadas en el proyecto:
 
 ```bash
 npm install react-router-dom
@@ -147,9 +157,10 @@ cd pizza-mia-frontend
 npm install
 npm run dev
 ```
-
 Nombre del archivo raíz del proyecto: `pizza-mia-frontend`
 
-
-
 ```
+
+
+📁 Carpeta raíz del proyecto: PizzaMia-Frontend-Cliente
+
