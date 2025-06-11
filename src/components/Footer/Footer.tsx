@@ -48,7 +48,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <p className={styles.footerLink} onClick={() => onNavigate("hero")}>Home</p>
           <p className={styles.footerLink} onClick={() => onNavigate("asifunciona")}>Así funciona</p>
           <p className={styles.footerLink} onClick={() => onNavigate("menu")}>Menú</p>
-          <p className={styles.footerLink} onClick={() => onNavigate("nosotros")}>Nostros</p>
+          <p className={styles.footerLink} onClick={() => onNavigate("nosotros")}>Nosotros</p>
         </div>
         
         <div className={styles.footerContact}>

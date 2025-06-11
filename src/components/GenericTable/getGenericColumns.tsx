@@ -1,7 +1,7 @@
-import chevronUp from "../../../assets/admin/circle-chevron-up.svg";
-import chevronDown from "../../../assets/admin/circle-chevron-down.svg";
-import iconEdit from "../../../assets/admin/icon-edit.svg";
-import styles from "./getGenericColumns.module.css"; // Ajusta la ruta si es necesario
+import chevronUp from "../../assets/admin/circle-chevron-up.svg";
+import chevronDown from "../../assets/admin/circle-chevron-down.svg";
+import iconEdit from "../../assets/admin/icon-edit.svg";
+import styles from "./getGenericColumns.module.css";
 
 export const getGenericColumns = ({
     onAlta,

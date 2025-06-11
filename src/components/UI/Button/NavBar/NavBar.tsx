@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
-import pizzaLogo from "../../../assets/admin/pizza.svg";
-import avatarLogo from "../../../assets/admin/generic-avatar.svg";
-import Button from "../Button/Button";
+import pizzaLogo from "../../assets/admin/pizza.svg";
+import avatarLogo from "../../assets/admin/generic-avatar.svg";
+import Button from "../../../Button/Button";
 
 const NavBar: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
