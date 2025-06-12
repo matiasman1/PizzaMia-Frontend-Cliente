@@ -15,7 +15,7 @@ Cada área mantiene su propio conjunto de componentes, vistas y estilos. No se c
 ## 📁 Estructura de Carpetas
 
 ```
-pizza-mia-frontend/
+PizzaMia-Frontend-Cliente-main/
 ├── public/
 ├── src/
 │   ├── assets/                 # Imágenes, logos, fuentes, etc.
@@ -35,14 +35,14 @@ pizza-mia-frontend/
 │   ├── components/             # Componentes divididos por dominio
 │   │   ├── Admin/              # Componentes reutilizables exclusivos del administrador
 │   │   ├── Client/             # Componentes reutilizables exclusivos del cliente
-│   │   │   ├── ProfileLayout/  # Layout para las páginas de perfil de usuario
-│   │   │   │   ├── ProfileLayout.tsx
-│   │   │   │   └── ProfileLayout.module.css
-│   │   │   └── SideBar/        # Barra lateral para el portal del cliente
-│   │   │       ├── SideBar.tsx
-│   │   │       └── SideBar.module.css
+│   │   │   └── ProfileLayout/  # Layout para las páginas de perfil de usuario
+│   │   │       ├── ProfileLayout.tsx
+│   │   │       └── ProfileLayout.module.css
 │   │   ├── Landing/            # Componentes reutilizables exclusivos de la landing
-│   │   └── Global/             # Componentes compartidos generales (si los hubiera)
+│   │   ├── Global/             # Componentes compartidos generales
+│   │   └── SideBar/            # Componente de barra lateral
+│   │       ├── SideBar.tsx
+│   │       └── SideBar.module.css
 │   ├── layouts/                # Layouts compartidos entre vistas
 │   ├── routes/                 # Definiciones de rutas (React Router)
 │   │   └── AppRoutes.tsx       # Configuración principal de rutas
@@ -51,7 +51,7 @@ pizza-mia-frontend/
 │   ├── utils/                  # Funciones utilitarias
 │   ├── styles/                 # Estilos globales y específicos por dominio
 │   │   ├── base/               # Reset, tipografías, estilos globales
-│   │   │   └── admin-variables.css
+│   │   │   ├── admin-variables.css
 │   │   │   └── client-variables.css
 │   │   ├── themes/             # Estilos específicos por dominio
 │   │   │   ├── landing.css
@@ -61,19 +61,22 @@ pizza-mia-frontend/
 │   │   └── index.css           # Entrada principal de estilos globales
 │   ├── pages/
 │   │   ├── landing/
-│   │   │   └── LandingPage.tsx # Página principal de acceso público
+│   │   │   └── index.html      # Página principal de acceso público (HTML estático)
 │   │   ├── client/
 │   │   │   ├── ClientPage.tsx  # Contenedor principal del portal cliente
 │   │   │   └── modules/        # Módulos específicos del cliente
-│   │   │       ├── profile/    # Módulo de perfil de usuario
-│   │   │       │   ├── PersonalInfo.tsx          # Información personal
-│   │   │       │   ├── PersonalInfo.module.css
-│   │   │       │   ├── Addresses.tsx             # Gestión de direcciones
-│   │   │       │   ├── Addresses.module.css
-│   │   │       │   ├── Orders.tsx                # Historial de pedidos
-│   │   │       │   ├── Orders.module.css
-│   │   │       │   ├── Cart.tsx                  # Carrito de compras
-│   │   │       │   └── Cart.module.css
+│   │   │       └── profile/    # Módulo de perfil de usuario
+│   │   │           ├── PersonalInfo.tsx          # Información personal
+│   │   │           ├── PersonalInfo.module.css
+│   │   │           ├── Addresses.tsx             # Gestión de direcciones
+│   │   │           ├── Addresses.module.css
+│   │   │           ├── Orders.tsx                # Historial de pedidos
+│   │   │           └── Orders.module.css
+│   │   ├── menu/
+│   │   │   └── modules/
+│   │   │       └── SideCarrito/
+│   │   │           ├── Cart.tsx                  # Carrito de compras
+│   │   │           └── Cart.module.css
 │   │   └── admin/
 │   │       ├── AdminPage.tsx   # Contenedor principal del panel admin
 │   │       ├── LoginAdmin/     # Página de login para administradores
