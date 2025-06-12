@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Menu.module.css";
 import { FaSearch, FaShoppingBag, FaClock, FaPlus } from "react-icons/fa";
 import Footer from "../../components/Footer/Footer";
+import CartPanel from "../../components/Menu/CartPanel/CartPanel";
 
 interface Category {
   id: string;
@@ -19,12 +20,22 @@ interface MenuItem {
   stock?: number;
 }
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  size?: string;
+  image?: string;
+}
+
 const Menu: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeCategory, setActiveCategory] = useState<string>("todas");
-  const [cartCount, setCartCount] = useState<number>(2);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   const categories: Category[] = [
     { id: "todas", name: "Todas", isActive: true },
@@ -85,13 +96,50 @@ const Menu: React.FC = () => {
     loadMenuItems();
   }, []);
 
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   const handleCategoryClick = (categoryId: string) => {
     setActiveCategory(categoryId);
   };
 
   const handleAddToCart = (itemId: string) => {
-    setCartCount(prev => prev + 1);
-    console.log(`Added item ${itemId} to cart`);
+    const menuItem = menuItems.find(item => item.id === itemId);
+    if (!menuItem) return;
+
+    const existingCartItem = cartItems.find(item => item.id === itemId);
+    
+    if (existingCartItem) {
+      setCartItems(cartItems.map(item =>
+        item.id === itemId 
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ));
+    } else {
+      const newCartItem: CartItem = {
+        id: menuItem.id,
+        name: menuItem.name,
+        price: menuItem.price,
+        quantity: 1,
+        size: menuItem.category === 'comunes' || menuItem.category === 'especiales' || menuItem.category === 'populares' ? '14"' : undefined,
+        image: menuItem.image
+      };
+      setCartItems([...cartItems, newCartItem]);
+    }
+  };
+
+  const handleUpdateQuantity = (itemId: string, quantity: number) => {
+    if (quantity <= 0) {
+      handleRemoveItem(itemId);
+      return;
+    }
+    
+    setCartItems(cartItems.map(item =>
+      item.id === itemId ? { ...item, quantity } : item
+    ));
+  };
+
+  const handleRemoveItem = (itemId: string) => {
+    setCartItems(cartItems.filter(item => item.id !== itemId));
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -205,9 +253,9 @@ const Menu: React.FC = () => {
             <div className={styles.deliverLabel}>Entregar a</div>
             <div className={styles.locationText}>Mendoza, ARG</div>
           </div>
-          <div className={styles.cartContainer}>
+          <div className={styles.cartContainer} onClick={() => setIsCartOpen(true)}>
             <FaShoppingBag className={styles.cartIcon} />
-            <div className={styles.cartBadge}>{cartCount}</div>
+            {cartCount > 0 && <div className={styles.cartBadge}>{cartCount}</div>}
           </div>
         </div>
       </div>
@@ -306,6 +354,15 @@ const Menu: React.FC = () => {
 
       {/* Footer Section */}
       <Footer onNavigate={handleNavigate} />
+
+      {/* Cart Panel */}
+      <CartPanel
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        cartItems={cartItems}
+        onUpdateQuantity={handleUpdateQuantity}
+        onRemoveItem={handleRemoveItem}
+      />
     </div>
   );
 };
