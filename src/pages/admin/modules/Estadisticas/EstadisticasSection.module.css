@@ -1,0 +1,205 @@
+.estadisticasSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--primary-color);
+    margin-top: 15px;
+    border-radius: 24px;
+    height: auto;
+    padding: 20px 30px; /* Aumentado padding para mejor espaciado */
+}
+
+.mainTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Contenedor para Balance (60% del ancho) */
+.balanceContainer {
+    width: 100%;
+    margin: 20px 0 0 0; /* Elimina el margen automático y lo alinea a la izquierda */
+    align-self: flex-start; /* Alinea el contenedor a la izquierda */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 90px; /* Espacio entre el botón y el texto */
+}
+
+
+.exportButton {
+  background-color: var(--button-color);
+  color: white;
+  border: 0px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre el icono y el texto */
+}
+
+.exportButton:hover {
+  background-color: #4567B6;
+}
+
+.exportIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.sectionContainer {
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15), 
+              0px 3px 6px rgba(0, 0, 0, 0.1), 
+              0px 1px 3px rgba(0, 0, 0, 0.05); /* Conservamos la sombra existente */
+  padding: 20px;
+  width: 60%;
+  margin-bottom: 30px; /* Aumentada separación vertical */
+  position: relative; /* Para el correcto posicionamiento de la sombra */
+  z-index: 1; /* Evita problemas de apilamiento con las tablas */
+  border: none; /* Eliminamos el borde para un aspecto más minimalista */
+  transform: translateY(-2px); /* Ligero desplazamiento hacia arriba para aumentar sensación de elevación */
+  transition: transform 0.2s, box-shadow 0.2s; /* Transición suave para efectos hover */
+}
+
+.sectionContainer:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.18), 
+              0px 4px 8px rgba(0, 0, 0, 0.12), 
+              0px 2px 4px rgba(0, 0, 0, 0.06); /* Sombra aún más pronunciada al pasar el cursor */
+  transform: translateY(-4px); /* Mayor elevación al hacer hover */
+}
+
+.bottomTablesContainer {
+  display: flex;
+  gap: 70px; /* Aumentada la separación entre tablas */
+  width: 90%; /* Reducido el ancho del contenedor para hacer las tablas más pequeñas */
+  margin-top: 20px;
+  justify-content: flex-start; /* Alinea las tablas a la izquierda */
+  align-self: flex-start; /* Alinea el contenedor a la izquierda */
+}
+
+.bottomTablesContainer .sectionContainer {
+  flex: 0 0 calc(45% - 20px); /* Reducido el ancho de cada tabla */
+  min-width: 0; /* Asegura que los elementos flexibles puedan reducirse */
+}
+
+.sectionTitle {
+  font-size: 16px; 
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-color);
+  text-align: center; 
+  letter-spacing: 0.5px; /* Mejor espaciado entre letras para aspecto minimalista */
+}
+
+.chartContainer {
+  height: 250px; /* Altura reducida */
+  width: 100%;
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  max-height: 180px; /* Reducida altura máxima para las tablas */
+  overflow-y: auto;
+  margin-top: 5px; /* Espacio superior para mejor aspecto */
+}
+
+/* Estilo minimalista para scroll */
+.tableContainer::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+.customTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 12px; /* Reducido tamaño de fuente */
+}
+
+.customTable th, 
+.customTable td {
+  padding: 8px 12px; /* Ajustado padding para mejor legibilidad */
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0; /* Borde más sutil */
+}
+
+.customTable th {
+  background-color: var(--primary-color); /* Fondo transparente para aspecto minimalista */
+  font-weight: 600;
+  color: var(--text-color);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-size: 13px; /* Ligeramente más grande que las celdas */
+}
+
+.customTable tr:last-child td {
+  border-bottom: none;
+}
+
+.customTable tr:hover {
+  background-color: #f9f9f9;
+}
+
+.popularityContainer {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Ajustado gap */
+  width: 100%;
+}
+
+.popularityBar {
+  height: 5px; /* Más delgada para aspecto minimalista */
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.popularityText {
+  font-size: 10px; /* Reducido tamaño de texto */
+  color: #666; /* Color más suave para el texto de porcentaje */
+  white-space: nowrap;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .bottomTablesContainer {
+    flex-direction: column;
+    width: 90%;
+    gap: 30px;
+    align-self: center;
+  }
+  
+  .bottomTablesContainer .sectionContainer {
+    flex: 1 1 100%;
+  }
+  
+  .chartContainer {
+    height: 200px;
+  }
+  
+  .balanceContainer {
+    width: 90%;
+  }
+}

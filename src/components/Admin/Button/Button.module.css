@@ -1,0 +1,46 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Centrado horizontal */
+    padding: 12px 20px; /* Aumentado padding horizontal */
+    border-radius: 20px;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--large-text-size);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    background-color: #FFFFFF;
+    color: var(--text-color);
+    text-align: center; /* Texto centrado */
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Estado seleccionado */
+.selected {
+    background-color: var(--button-color);
+    color: #FFFFFF;
+    font-weight: var(--font-weight-semibold);
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button:focus {
+    outline: none;
+}
+
+/* Ancho completo */
+.fullWidth {
+    width: 100%;
+}
+
+/* Label centrado */
+.label {
+    display: inline-block;
+    width: 100%;
+    text-align: center; /* Asegura que el texto esté centrado */
+}

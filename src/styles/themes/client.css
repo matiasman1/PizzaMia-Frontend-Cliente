@@ -1,0 +1,29 @@
+@import '../base/client-variables.css';
+
+/* Estilos específicos para páginas de cliente */
+body.client-theme {
+    font-family: var(--client-font-family);
+    color: var(--client-text-color);
+    background-color: var(--client-background-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Aplicar tipografía Sen a todos los elementos en páginas de cliente */
+body.client-theme h1,
+body.client-theme h2,
+body.client-theme h3,
+body.client-theme h4,
+body.client-theme h5,
+body.client-theme h6,
+body.client-theme p,
+body.client-theme span,
+body.client-theme div,
+body.client-theme button,
+body.client-theme input,
+body.client-theme textarea,
+body.client-theme select,
+body.client-theme label,
+body.client-theme a {
+    font-family: var(--client-font-family);
+}
