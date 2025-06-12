@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Mía - Tu nueva pizza favorita</title>
+  <!-- Google Fonts - Sen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Sen', sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    /* Main container */
+    .LandingPageDesktop {
+      width: 100%;
+      position: relative;
+      background: white;
+      overflow-x: hidden;
+    }
+    
+    /* Section styles */
+    .NavBarSections, 
+    .HeroSections, 
+    .AsiFuncionaSections,
+    .MenuSections,
+    .FavoritasSections,
+    .PromocionSections,
+    .NosotrosSections,
+    .FooterSections {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* NavBar styles */
+    .NavBarSections {
+      height: 86px; /* 20% thinner */
+      background: #FFC736;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    .NavBarSections .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .NavBarSections .logo-container .PizzaMA {
+      font-family: 'Sen', sans-serif;
+      font-weight: 600;
+    }
+    
+    .NavBarSections .menu-items {
+      display: flex;
+      gap: 28px; /* Increased from 24px */
+    }
+    
+    .nav-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px; /* Increased from 18px */
+      font-family: 'Sen', sans-serif;
+      font-weight: 500;
+      color: rgba(28, 28, 28, 0.70);
+    }
+    
+    .nav-button.active {
+      color: #1D1D1D;
+      position: relative;
+    }
+    
+    .nav-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; /* Scaled down from -8px */
+      left: 0;
+      width: 100%;
+      height: 3px; /* Scaled down from 4px */
+      background: #FF7622;
+      border-radius: 2px;
+    }
+    
+    .NavBarSections .Button {
+      padding: 18px 8px; /* Scaled down from 22px 10px */
+      width: 180px; /* Scaled down from 221px */
+    }
+    
+    /* Hero section */
+    .HeroSections {
+      padding-top: 86px; /* Adjusted for thinner header */
+      height: calc(640px + 86px);
+      background: #FFC736;
+      display: flex;
+      align-items: center;
+      padding-left: 5%;
+      padding-right: 5%;
+      position: relative; /* Added for proper image positioning */
+    }
+    
+    .HeroSections .content {
+      width: 50%;
+      z-index: 2; /* Ensure content is above images */
+    }
+    
+    .HeroSections .images {
+      width: 50%;
+      height: 640px; /* Fixed height */
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Image positioning in hero section */
+    .hero-main-img {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      width: 500px;
+      height: auto;
+      z-index: 1;
+    }
+    
+    .hero-side-img1 {
+      position: absolute;
+      bottom: 100px;
+      right: 300px;
+      width: 200px;
+      height: auto;
+      z-index: 2;
+    }
+    
+    .hero-side-img2 {
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+      width: 260px;
+      height: auto;
+      z-index: 3;
+    }
+    
+    /* Así Funciona section */
+    .AsiFuncionaSections {
+      height: 640px;
+      background: white;
+      padding: 50px 5%;
+      text-align: center;
+    }
+    
+    .AsiFuncionaSections .features {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 50px;
+    }
+    
+    .feature-item {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* Menu section */
+    .MenuSections {
+      background: white;
+      padding: 50px 0;
+    }
+    
+    /* Favoritas section */
+    .FavoritasSections {
+      height: auto;
+      background: white;
+      padding: 50px 5%;
+      text-align: center;
+    }
+    
+    /* Carousel styles */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      margin: 50px auto;
+      overflow: hidden;
+    }
+    
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .pizza-card {
+      min-width: 330px;
+      height: 409px;
+      background: #FFC736;
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      margin: 0 15px;
+    }
+    
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .carousel-button.left {
+      left: 10px;
+    }
+    
+    .carousel-button.right {
+      right: 10px;
+    }
+    
+    .carousel-button svg {
+      width: 24px;
+      height: 24px;
+      fill: #FF7622;
+    }
+    
+    /* Promocion section */
+    .PromocionSections {
+      height: auto;
+      background: white;
+      padding: 50px 0;
+    }
+    
+    .promo-container {
+      height: 600px;
+      background: #FFC736;
+      display: flex;
+      padding: 0 5%;
+    }
+    
+    /* Nosotros section */
+    .NosotrosSections {
+      height: auto;
+      padding: 50px 5%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+    .map-container {
+      width: 45%;
+      height: 600px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1.4px solid white;
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    
+    /* Footer section */
+    .FooterSections {
+      height: auto;
+      background: #FFC736;
+      padding: 50px 5% 20px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(28.69, 28.69, 28.69, 0.50);
+    }
+    
+    /* Buttons */
+    .Button {
+      background: #FF7622;
+      color: white;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      font-weight: 600;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      width: 221px;
+    }
+    
+    /* Additional styles for layout adjustments */
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="LandingPageDesktop">
+    <!-- NavBar Section -->
+    <div id="navbar" class="NavBarSections">
+      <div class="logo-container">
+        <div class="PizzaMA" style="color: #1D1D1D; font-size: 48px; font-family: Sen; font-weight: 600;">Pizza Mía</div>
+        <div class="Food2" style="margin-left: 10px;">
+          <svg width="47" height="47" viewBox="0 0 56 58" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(20deg);">
+            <g clip-path="url(#clip0_154_240)">
+            <path d="M46.8942 20.9108C43.7559 17.7079 39.5224 14.5888 34.828 12.4987C30.1337 10.4086 25.0955 9.28575 20.5121 9.11217C20.1064 9.09987 19.3191 9.13765 19.2528 9.76115L19.1753 11.8409C19.2008 12.5711 19.5425 12.7232 20.0099 12.9313C20.1409 12.9896 20.3563 12.9979 20.6135 13.009C24.9796 13.2204 29.2688 14.2379 33.2646 16.0101C37.4169 17.8589 41.28 20.6307 43.963 23.4031C44.1801 23.6224 44.301 23.7446 44.4246 23.7997C44.906 24.014 45.1126 24.298 45.7858 23.6957L47.2848 22.2523C47.6272 21.8789 47.2722 21.2983 46.8942 20.9108Z" stroke="#FF7622" stroke-width="2.5625" stroke-miterlimit="10"/>
+            <path d="M42.2464 25.2205C39.4683 22.3269 36.1736 20.1429 32.2459 18.3942C28.3182 16.6455 24.191 15.5969 20.4841 15.4962C19.7855 15.4745 19.0746 15.6576 19.1123 16.5948C19.1425 17.3559 19.2814 37.0782 19.504 44.1898C19.5112 44.4299 19.586 44.6631 19.7199 44.8626C19.8538 45.0621 20.0412 45.2197 20.2606 45.3174C20.4801 45.4151 20.7227 45.4489 20.9605 45.4149C21.1983 45.3809 21.4217 45.2805 21.605 45.1252L42.3122 26.9766C42.7703 26.5757 42.8796 25.8793 42.2464 25.2205Z" stroke="#FF7622" stroke-width="2.5625" stroke-miterlimit="10"/>
+            <path d="M23.9602 24.3083C25.2531 24.8839 26.8009 24.2282 27.4173 22.8436C28.0338 21.4591 27.4854 19.8701 26.1925 19.2945C24.8996 18.7188 23.3518 19.3746 22.7354 20.7591C22.119 22.1437 22.6673 23.7327 23.9602 24.3083Z" fill="#FF7622"/>
+            <path d="M32.7659 29.7304C34.0588 30.3061 35.6066 29.6503 36.223 28.2658C36.8394 26.8812 36.2911 25.2922 34.9982 24.7166C33.7053 24.141 32.1575 24.7967 31.5411 26.1812C30.9246 27.5658 31.473 29.1548 32.7659 29.7304Z" fill="#FF7622"/>
+            <path d="M24.178 36.4209C25.4709 36.9965 27.0187 36.3407 27.6351 34.9562C28.2515 33.5717 27.7032 31.9826 26.4103 31.407C25.1174 30.8314 23.5696 31.4871 22.9532 32.8717C22.3367 34.2562 22.8851 35.8452 24.178 36.4209Z" fill="#FF7622"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_154_240">
+            <rect width="41" height="43.9067" fill="white" transform="translate(17.7275 0.506348) rotate(24)"/>
+            </clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      
+      <div class="menu-items">
+        <button class="nav-button active" onclick="scrollToSection('hero')">Home</button>
+        <button class="nav-button" onclick="scrollToSection('asifunciona')">Así funciona</button>
+        <button class="nav-button" onclick="scrollToSection('menu')">Menú</button>
+        <button class="nav-button" onclick="scrollToSection('nosotros')">Nosotros</button>
+        <button class="nav-button" onclick="scrollToSection('footer')">Contacto</button>
+      </div>
+      
+      <div class="Button">
+        <div class="IniciarSesiN">INICIAR SESIÓN</div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div id="hero" class="HeroSections">
+      <div class="content">
+        <h1 class="TuPrXimaPizzaFavoritaEstAUnClickDeDistancia">
+          <span style="color: #1D1D1D; font-size: 50px; font-family: Sen; font-weight: 600;">Tu próxima </span>
+          <span style="color: #FF7622; font-size: 50px; font-family: Sen; font-weight: 600;">pizza</span>
+          <span style="color: #1D1D1D; font-size: 50px; font-family: Sen; font-weight: 600;"> favorita está a un click de distancia</span>
+        </h1>
+        <p class="NoEsperesMSTuPizzaPerfectaEstSaliendoDelHornoAntesDeQueTerminesDeDecidir" style="margin: 20px 0 40px 0; color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 22px; font-family: Sen; font-weight: 400;">
+          No esperes más. Tu pizza perfecta está saliendo del horno antes de que termines de decidir.
+        </p>
+        <div class="Button">
+          <div class="Empezar">EMPEZAR</div>
+        </div>
+      </div>
+      <div class="images">
+        <img src="/src/assets/landing/Lovepik_com-400595226-pizza 1.svg" class="hero-main-img" alt="Pizza">
+        <img src="/src/assets/landing/image 13.svg" class="hero-side-img1" alt="Pizza">
+        <img src="/src/assets/landing/image 14.svg" class="hero-side-img2" alt="Pizza">
+      </div>
+    </div>
+
+    <!-- Así funciona Section -->
+    <div id="asifunciona" class="AsiFuncionaSections">
+      <div class="section-header">
+        <h3 style="color: #FF7622; font-size: 26px; font-family: Sen; font-weight: 500;">Asi funciona</h3>
+        <h2 style="color: #1D1D1D; font-size: 32px; font-family: Sen; font-weight: 700; margin: 20px 0;">Qué ofrecemos</h2>
+        <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 22px; font-family: Sen; font-weight: 500; max-width: 610px; margin: 0 auto;">
+          La calidad del producto es nuestra prioridad, y siempre garantizamos que sea fresco y seguro hasta que llegue a tus manos.
+        </p>
+      </div>
+      
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-image">
+            <img src="/src/assets/landing/order 1.svg" alt="Fácil de pedir" style="width: 180px; height: 180px;">
+          </div>
+          <h3 style="color: #1D1D1D; font-size: 28px; font-family: Sen; font-weight: 600; margin: 20px 0;">Fácil de pedir</h3>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 20px; font-family: Sen; font-weight: 500;">
+            Solo tenés que hacer tu pedido a través del sitio web.
+          </p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-image">
+            <img src="/src/assets/landing/delivery 1.svg" alt="Entrega rápida" style="width: 180px; height: 180px;">
+          </div>
+          <h3 style="color: #1D1D1D; font-size: 28px; font-family: Sen; font-weight: 600; margin: 20px 0;">Entrega rápida</h3>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 20px; font-family: Sen; font-weight: 500;">
+            Tu pedido llegará a tiempo.
+          </p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-image">
+            <img src="/src/assets/landing/courier 1.svg" alt="La mejor calidad" style="width: 180px; height: 180px;">
+          </div>
+          <h3 style="color: #1D1D1D; font-size: 28px; font-family: Sen; font-weight: 600; margin: 20px 0;">La mejor calidad</h3>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 20px; font-family: Sen; font-weight: 500;">
+            La mejor calidad de comida para vos.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div id="menu" class="MenuSections">
+      <!-- Favorite pizzas section -->
+      <div class="FavoritasSections">
+        <div class="section-header">
+          <h3 style="color: #FF7622; font-size: 26px; font-family: Sen; font-weight: 500;">Nuestro menú</h3>
+          <h2 style="color: #1D1D1D; font-size: 32px; font-family: Sen; font-weight: 700; margin: 20px 0;">Nuestras pizzas favoritas</h2>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 22px; font-family: Sen; font-weight: 500; max-width: 520px; margin: 0 auto;">
+            Las que vuelan primero. Son las favoritas de todos, y no duran mucho. ¿Probaste la tuya?
+          </p>
+        </div>
+        
+        <div class="carousel-container">
+          <button class="carousel-button left" onclick="moveCarousel(-100)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="#FF7622"/>
+            </svg>
+          </button>
+          
+          <div class="carousel-track" id="pizzaCarousel">
+            <div class="pizza-card">
+              <div class="pizza-image">
+                <img src="/src/assets/landing/pizza-margherita.svg" alt="Pizza Margherita" style="width: 318px; height: 159px; margin-top: 20px;">
+              </div>
+              <h3 style="color: black; font-size: 24.62px; font-family: Sen; font-weight: 500; margin-top: 50px;">Clásica Margherita</h3>
+              <p style="color: black; font-size: 28.73px; font-family: Sen; font-weight: 400; margin-top: 20px;">$35.00</p>
+              <div style="position: absolute; bottom: 20px; right: 20px;">
+                <svg width="46" height="51" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.97422 3.00586L2.13428 12.1258V44.0455C2.13428 45.2549 2.6147 46.4148 3.46986 47.2699C4.32502 48.1251 5.48486 48.6055 6.69424 48.6055H38.614C39.8234 48.6055 40.9832 48.1251 41.8384 47.2699C42.6935 46.4148 43.174 45.2549 43.174 44.0455V12.1258L36.334 3.00586H8.97422Z" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.13428 2.12549H43.1739" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.775 2.24463C20.775 4.66338 19.8142 6.98307 18.1038 8.69339C16.3935 10.4037 14.0738 11.3646 11.6551 11.3646C9.23633 11.3646 6.91664 10.4037 5.20632 8.69339C3.496 6.98307 2.53516 4.66338 2.53516 2.24463" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="pizza-card">
+              <div class="pizza-image">
+                <img src="/src/assets/landing/pizza-pepperoni.svg" alt="Pepperoni Power" style="width: 318px; height: 186px; margin-top: 20px;">
+              </div>
+              <h3 style="color: black; font-size: 24.62px; font-family: Sen; font-weight: 500; margin-top: 30px;">Peperoni Power</h3>
+              <p style="color: black; font-size: 28.73px; font-family: Sen; font-weight: 400; margin-top: 20px;">$35.00</p>
+              <div style="position: absolute; bottom: 20px; right: 20px;">
+                <svg width="46" height="51" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.97422 3.00586L2.13428 12.1258V44.0455C2.13428 45.2549 2.6147 46.4148 3.46986 47.2699C4.32502 48.1251 5.48486 48.6055 6.69424 48.6055H38.614C39.8234 48.6055 40.9832 48.1251 41.8384 47.2699C42.6935 46.4148 43.174 45.2549 43.174 44.0455V12.1258L36.334 3.00586H8.97422Z" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.13428 2.12549H43.1739" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.775 2.24463C20.775 4.66338 19.8142 6.98307 18.1038 8.69339C16.3935 10.4037 14.0738 11.3646 11.6551 11.3646C9.23633 11.3646 6.91664 10.4037 5.20632 8.69339C3.496 6.98307 2.53516 4.66338 2.53516 2.24463" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="pizza-card">
+              <div class="pizza-image">
+                <img src="/src/assets/landing/pizza-fugazzetta.svg" alt="La Fugazzeta" style="width: 308px; height: 205px; margin-top: 10px;">
+              </div>
+              <h3 style="color: black; font-size: 24.62px; font-family: Sen; font-weight: 500; margin-top: 30px;">La Fugazzeta</h3>
+              <p style="color: black; font-size: 28.73px; font-family: Sen; font-weight: 400; margin-top: 20px;">$35.00</p>
+              <div style="position: absolute; bottom: 20px; right: 20px;">
+                <svg width="46" height="51" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.97422 3.00586L2.13428 12.1258V44.0455C2.13428 45.2549 2.6147 46.4148 3.46986 47.2699C4.32502 48.1251 5.48486 48.6055 6.69424 48.6055H38.614C39.8234 48.6055 40.9832 48.1251 41.8384 47.2699C42.6935 46.4148 43.174 45.2549 43.174 44.0455V12.1258L36.334 3.00586H8.97422Z" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.13428 2.12549H43.1739" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.775 2.24463C20.775 4.66338 19.8142 6.98307 18.1038 8.69339C16.3935 10.4037 14.0738 11.3646 11.6551 11.3646C9.23633 11.3646 6.91664 10.4037 5.20632 8.69339C3.496 6.98307 2.53516 4.66338 2.53516 2.24463" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="pizza-card">
+              <div class="pizza-image">
+                <img src="/src/assets/landing/pizza-fugazzetta.svg" alt="La Fugazzeta Rellena" style="width: 308px; height: 205px; margin-top: 10px;">
+              </div>
+              <h3 style="color: black; font-size: 24.62px; font-family: Sen; font-weight: 500; margin-top: 30px;">La Fugazzeta Rellena</h3>
+              <p style="color: black; font-size: 28.73px; font-family: Sen; font-weight: 400; margin-top: 20px;">$35.00</p>
+              <div style="position: absolute; bottom: 20px; right: 20px;">
+                <svg width="46" height="51" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.97422 3.00586L2.13428 12.1258V44.0455C2.13428 45.2549 2.6147 46.4148 3.46986 47.2699C4.32502 48.1251 5.48486 48.6055 6.69424 48.6055H38.614C39.8234 48.6055 40.9832 48.1251 41.8384 47.2699C42.6935 46.4148 43.174 45.2549 43.174 44.0455V12.1258L36.334 3.00586H8.97422Z" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.13428 2.12549H43.1739" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.775 2.24463C20.775 4.66338 19.8142 6.98307 18.1038 8.69339C16.3935 10.4037 14.0738 11.3646 11.6551 11.3646C9.23633 11.3646 6.91664 10.4037 5.20632 8.69339C3.496 6.98307 2.53516 4.66338 2.53516 2.24463" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="pizza-card">
+              <div class="pizza-image">
+                <img src="/src/assets/landing/pizza-stromboli.png" alt="Stromboli Deluxe" style="width: 308px; height: 205px; margin-top: 10px;">
+              </div>
+              <h3 style="color: black; font-size: 24.62px; font-family: Sen; font-weight: 500; margin-top: 30px;">Stromboli Deluxe</h3>
+              <p style="color: black; font-size: 28.73px; font-family: Sen; font-weight: 400; margin-top: 20px;">$40.00</p>
+              <div style="position: absolute; bottom: 20px; right: 20px;">
+                <svg width="46" height="51" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.97422 3.00586L2.13428 12.1258V44.0455C2.13428 45.2549 2.6147 46.4148 3.46986 47.2699C4.32502 48.1251 5.48486 48.6055 6.69424 48.6055H38.614C39.8234 48.6055 40.9832 48.1251 41.8384 47.2699C42.6935 46.4148 43.174 45.2549 43.174 44.0455V12.1258L36.334 3.00586H8.97422Z" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.13428 2.12549H43.1739" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.775 2.24463C20.775 4.66338 19.8142 6.98307 18.1038 8.69339C16.3935 10.4037 14.0738 11.3646 11.6551 11.3646C9.23633 11.3646 6.91664 10.4037 5.20632 8.69339C3.496 6.98307 2.53516 4.66338 2.53516 2.24463" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          <button class="carousel-button right" onclick="moveCarousel(100)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#FF7622"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="Button" style="margin-top: 30px;">
+          <div class="ExplorarMen">EXPLORAR MENÚ</div>
+        </div>
+      </div>
+
+      <!-- Promocion section -->
+      <div class="PromocionSections">
+        <div class="section-header" style="text-align: center; padding: 0 5%;">
+          <h2 style="color: #1D1D1D; font-size: 32px; font-family: Sen; font-weight: 700;">El sabor también está en oferta</h2>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 22px; font-family: Sen; font-weight: 500; max-width: 520px; margin: 20px auto;">
+            Aprovechá nuestras ofertas especiales y llevate tu pizza favorita a un precio que te va a hacer sonreír (y repetir).
+          </p>
+        </div>
+        
+        <div class="promo-container">
+          <div class="promo-content" style="width: 50%; padding: 50px 0; padding-left: 5%;">
+            <h3 style="color: black; font-size: 38px; font-family: Sen; font-weight: 600;">Combo de pizza + bebida</h3>
+            <h2 style="color: black; font-size: 78px; font-family: Sen; font-weight: 600; margin: 20px 0;">¡Promoción <br/>Especial!</h2>
+            <p style="color: black; font-size: 33px; font-family: Sen; font-weight: 600; margin-bottom: 30px;">Solo por tiempo limitado</p>
+            <div class="Button">
+              <div class="ExplorarMen">EXPLORAR MENÚ</div>
+            </div>
+          </div>
+          <div class="promo-image" style="width: 50%;">
+            <img src="/src/assets/landing/promo-coke-pizza.svg" alt="Promoción Especial" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Nosotros Section -->
+    <div id="nosotros" class="NosotrosSections">
+      <div class="section-header" style="width: 100%; text-align: center; margin-bottom: 40px;">
+        <h3 style="color: #DD714E; font-size: 26px; font-family: Sen; font-weight: 500;">Nosotros</h3>
+        <h2 style="color: #1D1D1D; font-size: 32px; font-family: Sen; font-weight: 700; margin: 20px 0;">Dónde encontrarnos y cuándo visitarnos</h2>
+      </div>
+      
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6699.354174374493!2d-68.86481309999999!3d-32.9067049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e09a204f7b963%3A0xead55ce83321ea9f!2sJuan%20B.%20Justo%202875%2C%20M5504IJV%20Godoy%20Cruz%2C%20Mendoza!5e0!3m2!1ses-419!2sar!4v1748621617619!5m2!1ses-419!2sar" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      
+      <div class="nosotros-info" style="width: 45%;">
+        <div class="location-info" style="margin-bottom: 50px;">
+          <div style="display: flex; align-items: center; margin-bottom: 30px;">
+            <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30.5 6.12598C21.1836 6.12598 13.625 13.3201 13.625 22.1807C13.625 32.376 24.875 48.5326 29.0059 54.1131C29.1773 54.3487 29.4021 54.5403 29.6617 54.6725C29.9214 54.8047 30.2086 54.8736 30.5 54.8736C30.7914 54.8736 31.0786 54.8047 31.3383 54.6725C31.5979 54.5403 31.8227 54.3487 31.9941 54.1131C36.125 48.535 47.375 32.3842 47.375 22.1807C47.375 13.3201 39.8164 6.12598 30.5 6.12598Z" stroke="#FF7622" stroke-width="3.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M30.5 28.6011C33.5937 28.6011 36.1016 26.0513 36.1016 22.906C36.1016 19.7607 33.5937 17.2109 30.5 17.2109C27.4063 17.2109 24.8984 19.7607 24.8984 22.906C24.8984 26.0513 27.4063 28.6011 30.5 28.6011Z" stroke="#FF7622" stroke-width="3.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 style="color: #1D1D1D; font-size: 32px; font-family: Sen; font-weight: 700; margin-left: 10px;">Dirección</h3>
+          </div>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 22px; font-family: Sen; font-weight: 500;">
+            Av. Juan B. Justo 2875, <br/>Edificio Torre Norte, Local 5B, <br/>Godoy Cruz, Mendoza
+          </p>
+        </div>
+        
+        <div class="hours-info">
+          <div style="display: flex; align-items: center; margin-bottom: 30px;">
+            <svg width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30.5 7.5C18.0781 7.5 8 17.5781 8 30C8 42.4219 18.0781 52.5 30.5 52.5C42.9219 52.5 53 42.4219 53 30C53 17.5781 42.9219 7.5 30.5 7.5Z" stroke="#FF7622" stroke-width="3.75" stroke-miterlimit="10"/>
+              <path d="M30.5 15V31.875H41.75" stroke="#F47200" stroke-width="3.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 style="color: #1D1D1D; font-size: 32px; font-family: Sen; font-weight: 700; margin-left: 10px;">Horarios de atención</h3>
+          </div>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 22px; font-family: Sen; font-weight: 500;">
+            <strong>Lunes a Sábado:</strong> 12:00 p.m. – 11:00 p.m. <br/>
+            <strong>Domingos:</strong> 5:00 p.m. – 10:00 p.m.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div id="footer" class="FooterSections">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h2 style="color: #1D1D1D; font-size: 48px; font-family: Sen; font-weight: 600; margin-bottom: 20px;">Pizza Mía</h2>
+          <div class="Food2" style="margin-left: 10px;">
+            <svg width="47" height="47" viewBox="0 0 56 58" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(20deg);">
+              <g clip-path="url(#clip0_154_240)">
+              <path d="M46.8942 20.9108C43.7559 17.7079 39.5224 14.5888 34.828 12.4987C30.1337 10.4086 25.0955 9.28575 20.5121 9.11217C20.1064 9.09987 19.3191 9.13765 19.2528 9.76115L19.1753 11.8409C19.2008 12.5711 19.5425 12.7232 20.0099 12.9313C20.1409 12.9896 20.3563 12.9979 20.6135 13.009C24.9796 13.2204 29.2688 14.2379 33.2646 16.0101C37.4169 17.8589 41.28 20.6307 43.963 23.4031C44.1801 23.6224 44.301 23.7446 44.4246 23.7997C44.906 24.014 45.1126 24.298 45.7858 23.6957L47.2848 22.2523C47.6272 21.8789 47.2722 21.2983 46.8942 20.9108Z" stroke="#FF7622" stroke-width="2.5625" stroke-miterlimit="10"/>
+              <path d="M42.2464 25.2205C39.4683 22.3269 36.1736 20.1429 32.2459 18.3942C28.3182 16.6455 24.191 15.5969 20.4841 15.4962C19.7855 15.4745 19.0746 15.6576 19.1123 16.5948C19.1425 17.3559 19.2814 37.0782 19.504 44.1898C19.5112 44.4299 19.586 44.6631 19.7199 44.8626C19.8538 45.0621 20.0412 45.2197 20.2606 45.3174C20.4801 45.4151 20.7227 45.4489 20.9605 45.4149C21.1983 45.3809 21.4217 45.2805 21.605 45.1252L42.3122 26.9766C42.7703 26.5757 42.8796 25.8793 42.2464 25.2205Z" stroke="#FF7622" stroke-width="2.5625" stroke-miterlimit="10"/>
+              <path d="M23.9602 24.3083C25.2531 24.8839 26.8009 24.2282 27.4173 22.8436C28.0338 21.4591 27.4854 19.8701 26.1925 19.2945C24.8996 18.7188 23.3518 19.3746 22.7354 20.7591C22.119 22.1437 22.6673 23.7327 23.9602 24.3083Z" fill="#FF7622"/>
+              <path d="M32.7659 29.7304C34.0588 30.3061 35.6066 29.6503 36.223 28.2658C36.8394 26.8812 36.2911 25.2922 34.9982 24.7166C33.7053 24.141 32.1575 24.7967 31.5411 26.1812C30.9246 27.5658 31.473 29.1548 32.7659 29.7304Z" fill="#FF7622"/>
+              <path d="M24.178 36.4209C25.4709 36.9965 27.0187 36.3407 27.6351 34.9562C28.2515 33.5717 27.7032 31.9826 26.4103 31.407C25.1174 30.8314 23.5696 31.4871 22.9532 32.8717C22.3367 34.2562 22.8851 35.8452 24.178 36.4209Z" fill="#FF7622"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_154_240">
+              <rect width="41" height="43.9067" fill="white" transform="translate(17.7275 0.506348) rotate(24)"/>
+              </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div class="social-icons">
+            <svg width="69" height="72" viewBox="0 0 69 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_154_84)">
+              <rect x="12" y="8" width="45" height="48" rx="22.5" fill="white" shape-rendering="crispEdges"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M29.965 21.066C31.138 21.012 31.512 21 34.5 21C37.488 21 37.862 21.013 39.034 21.066C40.206 21.119 41.006 21.306 41.706 21.577C42.439 21.854 43.104 22.287 43.654 22.847C44.214 23.396 44.646 24.06 44.922 24.794C45.194 25.494 45.38 26.294 45.434 27.464C45.488 28.639 45.5 29.013 45.5 32C45.5 34.988 45.487 35.362 45.434 36.535C45.381 37.705 45.194 38.505 44.922 39.205C44.646 39.9391 44.2133 40.6042 43.654 41.154C43.104 41.714 42.439 42.146 41.706 42.422C41.006 42.694 40.206 42.88 39.036 42.934C37.862 42.988 37.488 43 34.5 43C31.512 43 31.138 42.987 29.965 42.934C28.795 42.881 27.995 42.694 27.295 42.422C26.5609 42.146 25.8958 41.7133 25.346 41.154C24.7864 40.6047 24.3533 39.9399 24.077 39.206C23.806 38.506 23.62 37.706 23.566 36.536C23.512 35.361 23.5 34.987 23.5 32C23.5 29.012 23.513 28.638 23.566 27.466C23.619 26.294 23.806 25.494 24.077 24.794C24.3537 24.0601 24.7871 23.3953 25.347 22.846C25.896 22.2865 26.5605 21.8534 27.294 21.577C27.994 21.306 28.794 21.12 29.964 21.066H29.965ZM38.945 23.046C37.785 22.993 37.437 22.982 34.5 22.982C31.563 22.982 31.215 22.993 30.055 23.046C28.982 23.095 28.4 23.274 28.012 23.425C27.499 23.625 27.132 23.862 26.747 24.247C26.382 24.6021 26.1012 25.0343 25.925 25.512C25.774 25.9 25.595 26.482 25.546 27.555C25.493 28.715 25.482 29.063 25.482 32C25.482 34.937 25.493 35.285 25.546 36.445C25.595 37.518 25.774 38.1 25.925 38.488C26.101 38.965 26.382 39.398 26.747 39.753C27.102 40.118 27.535 40.399 28.012 40.575C28.4 40.726 28.982 40.905 30.055 40.954C31.215 41.007 31.562 41.018 34.5 41.018C37.438 41.018 37.785 41.007 38.945 40.954C40.018 40.905 40.6 40.726 40.988 40.575C41.501 40.375 41.868 40.138 42.253 39.753C42.618 39.398 42.899 38.965 43.075 38.488C43.226 38.1 43.405 37.518 43.454 36.445C43.507 35.285 43.518 34.937 43.518 32C43.518 29.063 43.507 28.715 43.454 27.555C43.405 26.482 43.226 25.9 43.075 25.512C42.875 24.999 42.638 24.632 42.253 24.247C41.8979 23.8821 41.4657 23.6012 40.988 23.425C40.6 23.274 40.018 23.095 38.945 23.046ZM33.095 35.391C33.8797 35.7176 34.7534 35.7617 35.5669 35.5157C36.3805 35.2697 37.0834 34.7489 37.5556 34.0422C38.0278 33.3356 38.2401 32.4869 38.156 31.6411C38.072 30.7953 37.697 30.005 37.095 29.405C36.7112 29.0215 36.2472 28.7278 35.7363 28.5451C35.2255 28.3625 34.6804 28.2954 34.1405 28.3486C33.6006 28.4019 33.0792 28.5742 32.6138 28.8531C32.1485 29.1321 31.7507 29.5107 31.4493 29.9619C31.1479 30.413 30.9502 30.9253 30.8705 31.462C30.7908 31.9986 30.8312 32.5463 30.9885 33.0655C31.1459 33.5847 31.4165 34.0626 31.7807 34.4647C32.145 34.8668 32.5938 35.1832 33.095 35.391ZM30.502 28.002C31.027 27.477 31.6503 27.0605 32.3363 26.7764C33.0223 26.4922 33.7575 26.346 34.5 26.346C35.2425 26.346 35.9777 26.4922 36.6637 26.7764C37.3497 27.0605 37.973 27.477 38.498 28.002C39.023 28.527 39.4395 29.1503 39.7236 29.8363C40.0078 30.5223 40.154 31.2575 40.154 32C40.154 32.7425 40.0078 33.4777 39.7236 34.1637C39.4395 34.8497 39.023 35.473 38.498 35.998C37.4377 37.0583 35.9995 37.654 34.5 37.654C33.0005 37.654 31.5623 37.0583 30.502 35.998C29.4417 34.9377 28.846 33.4995 28.846 32C28.846 30.5005 29.4417 29.0623 30.502 28.002ZM41.408 27.188C41.5381 27.0653 41.6423 26.9177 41.7143 26.754C41.7863 26.5903 41.8248 26.4138 41.8274 26.2349C41.83 26.0561 41.7967 25.8785 41.7295 25.7128C41.6622 25.5471 41.5624 25.3965 41.436 25.27C41.3095 25.1436 41.1589 25.0438 40.9932 24.9765C40.8275 24.9093 40.6499 24.876 40.4711 24.8786C40.2922 24.8812 40.1157 24.9197 39.952 24.9917C39.7883 25.0637 39.6407 25.1679 39.518 25.298C39.2793 25.551 39.1486 25.8871 39.1537 26.2349C39.1588 26.5827 39.2992 26.9149 39.5452 27.1608C39.7911 27.4068 40.1233 27.5472 40.4711 27.5523C40.8189 27.5574 41.155 27.4267 41.408 27.188Z" fill="#1D1D1D"/>
+              </g>
+            </svg>
+            
+            <svg width="94" height="96" viewBox="0 0 94 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_154_83)">
+              <rect x="24" y="20" width="46" height="48" rx="23" fill="#FF7622" shape-rendering="crispEdges"/>
+              <path d="M48.397 52.9986V44.8026H51.162L51.573 41.5936H48.397V39.5496C48.397 38.6236 48.655 37.9896 49.984 37.9896H51.668V35.1286C50.8487 35.0408 50.0251 34.9984 49.201 35.0016C46.757 35.0016 45.079 36.4936 45.079 39.2326V41.5876H42.332V44.7966H45.085V52.9986H48.397Z" fill="#1D1D1D"/>
+              </g>
+            </svg>
+            
+            <svg width="69" height="72" viewBox="0 0 69 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_154_85)">
+              <rect x="12" y="8" width="45" height="48" rx="22.5" fill="white" shape-rendering="crispEdges"/>
+              <path d="M45.853 24.96C45.018 25.33 44.121 25.58 43.178 25.693C44.151 25.1108 44.8789 24.1945 45.226 23.115C44.3118 23.658 43.3113 24.0402 42.268 24.245C41.5664 23.4959 40.637 22.9994 39.6243 22.8325C38.6116 22.6656 37.5721 22.8378 36.6672 23.3223C35.7624 23.8067 35.0427 24.5764 34.6201 25.5117C34.1975 26.4471 34.0955 27.4958 34.33 28.495C32.4777 28.402 30.6656 27.9206 29.0114 27.0819C27.3572 26.2433 25.8978 25.0662 24.728 23.627C24.328 24.317 24.098 25.117 24.098 25.969C24.0975 26.736 24.2864 27.4913 24.6479 28.1678C25.0093 28.8442 25.5321 29.4211 26.17 29.847C25.4302 29.8235 24.7068 29.6236 24.06 29.264V29.324C24.0599 30.3998 24.432 31.4424 25.1132 32.275C25.7943 33.1076 26.7425 33.679 27.797 33.892C27.1108 34.0777 26.3913 34.1051 25.693 33.972C25.9905 34.8976 26.57 35.7071 27.3503 36.287C28.1307 36.8669 29.0729 37.1882 30.045 37.206C28.3948 38.5014 26.3569 39.2041 24.259 39.201C23.8874 39.2011 23.516 39.1794 23.147 39.136C25.2764 40.5052 27.7553 41.2318 30.287 41.229C38.857 41.229 43.542 34.131 43.542 27.975C43.542 27.775 43.537 27.573 43.528 27.373C44.4393 26.714 45.2259 25.8979 45.851 24.963L45.853 24.96Z" fill="#1D1D1D"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3 style="color: #1D1D1D; font-size: 20px; font-family: Sen; font-weight: 500; margin-bottom: 20px;">Enlaces rápidos</h3>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 18px; font-family: Sen; font-weight: 400; margin: 10px 0; cursor: pointer;" onclick="scrollToSection('hero')">Home</p>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 18px; font-family: Sen; font-weight: 400; margin: 10px 0; cursor: pointer;" onclick="scrollToSection('asifunciona')">Así funciona</p>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 18px; font-family: Sen; font-weight: 400; margin: 10px 0; cursor: pointer;" onclick="scrollToSection('menu')">Menú</p>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 18px; font-family: Sen; font-weight: 400; margin: 10px 0; cursor: pointer;" onclick="scrollToSection('nosotros')">Nostros</p>
+        </div>
+        
+        <div class="footer-contact">
+          <h3 style="color: #1D1D1D; font-size: 20px; font-family: Sen; font-weight: 500; margin-bottom: 20px;">Ponte en contacto</h3>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 18px; font-family: Sen; font-weight: 400; margin: 10px 0;">+62 896 7311 2766</p>
+          <p style="color: rgba(28.69, 28.69, 28.69, 0.70); font-size: 18px; font-family: Sen; font-weight: 400; margin: 10px 0;">PizzaMía@example.com</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p style="color: #1D1D1D; font-size: 16px; font-family: Sen; font-weight: 400;">© 2025 PizzaMía. ALL RIGHT RESERVED.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for section navigation with easing effect
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        // Get the element's position
+        const offsetTop = section.offsetTop;
+        
+        // Get current position
+        const startPosition = window.pageYOffset;
+        const distance = offsetTop - startPosition;
+        
+        // Define duration and start time
+        const duration = 1000; // 1 second
+        let startTime = null;
+        
+        // Animation function with easing
+        function animation(currentTime) {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const progress = Math.min(timeElapsed / duration, 1);
+          
+          // Ease out cubic - starts fast and slows down
+          const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+          
+          window.scrollTo(0, startPosition + distance * easeOutCubic);
+          
+          if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+          }
+        }
+        
+        // Start animation
+        requestAnimationFrame(animation);
+      }
+      
+      // Update active button
+      const buttons = document.querySelectorAll('.nav-button');
+      buttons.forEach(button => {
+        button.classList.remove('active');
+      });
+      
+      // Find and activate the corresponding button in the navbar
+      const navButtons = document.querySelectorAll('.nav-button');
+      navButtons.forEach(button => {
+        if (button.getAttribute('data-section') === sectionId) {
+          button.classList.add('active');
+        }
+      });
+    }
+    
+    // Add data-section attributes to all nav buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const navButtons = document.querySelectorAll('.nav-button');
+      navButtons.forEach(button => {
+        button.setAttribute('data-section', button.getAttribute('onclick').split("'")[1]);
+      });
+      
+      // Highlight active section on scroll
+      window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY;
+        
+        // Get all sections
+        const sections = ['hero', 'asifunciona', 'menu', 'nosotros', 'footer'];
+        
+        // Check which section is in view
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = document.getElementById(sections[i]);
+          if (section) {
+            const sectionTop = section.offsetTop;
+            
+            if (scrollPosition >= sectionTop - 110) { // 110px offset for the header
+              // Update active button
+              const buttons = document.querySelectorAll('.nav-button');
+              buttons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-section') === sections[i]) {
+                  button.classList.add('active');
+                }
+              });
+              break;
+            }
+          }
+        }
+      });
+    });
+    
+    // JavaScript for pizza carousel
+    let position = 0;
+    const track = document.getElementById('pizzaCarousel');
+    
+    function moveCarousel(pixels) {
+      // Invert the direction (swap left and right functionality)
+      position -= pixels;
+      
+      // Implement limits to prevent scrolling too far
+      const trackWidth = track.scrollWidth;
+      const containerWidth = track.parentElement.clientWidth;
+      const maxPosition = trackWidth - containerWidth;
+      
+      // Prevent scrolling too far in either direction
+      if (position > 0) position = 0;
+      if (position < -maxPosition) position = -maxPosition;
+      
+      track.style.transform = `translateX(${position}px)`;
+    }
+  </script>
+</body>
+</html>

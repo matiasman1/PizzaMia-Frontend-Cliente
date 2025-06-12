@@ -1,0 +1,63 @@
+.sidebar {
+    width: 250px; /* Ancho fijo */
+    height: calc(100vh - 80px); /* Resta el alto del NavBar */
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 80px; /* Ajusta el margen superior al alto del NavBar */
+    position: fixed;
+}
+
+
+.divider {
+    width: 180px;
+    margin: -20px auto 24px auto; /* Centrado y con margen inferior */
+    border: none;
+    height: 2px;
+    background-color: #000000;
+    border-radius: 2px;
+    display: absolute;
+}
+
+.menuList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.menuButton {
+    width: 100%;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: var(--large-text-size);
+    background-color: #FFFFFF;
+    color: var(--text-color);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+    text-decoration: none; /* Elimina el subrayado de enlaces */
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.menuButton:hover {
+    background-color: #F0F0F0;
+}
+
+.menuButton.selected {
+    background-color: var(--button-color);
+    color: #FFFFFF;
+}
+
+.menuButton:focus {
+    outline: none;
+}

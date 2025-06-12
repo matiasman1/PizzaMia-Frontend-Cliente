@@ -1,0 +1,269 @@
+.container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.sectionTitle {
+    font-size: var(--client-title-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.formSection {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    transition: margin-bottom 0.3s ease;
+}
+
+.formGroup label {
+    font-size: var(--client-body-size);
+    font-weight: var(--client-font-weight-medium);
+    margin-bottom: 10px;
+    color: #333;
+    font-family: var(--client-font-family);
+}
+
+.confirmLabel {
+    margin-top: 15px;
+}
+
+.formGroup input {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: var(--client-small-size);
+    background-color: #f5f5f5;
+    width: 100%;
+    box-sizing: border-box;
+    color: #000000;
+    font-family: var(--client-font-family);
+}
+
+.formGroup input::placeholder {
+    color: #9e9e9e;
+    opacity: 1;
+    font-family: var(--client-font-family);
+}
+
+.formGroup input.placeholderValue {
+    color: #9e9e9e;
+}
+
+.formGroup input:focus {
+    border-color: #c0c0c0;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.inputWithIcon {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.inputWithIcon input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.editIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    font-family: var(--client-font-family);
+}
+
+.passwordField {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.passwordField input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: #666;
+}
+
+.changePasswordLink {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
+    font-family: var(--client-font-family);
+}
+
+/* Botones de acción */
+.actionButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.acceptButton,
+.cancelButton {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: var(--client-font-weight-medium);
+    font-size: var(--client-small-size);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: var(--client-font-family);
+}
+
+.acceptButton {
+    background-color: var(--client-accent-color);
+    color: white;
+}
+
+.acceptButton:hover {
+    background-color: #E65D11;
+}
+
+.cancelButton {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.cancelButton:hover {
+    background-color: #e8e8e8;
+}
+
+/* Selector de país */
+.phoneInputContainer {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+.countrySelector {
+    position: relative;
+    margin-right: 10px;
+}
+
+.countryButton {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--client-small-size);
+    height: 42px;
+    box-sizing: border-box;
+    font-family: var(--client-font-family);
+}
+
+.countryButton:hover {
+    background-color: #e8e8e8;
+}
+
+.flagIcon {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.countryDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 250px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+}
+
+.countryOption {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: var(--client-font-family);
+}
+
+.countryOption:hover {
+    background-color: #f5f5f5;
+}
+
+.countryFlag {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.countryName {
+    font-size: var(--client-small-size);
+    color: #333;
+    flex-grow: 1;
+    font-family: var(--client-font-family);
+}
+
+.countryCode {
+    font-size: var(--client-small-size);
+    color: #666;
+    font-family: var(--client-font-family);
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 100%;
+    }
+}

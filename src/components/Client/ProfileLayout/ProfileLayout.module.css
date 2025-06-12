@@ -1,0 +1,41 @@
+.layoutContainer {
+    display: flex;
+    min-height: 100vh;
+    background-color: #ffffff;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+    font-family: var(--client-font-family);
+}
+
+.sidebarWrapper {
+    flex: 0 0 540px;
+    position: relative;
+}
+
+.contentWrapper {
+  flex: 1;
+  margin-left: 0; /* Eliminamos el margen-izquierdo predeterminado */
+  padding-left: 20px; /* Reducimos el padding izquierdo del contenido */
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+/* Aseguramos que la responsividad se mantenga */
+@media (max-width: 768px) {
+  .layoutContainer {
+    flex-direction: column;
+  }
+  
+  .sidebarWrapper {
+    flex: none;
+    height: auto;
+  }
+  
+  .contentWrapper {
+    margin-left: 0;
+    padding: 15px 20px;
+  }
+}

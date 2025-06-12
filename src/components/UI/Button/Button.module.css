@@ -1,0 +1,26 @@
+.button {
+  padding: 18px 8px;
+  width: 180px;
+  background: #FF7622;
+  color: white;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: 'Sen', sans-serif;
+}
+
+.buttonText {
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .button {
+    width: 160px;
+    padding: 15px 8px;
+  }
+}

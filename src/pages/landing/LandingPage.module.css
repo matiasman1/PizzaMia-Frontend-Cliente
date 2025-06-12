@@ -1,0 +1,650 @@
+/* Remove styles that have been moved to component-specific CSS modules */
+
+.landingPageDesktop {
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+  background: white;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Section styles */
+.heroSections, 
+.asiFuncionaSections,
+.menuSections,
+.favoritasSections,
+.promocionSections,
+.nosotrosSections {
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Hero section */
+.heroSections {
+  padding-top: 86px;
+  height: calc(640px + 86px);
+  background: #FFC736;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.heroSections .content {
+  width: 50%;
+  z-index: 2;
+  max-width: calc(50% - 40px);
+  box-sizing: border-box;
+}
+
+.heroTitle {
+  color: #1D1D1D;
+  font-size: 50px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.accentText {
+  color: #FF7622;
+}
+
+.heroDescription {
+  margin: 20px 0 40px 0;
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+.heroSections .images {
+  width: 50%;
+  height: 640px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Image positioning in hero section */
+.heroMainImg {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 500px;
+  height: auto;
+  z-index: 1;
+  max-width: 100%;
+}
+
+.heroSideImg1 {
+  position: absolute;
+  bottom: 100px;
+  right: 300px;
+  width: 200px;
+  height: auto;
+  z-index: 2;
+  max-width: 40%;
+}
+
+.heroSideImg2 {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  width: 260px;
+  height: auto;
+  z-index: 3;
+  max-width: 50%;
+}
+
+/* Así Funciona section */
+.asiFuncionaSections {
+  height: auto;
+  min-height: 640px;
+  background: white;
+  padding: 50px 5%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* ...existing code... */
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.sectionTag {
+  color: #FF7622;
+  font-size: 26px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+}
+
+.sectionTitle {
+  color: #1D1D1D;
+  font-size: 32px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+.sectionDescription {
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  max-width: 610px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.featureItem {
+  width: 30%;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.featureImage img {
+  width: 180px;
+  height: 180px;
+  max-width: 100%;
+  height: auto;
+}
+
+.featureTitle {
+  color: #1D1D1D;
+  font-size: 28px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.featureDescription {
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 20px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Menu section */
+.menuSections {
+  background: white;
+  padding: 50px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Favoritas section */
+.favoritasSections {
+  height: auto;
+  background: white;
+  padding: 50px 5%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Carousel styles */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 50px auto;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: max-content;
+}
+
+.pizzaCard {
+  min-width: 330px;
+  height: 409px;
+  background: #FFC736;
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  margin: 0 15px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.pizzaImage img {
+  width: 308px;
+  height: auto;
+  max-height: 205px;
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.pizzaTitle {
+  color: black;
+  font-size: 24.62px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  margin-top: 30px;
+  line-height: 1.2;
+}
+
+.pizzaPrice {
+  color: black;
+  font-size: 28.73px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.cartIcon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 46px;
+  height: 51px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  color: #FF7622;
+  font-size: 20px;
+}
+
+.carouselButton.left {
+  left: 10px;
+}
+
+.carouselButton.right {
+  right: 10px;
+}
+
+/* Promocion section */
+.promocionSections {
+  height: auto;
+  background: white;
+  padding: 50px 0;
+  box-sizing: border-box;
+}
+
+.promoContainer {
+  height: auto;
+  min-height: 600px;
+  background: #FFC736;
+  display: flex;
+  padding: 0 5%;
+  box-sizing: border-box;
+}
+
+.promoContent {
+  width: 50%;
+  padding: 50px 0;
+  padding-left: 5%;
+  box-sizing: border-box;
+}
+
+.promoCategory {
+  color: black;
+  font-size: 38px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.promoTitle {
+  color: black;
+  font-size: 78px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin: 20px 0;
+  line-height: 1.1;
+}
+
+.promoTime {
+  color: black;
+  font-size: 33px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.promoImage {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.promoImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+/* Nosotros section */
+.nosotrosSections {
+  height: auto;
+  padding: 50px 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  gap: 40px;
+}
+
+.nosotrosSections .sectionHeader {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.mapContainer {
+  width: 45%;
+  min-width: 300px;
+  height: 600px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1.4px solid white;
+  box-sizing: border-box;
+}
+
+.mapContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.nosotrosInfo {
+  width: 45%;
+  min-width: 300px;
+  box-sizing: border-box;
+}
+
+.locationInfo {
+  margin-bottom: 50px;
+}
+
+.infoHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.infoIcon {
+  font-size: 30px;
+  color: #FF7622;
+  margin-right: 10px;
+}
+
+.infoTitle {
+  color: #1D1D1D;
+  font-size: 32px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+}
+
+.infoText {
+  color: rgba(28, 28, 28, 0.70);
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1200px) {
+  .heroMainImg {
+    width: 400px;
+  }
+  
+  .heroSideImg1 {
+    width: 160px;
+    right: 250px;
+  }
+  
+  .heroSideImg2 {
+    width: 200px;
+  }
+  
+  .promoTitle {
+    font-size: 60px;
+  }
+  
+  .promoCategory {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 992px) {
+  .heroSections {
+    flex-direction: column;
+    height: auto;
+    padding: 86px 5% 50px;
+    text-align: center;
+  }
+  
+  .heroSections .content {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  .heroSections .images {
+    width: 100%;
+    height: 400px;
+    position: relative;
+  }
+  
+  .heroMainImg {
+    width: 350px;
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+  
+  .heroSideImg1, .heroSideImg2 {
+    display: none;
+  }
+  
+  .features {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .featureItem {
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .promoContainer {
+    flex-direction: column;
+    padding: 40px 5%;
+  }
+  
+  .promoContent, .promoImage {
+    width: 100%;
+  }
+  
+  .promoContent {
+    padding-left: 0;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .mapContainer, .nosotrosInfo {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .nosotrosSections {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .landingPageDesktop {
+    overflow-x: hidden;
+  }
+  
+  .heroSections {
+    padding: 86px 3% 30px;
+  }
+  
+  .heroTitle {
+    font-size: 36px;
+  }
+  
+  .heroDescription {
+    font-size: 18px;
+    max-width: 100%;
+  }
+  
+  .asiFuncionaSections,
+  .favoritasSections,
+  .promocionSections,
+  .nosotrosSections {
+    padding: 30px 3%;
+  }
+  
+  .sectionTitle {
+    font-size: 28px;
+  }
+  
+  .sectionDescription {
+    font-size: 18px;
+  }
+  
+  .featureTitle {
+    font-size: 24px;
+  }
+  
+  .featureDescription {
+    font-size: 16px;
+  }
+  
+  .pizzaCard {
+    min-width: 280px;
+    height: 350px;
+    margin: 0 10px;
+  }
+  
+  .pizzaImage img {
+    width: 240px;
+    max-height: 150px;
+  }
+  
+  .pizzaTitle {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  
+  .pizzaPrice {
+    font-size: 24px;
+  }
+  
+  .promoTitle {
+    font-size: 48px;
+  }
+  
+  .promoCategory {
+    font-size: 28px;
+  }
+  
+  .promoTime {
+    font-size: 24px;
+  }
+  
+  .infoTitle {
+    font-size: 24px;
+  }
+  
+  .infoText {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 28px;
+  }
+  
+  .heroDescription {
+    font-size: 16px;
+  }
+  
+  .sectionTitle {
+    font-size: 24px;
+  }
+  
+  .sectionDescription {
+    font-size: 16px;
+  }
+  
+  .pizzaCard {
+    min-width: 240px;
+    height: 300px;
+  }
+  
+  .pizzaImage img {
+    width: 200px;
+    max-height: 120px;
+  }
+  
+  .promoTitle {
+    font-size: 36px;
+  }
+  
+  .promoCategory {
+    font-size: 24px;
+  }
+  
+  .carouselContainer {
+    margin: 30px auto;
+  }
+}

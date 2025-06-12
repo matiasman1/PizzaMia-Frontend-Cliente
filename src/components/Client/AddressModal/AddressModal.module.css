@@ -1,0 +1,253 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+    padding: 20px 20px 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.goBackContainer {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.content {
+    padding: 30px 20px 20px 20px;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.locationField {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.locationIcon {
+    margin-right: 12px;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.locationInput {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+    outline: none;
+    font-weight: 500;
+    width: 100%;
+}
+
+.dropdownContainer {
+    position: relative;
+    width: 100%;
+}
+
+.dropdownInput {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.dropdownInput::placeholder {
+    color: #999;
+}
+
+.dropdownIcon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+}
+
+.dropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdownItem {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.dropdownItem:hover {
+    background-color: #f8f9fa;
+}
+
+.selectedItem {
+    background-color: #e8f4fd;
+    color: #1976d2;
+}
+
+.checkIcon {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+.rowGroup {
+    display: flex;
+    gap: 16px;
+}
+
+.rowGroup .formGroup {
+    flex: 1;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: #e67e22;
+}
+
+.input::placeholder {
+    color: #999;
+}
+
+.saveButton {
+    width: 100%;
+    padding: 16px;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.saveButton:hover:not(:disabled) {
+    background-color: #d35400;
+}
+
+.saveButton.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .modal {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .header {
+        padding: 16px;
+    }
+    
+    .content {
+        padding: 20px 16px 16px 16px;
+    }
+    
+    .title {
+        font-size: 20px;
+    }
+    
+    .rowGroup {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .rowGroup .formGroup {
+        margin-bottom: 20px;
+    }
+}

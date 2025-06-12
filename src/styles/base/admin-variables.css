@@ -1,0 +1,35 @@
+/* Colores */
+:root {
+    --primary-color: #FFFFFF;
+    --secondary-color: #0096D2;
+    --text-color: #000000;
+    --background-color: #E4EEFF;
+
+    /* Estados */
+    --success-color: #5ACD40;
+    --error-color: #D64C4C;
+    --warning-color-1: #FF6E40;
+    --warning-color-2: #FAAE42;
+
+    /* Botones */
+    --button-color: #5578C7;
+
+    /* Tipografía */
+    --font-family: 'Rubik', sans-serif;
+
+    /* Tamaños de encabezados */
+    --h1-size: 64px;
+    --h2-size: 40px;
+    --h3-size: 32px;
+    --h4-size: 24px;
+
+    /* Tamaños de texto */
+    --large-text-size: 20px;
+    --button-text-size: 18px;
+    --small-text-size: 14px;
+
+    /* Peso de fuente */
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+}

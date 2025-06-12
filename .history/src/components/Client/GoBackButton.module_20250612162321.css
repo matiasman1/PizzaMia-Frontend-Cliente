@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--client-font-family);
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 0;
+    font-family: var(--client-font-family);
+}
+
+.backIcon {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: var(--client-font-weight-medium);
+    margin-top: 10px;
+    color: #333;
+    font-family: var(--client-font-family);
+}
+
+/* Variante para modales */
+.modalVariant .backButton {
+    font-size: 18px; /* Aumentado de 16px a 18px */
+    padding: 8px; /* Aumentado padding para mayor área clickeable */
+    color: #333;
+    justify-content: center;
+    border-radius: 8px; /* Ligeramente redondeado */
+    transition: background-color 0.2s;
+}
+
+.modalVariant .backIcon {
+    width: 24px; /* Aumentado de 20px a 24px */
+    height: 24px; /* Aumentado de 20px a 24px */
+    margin-right: 0; /* Sin margen cuando no hay texto */
+}
+
+.modalVariant .title {
+    font-size: 22px; /* Aumentado de 18px a 22px */
+    font-weight: 600;
+    margin-top: 4px;
+    color: #333;
+}
+
+/* Hover effect para el botón en modal */
+.modalVariant .backButton:hover {
+    background-color: #f5f5f5;
+}
+
+/* Cuando solo hay ícono (sin texto de back) - Elimina esta regla ya que no funciona bien */
+/* .modalVariant .backButton:has(img:only-child) {
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.modalVariant .backButton:has(img:only-child):hover {
+    background-color: #f5f5f5;
+} */
