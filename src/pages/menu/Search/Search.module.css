@@ -1,0 +1,31 @@
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.searchBar {
+  width: 100%;
+  height: 55px;
+  background: #F6F6F6;
+  border-radius: 9px;
+  border: none;
+  padding: 0 20px 0 50px;
+  font-size: 14px;
+  color: #676767;
+  font-family: 'Open Sans', sans-serif;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.searchBar::placeholder {
+  color: #676767;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #403F3E;
+  font-size: 16px;
+}

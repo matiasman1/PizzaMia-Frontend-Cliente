@@ -534,6 +534,96 @@
   font-family: 'Sen', sans-serif;
 }
 
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.pagination button {
+  background: #FFC736;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 16px;
+  color: #181C2E;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  color: #676767;
+  font-size: 16px;
+  font-family: 'Sen', sans-serif;
+}
+
+/* New Styles for All Items and Ver Mas Button */
+.allItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.verMasContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.verMasButton {
+  background: #FFC736;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #181C2E;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.verMasButton:hover {
+  background: #FFB000;
+  transform: translateY(-2px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  color: #676767;
+  font-size: 18px;
+  font-family: 'Sen', sans-serif;
+}
+
+/* Main Content Margin */
+.mainContent {
+  margin-top: 98px; /* Altura del header */
+  width: 100%;
+}
+
+/* Si el header puede cambiar de altura en responsive, ajustar estos valores */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-top: 110px; /* Ajustar según la altura del header en móviles */
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    margin-top: 130px; /* Ajustar según la altura del header en pantallas muy pequeñas */
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .header {
@@ -729,4 +819,11 @@
     width: 70px;
     height: 70px;
   }
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
