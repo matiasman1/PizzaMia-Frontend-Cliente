@@ -292,3 +292,26 @@ export const obtenerClientePorId = async (id: number): Promise<ClienteApi> => {
         throw error;
     }
 };
+
+// Verificar disponibilidad de un artículo manufacturado
+export const verificarDisponibilidadManufacturado = async (id: number): Promise<boolean> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/manufacturados/${id}/disponibilidad`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.disponible;
+    } catch (error) {
+        console.error(`Error al verificar disponibilidad del artículo ${id}:`, error);
+        // En caso de error, asumimos que no está disponible por precaución
+        return false;
+    }
+};
