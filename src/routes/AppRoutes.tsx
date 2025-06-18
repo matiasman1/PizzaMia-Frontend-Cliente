@@ -1,39 +1,38 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Menu from '../pages/menu/Menu/Menu';
+import { LoginRedirect } from '../pages/LoginRedirect'; // Cambiado a importación con nombre
+import { PostLogin } from '../pages/PostLogin/PostLogin';
 import LandingPage from '../pages/landing/LandingPage';
-import Menu from '../pages/menu/Menu/Menu.tsx';
-import ClientPage from '../pages/client/ClientPage.tsx';
-import PersonalInfo from '../pages/client/modules/profile/PersonalInfo.tsx';
-import Addresses from '../pages/client/modules/profile/Addresses.tsx';
-import Orders from '../pages/client/modules/profile/Orders.tsx';
-import Cart from '../pages/client/modules/profile/Cart.tsx';
-import MercadoPagoReturn from '../pages/mercadopago/MercadoPagoReturn.tsx';
-
+import MercadoPagoReturn from '../pages/mercadopago/MercadoPagoReturn';
+import { CallbackPage } from '../pages/CallbackPage';
+import { ProtectedRoute } from '../auth/ProtectedRoute';
+import ClientPage from '../pages/client/ClientPage';
 
 const AppRoutes: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Default route redirects to landing page */}
-        <Route path="/" element={<LandingPage />} />
+    <Routes>
+      {/* Rutas públicas */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/menu" element={<Menu />} />
+      <Route path="/login-redirect" element={<LoginRedirect />} />
+      <Route path="/callback" element={<CallbackPage />} />
+      <Route path="/post-login" element={<PostLogin />} />
+      <Route path="/mercadopago/return" element={<MercadoPagoReturn />} />
 
-        {/* Client routes */}
-        <Route path="/client/*" element={<ClientPage />} />
-        <Route path="/client/profile/personal-info" element={<PersonalInfo />} />
-        <Route path="/client/profile/addresses" element={<Addresses />} />
-        <Route path="/client/orders" element={<Orders />} />
-        <Route path="/client/cart" element={<Cart />} />
+      <Route
+          path="/cliente"
+          element={
+            <ProtectedRoute allowedRoles={["Cliente"]}>
+              <ClientPage/>
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Menu route */}
-        <Route path="/menu" element={<Menu />} />
-        
-        {/* MercadoPago return route */}
-        <Route path="/mercadopago/return" element={<MercadoPagoReturn />} />
-
-        {/* Fallback route */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+      
+    
+      
+    </Routes>
   );
 };
 

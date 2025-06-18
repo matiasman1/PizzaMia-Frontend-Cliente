@@ -149,3 +149,30 @@
     font-size: 12px;
   }
 }
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  font-size: 14px;
+}
+
+.userIcon {
+  color: #FF7622;
+  font-size: 16px;
+}
+
+.userName {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}

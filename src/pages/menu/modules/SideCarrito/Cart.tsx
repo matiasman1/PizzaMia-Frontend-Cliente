@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Cart.module.css';
-import { FaMinus, FaPlus, FaTimes } from 'react-icons/fa';
+import { FaMinus, FaPlus, FaTimes, FaMapMarkerAlt} from 'react-icons/fa';
 import cashIcon from '../../../../assets/client/paymentmode-cash.svg';
 import mpIcon from '../../../../assets/client/paymentmode-MP.svg';
 import { useCartStore } from '../../../../store/cartStore';
 import { crearPedido, crearPreferenciaMercadoPago } from '../../../../api/clientApi';
-import { PedidoVentaDetalle, PedidoVentaRequest, TipoEnvio, TipoPago } from '../../../../types/typesClient';
+import { PedidoVentaDetalle, PedidoVentaRequest, TipoEnvio, TipoPago, ClienteApi, DomicilioApi } from '../../../../types/typesClient';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 // Tipo para el modo de entrega
 type DeliveryMode = 'tienda' | 'delivery';
+
+const VITE_API_SERVER_URL = import.meta.env.VITE_API_SERVER_URL || 'http://localhost:8080';
 
 const Cart: React.FC = () => {
     // Estado para el método de pago y modo de entrega
@@ -17,6 +21,17 @@ const Cart: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    
+    // Estado para almacenar los datos del cliente
+    const [clienteData, setClienteData] = useState<ClienteApi | null>(null);
+    const [loadingCliente, setLoadingCliente] = useState(false);
+    
+    // Estado para la dirección seleccionada
+    const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
+    const [showAddressSelector, setShowAddressSelector] = useState(false);
+    
+    // Usar Auth0 para obtener información del usuario
+    const { isAuthenticated, user, getAccessTokenSilently, loginWithRedirect } = useAuth0();
 
     // Usar la store del carrito
     const { 
@@ -32,8 +47,61 @@ const Cart: React.FC = () => {
         calculateTotals
     } = useCartStore();
 
-    // Dirección de entrega
-    const deliveryAddress = "Calle Boulogne Sur Mer 1320, San Martín, Mendoza";
+    // Cargar información del cliente cuando el usuario está autenticado
+    useEffect(() => {
+        const loadClienteData = async () => {
+            if (!isAuthenticated || !user?.sub) return;
+            
+            try {
+                setLoadingCliente(true);
+                
+                // Obtener token de Auth0
+                const token = await getAccessTokenSilently();
+                console.log("User obtenido:", user);
+                // Obtener información del cliente usando el endpoint getUserById
+                const response = await axios.post(
+                    `${VITE_API_SERVER_URL}/api/clientes/getUserById`,
+                    {
+                        auth0Id: user.sub
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                
+                // Si el cliente existe, guardar sus datos
+                if (response.data && response.data !== false) {
+                    const cliente = response.data;
+                    setClienteData(cliente);
+                    console.log("Datos del cliente cargados:", cliente);
+                    
+                    // Si el cliente tiene domicilios, seleccionar el primero
+                    if (cliente.domicilios && cliente.domicilios.length > 0) {
+                        // Buscar un domicilio activo por defecto
+                        const activeDomicilio = cliente.domicilios.find((d: DomicilioApi) => d.isActive);
+                        if (activeDomicilio) {
+                            setSelectedAddressId(activeDomicilio.id);
+                        } else {
+                            // Si no hay activo, usar el primero
+                            setSelectedAddressId(cliente.domicilios[0].id);
+                        }
+                    }
+                } else {
+                    console.warn("Cliente no encontrado en la base de datos");
+                }
+            } catch (error) {
+                console.error("Error al cargar datos del cliente:", error);
+            } finally {
+                setLoadingCliente(false);
+                console.log(loadingCliente);
+            }
+        };
+        
+        loadClienteData();
+    }, [isAuthenticated, user, getAccessTokenSilently]);
 
     // Actualizar el costo de entrega cuando cambia el modo de entrega
     React.useEffect(() => {
@@ -48,6 +116,41 @@ const Cart: React.FC = () => {
     // Función para cambiar el modo de entrega
     const handleDeliveryModeChange = (mode: DeliveryMode) => {
         setDeliveryMode(mode);
+        // Si cambiamos a takeaway, ocultar el selector de direcciones
+        if (mode === 'tienda') {
+            setShowAddressSelector(false);
+        }
+    };
+
+    // Función para formatear una dirección
+    const formatAddress = (domicilio: DomicilioApi): string => {
+        return `${domicilio.calle} ${domicilio.numero}, ${domicilio.localidad?.nombre || ''} (CP: ${domicilio.codigoPostal})`;
+    };
+
+    // Obtener la dirección seleccionada o una por defecto
+    const getSelectedAddress = (): DomicilioApi | null => {
+        if (!clienteData || !clienteData.domicilios || clienteData.domicilios.length === 0) {
+            return null;
+        }
+        
+        if (selectedAddressId) {
+            const selected = clienteData.domicilios.find(d => d.id === selectedAddressId);
+            if (selected) return selected;
+        }
+        
+        // Si no hay seleccionada, devolver la primera
+        return clienteData.domicilios[0];
+    };
+
+    // Obtener dirección formateada para mostrar
+    const deliveryAddress = (): string => {
+        const selectedDomicilio = getSelectedAddress();
+        
+        if (selectedDomicilio) {
+            return formatAddress(selectedDomicilio);
+        }
+        
+        return "No hay dirección disponible";
     };
 
     // Función mejorada para calcular hora estimada de finalización con ajuste de zona horaria
@@ -102,6 +205,33 @@ const Cart: React.FC = () => {
     const handleCheckout = async () => {
         if (cartItems.length === 0) return;
         
+        // Verificar si el usuario está autenticado
+        if (!isAuthenticated || !user?.sub) {
+            setError("Debes iniciar sesión para realizar un pedido");
+            
+            // Opcional: Redirigir al login después de un tiempo
+            setTimeout(() => {
+                loginWithRedirect();
+            }, 2000);
+            
+            return;
+        }
+        
+        // Verificar si tenemos los datos del cliente
+        if (!clienteData || !clienteData.id) {
+            setError("No se pudo obtener la información de tu cuenta. Por favor, intenta más tarde.");
+            return;
+        }
+        
+        // Si es delivery, verificar que haya dirección seleccionada
+        if (deliveryMode === 'delivery') {
+            const selectedDomicilio = getSelectedAddress();
+            if (!selectedDomicilio) {
+                setError("Por favor, selecciona una dirección de entrega.");
+                return;
+            }
+        }
+        
         try {
             setIsSubmitting(true);
             setError(null);
@@ -133,7 +263,7 @@ const Cart: React.FC = () => {
             const tipoEnvio: TipoEnvio = deliveryMode === 'delivery' ? TipoEnvio.DELIVERY : TipoEnvio.LOCAL;
             const tipoPago: TipoPago = paymentMethod === 'efectivo' ? TipoPago.EFECTIVO : TipoPago.MERCADOPAGO;
             
-            // Crear objeto de pedido
+            // Crear objeto de pedido con el ID del cliente autenticado
             const pedidoRequest: PedidoVentaRequest = {
                 horaEstimadaFinalizacion: horaEstimada,
                 estado: {
@@ -143,14 +273,16 @@ const Cart: React.FC = () => {
                 tipoPago,
                 detalles,
                 cliente: {
-                    id: 1 // ID de cliente fijo por ahora (se debería obtener del usuario actual)
+                    id: clienteData.id // Usar el ID del cliente que obtuvimos
                 },
                 empleado: {
-                    id: 2 // ID de empleado fijo por ahora
+                    id: 1 // ID de empleado fijo por ahora
                 }
             };
             
-            console.log("Enviando pedido:", JSON.stringify(pedidoRequest, null, 2));
+            
+            
+            console.log("Enviando pedido con ID de cliente:", clienteData.id);
             
             // Enviar pedido a la API
             const pedidoResponse = await crearPedido(pedidoRequest);
@@ -191,6 +323,42 @@ const Cart: React.FC = () => {
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    // Renderizar el selector de direcciones
+    const renderAddressSelector = () => {
+        if (!clienteData || !clienteData.domicilios || clienteData.domicilios.length === 0) {
+            return (
+                <div className={styles.noAddresses}>
+                    <p>No tienes direcciones guardadas. Por favor, agrega una dirección en tu perfil.</p>
+                </div>
+            );
+        }
+        
+        return (
+            <div className={styles.addressSelector}>
+                {clienteData.domicilios.map(domicilio => (
+                    <div 
+                        key={domicilio.id}
+                        className={`${styles.addressOption} ${selectedAddressId === domicilio.id ? styles.selectedAddress : ''}`}
+                        onClick={() => {
+                            setSelectedAddressId(domicilio.id);
+                            setShowAddressSelector(false);
+                        }}
+                    >
+                        <FaMapMarkerAlt className={styles.addressIcon} />
+                        <div className={styles.addressDetails}>
+                            <span className={styles.addressTitle}>
+                                {domicilio.calle || `Dirección ${domicilio.id}`}
+                            </span>
+                            <span className={styles.addressText}>
+                                {formatAddress(domicilio)}
+                            </span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
     };
 
     return (
@@ -243,8 +411,7 @@ const Cart: React.FC = () => {
                                         </div>
                                         <button
                                             className={styles.removeButton}
-                                            onClick={() => removeItem(item.id)}
-                                            aria-label="Eliminar producto"
+                                            onClick={() => removeItem(item.id, item.esManufacturado)}
                                         >
                                             <FaTimes />
                                         </button>
@@ -254,7 +421,7 @@ const Cart: React.FC = () => {
                                         <div className={styles.quantityControls}>
                                             <button
                                                 className={styles.quantityButton}
-                                                onClick={() => decreaseQuantity(item.id)}
+                                                onClick={() => decreaseQuantity(item.id, item.esManufacturado)}
                                                 disabled={item.quantity <= 1}
                                                 aria-label="Disminuir cantidad"
                                             >
@@ -263,7 +430,7 @@ const Cart: React.FC = () => {
                                             <span className={styles.quantityValue}>{item.quantity}</span>
                                             <button
                                                 className={styles.quantityButton}
-                                                onClick={() => increaseQuantity(item.id)}
+                                                onClick={() => increaseQuantity(item.id, item.esManufacturado)}
                                                 aria-label="Aumentar cantidad"
                                             >
                                                 <FaPlus size={12} />
@@ -317,9 +484,24 @@ const Cart: React.FC = () => {
                         <div className={styles.deliveryAddress}>
                             <div className={styles.addressHeader}>
                                 <h4>DIRECCIÓN DE ENTREGA</h4>
-                                <button className={styles.editButton}>EDITAR</button>
+                                <button 
+                                    className={styles.editButton}
+                                    onClick={() => setShowAddressSelector(!showAddressSelector)}
+                                >
+                                    {showAddressSelector ? 'CERRAR' : 'CAMBIAR'}
+                                </button>
                             </div>
-                            <p className={styles.address}>{deliveryAddress}</p>
+                            
+                            {showAddressSelector ? (
+                                renderAddressSelector()
+                            ) : (
+                                <div className={styles.selectedAddressDisplay}>
+                                    <FaMapMarkerAlt className={styles.addressIcon} />
+                                    <p className={styles.address}>
+                                        {deliveryAddress()}
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     )}
 
@@ -344,7 +526,7 @@ const Cart: React.FC = () => {
                     <button 
                         className={`${styles.checkoutButton} ${paymentMethod === 'mercadopago' ? styles.mercadopagoButton : ''}`}
                         onClick={handleCheckout}
-                        disabled={cartItems.length === 0 || isSubmitting}
+                        disabled={cartItems.length === 0 || isSubmitting || (deliveryMode === 'delivery' && !selectedAddressId)}
                     >
                         {isSubmitting 
                             ? 'PROCESANDO...' 

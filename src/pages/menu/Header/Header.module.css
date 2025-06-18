@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 5%;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 15px 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
@@ -121,4 +121,63 @@
   font-size: 16px;
   font-weight: 700;
   font-family: 'Open Sans', sans-serif;
+}
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.authButton {
+  display: flex;
+  align-items: center;
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.authButton:hover {
+  background-color: #e05a2a;
+}
+
+.authIcon {
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.authText {
+  white-space: nowrap;
+}
+
+.userContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.userIcon {
+  margin-right: 6px;
+  color: #ff6b35;
+}
+
+.userName {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

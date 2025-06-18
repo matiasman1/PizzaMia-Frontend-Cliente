@@ -23,9 +23,10 @@ interface CartState {
   
   // Acciones
   addItem: (item: ArticuloManufacturadoApi | InsumoApi, esManufacturado: boolean) => void;
-  removeItem: (itemId: number) => void;
-  increaseQuantity: (itemId: number) => void;
-  decreaseQuantity: (itemId: number) => void;
+  // Modificar para recibir también el tipo del producto
+  removeItem: (itemId: number, esManufacturado: boolean) => void;
+  increaseQuantity: (itemId: number, esManufacturado: boolean) => void;
+  decreaseQuantity: (itemId: number, esManufacturado: boolean) => void;
   clearCart: () => void;
   updateDeliveryFee: (fee: number) => void;
   calculateTotals: () => void;
@@ -43,7 +44,11 @@ export const useCartStore = create<CartState>()(
       // Añadir un item al carrito
       addItem: (item, esManufacturado) => {
         const currentItems = get().items;
-        const existingItemIndex = currentItems.findIndex(i => i.id === item.id);
+        
+        // Modificar la búsqueda para considerar tanto el ID como el tipo de producto
+        const existingItemIndex = currentItems.findIndex(
+          i => i.id === item.id && i.esManufacturado === esManufacturado
+        );
         
         if (existingItemIndex !== -1) {
           // Si el item ya existe, incrementamos su cantidad
@@ -75,10 +80,13 @@ export const useCartStore = create<CartState>()(
         get().calculateTotals();
       },
       
-      // Eliminar un item del carrito
-      removeItem: (itemId) => {
+      // Eliminar un item del carrito considerando tanto el ID como el tipo
+      removeItem: (itemId, esManufacturado) => {
         set(state => ({
-          items: state.items.filter(item => item.id !== itemId)
+          items: state.items.filter(item => 
+            // Filtrar por ID Y tipo del producto
+            !(item.id === itemId && item.esManufacturado === esManufacturado)
+          )
         }));
         
         // Recalcular totales
@@ -86,10 +94,11 @@ export const useCartStore = create<CartState>()(
       },
       
       // Aumentar la cantidad de un item
-      increaseQuantity: (itemId) => {
+      increaseQuantity: (itemId, esManufacturado) => {
         set(state => ({
           items: state.items.map(item => 
-            item.id === itemId 
+            // Comprobar tanto ID como tipo
+            (item.id === itemId && item.esManufacturado === esManufacturado)
               ? { ...item, quantity: item.quantity + 1 } 
               : item
           )
@@ -100,21 +109,23 @@ export const useCartStore = create<CartState>()(
       },
       
       // Disminuir la cantidad de un item
-      decreaseQuantity: (itemId) => {
-        const item = get().items.find(item => item.id === itemId);
+      decreaseQuantity: (itemId, esManufacturado) => {
+        const item = get().items.find(item => 
+          item.id === itemId && item.esManufacturado === esManufacturado
+        );
         
         if (item && item.quantity > 1) {
           // Si hay más de 1, disminuimos la cantidad
           set(state => ({
             items: state.items.map(item => 
-              item.id === itemId 
+              (item.id === itemId && item.esManufacturado === esManufacturado)
                 ? { ...item, quantity: item.quantity - 1 } 
                 : item
             )
           }));
         } else {
           // Si solo hay 1, eliminamos el item
-          get().removeItem(itemId);
+          get().removeItem(itemId, esManufacturado);
         }
         
         // Recalcular totales

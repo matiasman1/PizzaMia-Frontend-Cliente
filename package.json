@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.3.0",
     "@mercadopago/sdk-react": "^1.0.3",
+    "axios": "^1.10.0",
     "chart.js": "^4.4.9",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",

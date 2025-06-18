@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "../UI/Button/Button";
 import styles from "./Header.module.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import {  FaUser } from "react-icons/fa";
 
 interface HeaderProps {
   activeSection: string;
@@ -8,6 +10,19 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ activeSection, onNavClick }) => {
+  // Usar Auth0 para autenticación
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+
+  // Manejar el login
+  const handleLogin = () => {
+    loginWithRedirect();
+  };
+
+  // Manejar el logout
+  const handleLogout = () => {
+    logout({ logoutParams: { returnTo: window.location.origin } });
+  };
+
   return (
     <header className={styles.navbarSections}>
       <div className={styles.logoContainer}>
@@ -63,7 +78,18 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onNavClick }) => {
         </button>
       </nav>
 
-      <Button text="INICIAR SESIÓN" onClick={() => console.log('Login clicked')} />
+      {/* Mostrar botón de inicio de sesión o información del usuario */}
+      {!isAuthenticated ? (
+        <Button text="INICIAR SESIÓN" onClick={handleLogin} />
+      ) : (
+        <div className={styles.userContainer}>
+          <div className={styles.userInfo}>
+            <FaUser className={styles.userIcon} />
+            <span className={styles.userName}>{user?.name}</span>
+          </div>
+          <Button text="CERRAR SESIÓN" onClick={handleLogout} />
+        </div>
+      )}
     </header>
   );
 };
