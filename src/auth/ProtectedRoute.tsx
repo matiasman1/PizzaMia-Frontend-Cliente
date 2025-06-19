@@ -14,7 +14,6 @@ const VITE_AUTH0_AUDIENCE = import.meta.env.VITE_AUTH0_AUDIENCE;
 export const ProtectedRoute = ({ children, allowedRoles }: Props) => {
   const { isAuthenticated, user, getAccessTokenSilently, isLoading } = useAuth0();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const [userRole, setUserRole] = useState<string | null>(null);
 
   const { setRol, setToken } = useAuthStore(
     useShallow((state) => ({
@@ -46,7 +45,6 @@ export const ProtectedRoute = ({ children, allowedRoles }: Props) => {
 
         if (rol) {
           setRol(rol);
-          setUserRole(rol);
           
           // Verificar si el rol está permitido
           const hasAllowedRole = allowedRoles.includes(rol);
