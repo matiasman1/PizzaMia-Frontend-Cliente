@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./LandingPage.module.css";
-// Import components
+
+// Importación de componentes
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Button from "../../components/UI/Button/Button";
 
-// Import icons and images
+// Importación de iconos e imágenes para la página de inicio
 import heroMainImg from "../../assets/landing/Lovepik_com-400595226-pizza 1.svg";
 import heroSideImg1 from "../../assets/landing/image 13.svg";
 import heroSideImg2 from "../../assets/landing/image 14.svg";
@@ -20,10 +21,12 @@ import promoCokePizza from "../../assets/landing/promo-coke-pizza.svg";
 import { FaChevronLeft, FaChevronRight, FaShoppingBag, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 
 const LandingPage: React.FC = () => {
+  // Estados para manejar la sección activa y posición del carrusel
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [carouselPosition, setCarouselPosition] = useState<number>(0);
   const carouselTrackRef = useRef<HTMLDivElement>(null);
 
+  // Referencias para cada sección de la página
   const sectionRefs = {
     hero: useRef<HTMLDivElement>(null),
     asifunciona: useRef<HTMLDivElement>(null),
@@ -32,38 +35,57 @@ const LandingPage: React.FC = () => {
     footer: useRef<HTMLDivElement>(null),
   };
 
-  // Handle scroll to update active section
+  // Manejo del scroll para actualizar la sección activa en el header
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100; // Adding offset for header
+      const scrollPosition = window.scrollY + 100; // Offset para compensar la altura del header
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
 
-      // Find which section is in view
-      for (const section of Object.keys(sectionRefs).reverse()) {
+      // Verificar si el usuario ha llegado al final de la página (sección footer)
+      if (scrollPosition + windowHeight >= documentHeight - 100) {
+        setActiveSection("footer");
+        return;
+      }
+
+      // Encontrar qué sección está visible - comenzar desde abajo
+      const sections = Object.keys(sectionRefs).reverse();
+      for (const section of sections) {
         const ref = sectionRefs[section as keyof typeof sectionRefs];
-        if (ref.current && ref.current.offsetTop <= scrollPosition) {
-          setActiveSection(section);
-          break;
+        if (ref.current) {
+          const sectionTop = ref.current.offsetTop;
+          const sectionHeight = ref.current.offsetHeight;
+          const sectionBottom = sectionTop + sectionHeight;
+          
+          // Verificar si la sección está actualmente visible en el viewport
+          if (scrollPosition >= sectionTop - 200 && scrollPosition < sectionBottom - 200) {
+            setActiveSection(section);
+            break;
+          }
         }
       }
     };
+
+    // Llamar a handleScroll inicialmente para establecer la sección activa correcta
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to section with smooth animation
+  // Función para hacer scroll suave a una sección específica
   const scrollToSection = (sectionId: string) => {
     const section = sectionRefs[sectionId as keyof typeof sectionRefs].current;
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 86, // Adjust for navbar height
+        top: section.offsetTop - 86, // Ajustar por la altura del navbar
         behavior: 'smooth'
       });
       setActiveSection(sectionId);
     }
   };
 
-  // Move pizza carousel
+  // Función para mover el carrusel de pizzas
   const moveCarousel = (direction: number) => {
     if (!carouselTrackRef.current) return;
     
@@ -73,7 +95,7 @@ const LandingPage: React.FC = () => {
     
     let newPosition = carouselPosition - (direction * 360);
     
-    // Prevent scrolling too far
+    // Prevenir scroll fuera de los límites
     if (newPosition > 0) newPosition = 0;
     if (newPosition < -maxPosition) newPosition = -maxPosition;
     
@@ -82,10 +104,10 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className={styles.landingPageDesktop}>
-      {/* Header component */}
+      {/* Componente Header - Barra de navegación superior */}
       <Header activeSection={activeSection} onNavClick={scrollToSection} />
 
-      {/* Hero Section */}
+      {/* Sección Hero - Primera sección con título principal e imágenes */}
       <div ref={sectionRefs.hero} className={styles.heroSections}>
         <div className={styles.content}>
           <h1 className={styles.heroTitle}>
@@ -103,7 +125,7 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Así Funciona Section */}
+      {/* Sección Así Funciona - Explicación de cómo funciona el servicio */}
       <div ref={sectionRefs.asifunciona} className={styles.asiFuncionaSections}>
         <div className={styles.sectionHeader}>
           <h3 className={styles.sectionTag}>Asi funciona</h3>
@@ -113,6 +135,7 @@ const LandingPage: React.FC = () => {
           </p>
         </div>
         
+        {/* Características del servicio */}
         <div className={styles.features}>
           <div className={styles.featureItem}>
             <div className={styles.featureImage}>
@@ -146,9 +169,9 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Menu Section */}
+      {/* Sección Menú - Muestra pizzas favoritas y promociones */}
       <div ref={sectionRefs.menu} className={styles.menuSections}>
-        {/* Favorite pizzas section */}
+        {/* Subsección de pizzas favoritas con carrusel */}
         <div className={styles.favoritasSections}>
           <div className={styles.sectionHeader}>
             <h3 className={styles.sectionTag}>Nuestro menú</h3>
@@ -158,6 +181,7 @@ const LandingPage: React.FC = () => {
             </p>
           </div>
           
+          {/* Carrusel de pizzas */}
           <div className={styles.carouselContainer}>
             <button className={`${styles.carouselButton} ${styles.left}`} onClick={() => moveCarousel(-1)}>
               <FaChevronLeft />
@@ -168,6 +192,7 @@ const LandingPage: React.FC = () => {
               ref={carouselTrackRef}
               style={{transform: `translateX(${carouselPosition}px)`}}
             >
+              {/* Tarjetas de pizzas */}
               <div className={styles.pizzaCard}>
                 <div className={styles.pizzaImage}>
                   <img src={pizzaMargherita} alt="Pizza Margherita" />
@@ -232,7 +257,7 @@ const LandingPage: React.FC = () => {
           <Button text="EXPLORAR MENÚ" onClick={() => console.log('Explore menu clicked')} />
         </div>
 
-        {/* Promocion section */}
+        {/* Subsección de promoción especial */}
         <div className={styles.promocionSections}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>El sabor también está en oferta</h2>
@@ -255,13 +280,14 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
       
-      {/* Nosotros Section */}
+      {/* Sección Nosotros - Información de ubicación y horarios */}
       <div ref={sectionRefs.nosotros} className={styles.nosotrosSections}>
         <div className={styles.sectionHeader}>
           <h3 className={styles.sectionTag}>Nosotros</h3>
           <h2 className={styles.sectionTitle}>Dónde encontrarnos y cuándo visitarnos</h2>
         </div>
         
+        {/* Mapa de ubicación */}
         <div className={styles.mapContainer}>
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6699.354174374493!2d-68.86481309999999!3d-32.9067049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e09a204f7b963%3A0xead55ce83321ea9f!2sJuan%20B.%20Justo%202875%2C%20M5504IJV%20Godoy%20Cruz%2C%20Mendoza!5e0!3m2!1ses-419!2sar!4v1748621617619!5m2!1ses-419!2sar" 
@@ -271,6 +297,7 @@ const LandingPage: React.FC = () => {
           ></iframe>
         </div>
         
+        {/* Información de contacto y horarios */}
         <div className={styles.nosotrosInfo}>
           <div className={styles.locationInfo}>
             <div className={styles.infoHeader}>
@@ -297,7 +324,7 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Footer Section with component */}
+      {/* Sección Footer - Pie de página con enlaces y contacto */}
       <div ref={sectionRefs.footer}>
         <Footer onNavigate={scrollToSection} />
       </div>

@@ -1,4 +1,11 @@
-/* Remove styles that have been moved to component-specific CSS modules */
+/*--------------------------
+Estilos Globales y Contenedor Principal
+--------------------------*/
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
+}
 
 .landingPageDesktop {
   width: 100%;
@@ -9,7 +16,9 @@
   box-sizing: border-box;
 }
 
-/* Section styles */
+/*--------------------------
+Estilos Base para Todas las Secciones
+--------------------------*/
 .heroSections, 
 .asiFuncionaSections,
 .menuSections,
@@ -23,7 +32,9 @@
   box-sizing: border-box;
 }
 
-/* Hero section */
+/*--------------------------
+Sección Hero (Principal)
+--------------------------*/
 .heroSections {
   padding-top: 86px;
   height: calc(640px + 86px);
@@ -76,7 +87,7 @@
   box-sizing: border-box;
 }
 
-/* Image positioning in hero section */
+/* Posicionamiento de imágenes en sección hero */
 .heroMainImg {
   position: absolute;
   top: 50px;
@@ -107,7 +118,9 @@
   max-width: 50%;
 }
 
-/* Así Funciona section */
+/*--------------------------
+Sección Así Funciona
+--------------------------*/
 .asiFuncionaSections {
   height: auto;
   min-height: 640px;
@@ -117,8 +130,9 @@
   box-sizing: border-box;
 }
 
-/* ...existing code... */
-
+/*--------------------------
+Estilos Compartidos para Headers de Secciones
+--------------------------*/
 .sectionHeader {
   text-align: center;
   margin-bottom: 40px;
@@ -151,6 +165,9 @@
   line-height: 1.5;
 }
 
+/*--------------------------
+Características del Servicio (Así Funciona)
+--------------------------*/
 .features {
   display: flex;
   justify-content: space-around;
@@ -195,7 +212,9 @@
   line-height: 1.4;
 }
 
-/* Menu section */
+/*--------------------------
+Sección Menú (Contenedor Principal)
+--------------------------*/
 .menuSections {
   background: white;
   padding: 50px 0;
@@ -203,7 +222,9 @@
   box-sizing: border-box;
 }
 
-/* Favoritas section */
+/*--------------------------
+Subsección Pizzas Favoritas
+--------------------------*/
 .favoritasSections {
   height: auto;
   background: white;
@@ -212,7 +233,9 @@
   box-sizing: border-box;
 }
 
-/* Carousel styles */
+/*--------------------------
+Carrusel de Pizzas
+--------------------------*/
 .carouselContainer {
   position: relative;
   width: 100%;
@@ -304,7 +327,9 @@
   right: 10px;
 }
 
-/* Promocion section */
+/*--------------------------
+Sección Promoción Especial
+--------------------------*/
 .promocionSections {
   height: auto;
   background: white;
@@ -365,7 +390,9 @@
   max-width: 100%;
 }
 
-/* Nosotros section */
+/*--------------------------
+Sección Nosotros (Ubicación y Contacto)
+--------------------------*/
 .nosotrosSections {
   height: auto;
   padding: 50px 5%;
@@ -436,7 +463,11 @@
   line-height: 1.5;
 }
 
-/* Media queries for responsive design */
+/*--------------------------
+Media Queries - Diseño Responsivo
+--------------------------*/
+
+/* Pantallas grandes (hasta 1200px) */
 @media (max-width: 1200px) {
   .heroMainImg {
     width: 400px;
@@ -460,7 +491,9 @@
   }
 }
 
+/* Tablets (hasta 992px) */
 @media (max-width: 992px) {
+  /* Sección Hero responsiva */
   .heroSections {
     flex-direction: column;
     height: auto;
@@ -491,6 +524,7 @@
     display: none;
   }
   
+  /* Características responsivas */
   .features {
     flex-direction: column;
     align-items: center;
@@ -502,6 +536,7 @@
     max-width: 400px;
   }
   
+  /* Promoción responsiva */
   .promoContainer {
     flex-direction: column;
     padding: 40px 5%;
@@ -517,6 +552,7 @@
     margin-bottom: 30px;
   }
   
+  /* Sección Nosotros responsiva */
   .mapContainer, .nosotrosInfo {
     width: 100%;
     margin-bottom: 30px;
@@ -527,11 +563,13 @@
   }
 }
 
+/* Móviles medianos (hasta 768px) */
 @media (max-width: 768px) {
   .landingPageDesktop {
     overflow-x: hidden;
   }
   
+  /* Hero section móvil */
   .heroSections {
     padding: 86px 3% 30px;
   }
@@ -545,10 +583,8 @@
     max-width: 100%;
   }
   
-  .asiFuncionaSections,
-  .favoritasSections,
-  .promocionSections,
-  .nosotrosSections {
+  /* Headers de secciones móvil */
+  .sectionHeader {
     padding: 30px 3%;
   }
   
@@ -560,6 +596,7 @@
     font-size: 18px;
   }
   
+  /* Características móvil */
   .featureTitle {
     font-size: 24px;
   }
@@ -568,6 +605,7 @@
     font-size: 16px;
   }
   
+  /* Carrusel móvil */
   .pizzaCard {
     min-width: 280px;
     height: 350px;
@@ -588,6 +626,7 @@
     font-size: 24px;
   }
   
+  /* Promoción móvil */
   .promoTitle {
     font-size: 48px;
   }
@@ -600,6 +639,7 @@
     font-size: 24px;
   }
   
+  /* Información móvil */
   .infoTitle {
     font-size: 24px;
   }
@@ -609,7 +649,9 @@
   }
 }
 
+/* Móviles pequeños (hasta 480px) */
 @media (max-width: 480px) {
+  /* Hero section móvil pequeño */
   .heroTitle {
     font-size: 28px;
   }
@@ -618,6 +660,7 @@
     font-size: 16px;
   }
   
+  /* Headers móvil pequeño */
   .sectionTitle {
     font-size: 24px;
   }
@@ -626,6 +669,7 @@
     font-size: 16px;
   }
   
+  /* Carrusel móvil pequeño */
   .pizzaCard {
     min-width: 240px;
     height: 300px;
@@ -636,6 +680,7 @@
     max-height: 120px;
   }
   
+  /* Promoción móvil pequeño */
   .promoTitle {
     font-size: 36px;
   }

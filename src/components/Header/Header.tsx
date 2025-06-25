@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../UI/Button/Button";
 import styles from "./Header.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBars, FaTimes } from "react-icons/fa";
 
 interface HeaderProps {
   activeSection: string;
@@ -10,6 +10,9 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ activeSection, onNavClick }) => {
+  // Estado para el menú móvil
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
   // Usar Auth0 para autenticación
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
@@ -21,6 +24,19 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onNavClick }) => {
   // Manejar el logout
   const handleLogout = () => {
     logout({ logoutParams: { returnTo: window.location.origin } });
+  };
+
+  // Manejar navegación móvil
+  const handleMobileNavClick = (section: string) => {
+    if (onNavClick) {
+      onNavClick(section);
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  // Toggle del menú móvil
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -88,6 +104,51 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onNavClick }) => {
             <span className={styles.userName}>{user?.name}</span>
           </div>
           <Button text="CERRAR SESIÓN" onClick={handleLogout} />
+        </div>
+      )}
+
+            {/* Botón hamburguesa para móvil */}
+      <button className={styles.mobileMenuToggle} onClick={toggleMobileMenu}>
+        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+      {/* Modal de menú móvil */}
+      {isMobileMenuOpen && (
+        <div className={styles.mobileMenuModal}>
+          <div className={styles.mobileMenuContent}>
+            <nav className={styles.mobileMenuItems}>
+              <button 
+                className={`${styles.mobileNavButton} ${activeSection === "hero" ? styles.active : ""}`} 
+                onClick={() => handleMobileNavClick("hero")}
+              >
+                Home
+              </button>
+              <button 
+                className={`${styles.mobileNavButton} ${activeSection === "asifunciona" ? styles.active : ""}`} 
+                onClick={() => handleMobileNavClick("asifunciona")}
+              >
+                Así funciona
+              </button>
+              <button 
+                className={`${styles.mobileNavButton} ${activeSection === "menu" ? styles.active : ""}`} 
+                onClick={() => handleMobileNavClick("menu")}
+              >
+                Menú
+              </button>
+              <button 
+                className={`${styles.mobileNavButton} ${activeSection === "nosotros" ? styles.active : ""}`} 
+                onClick={() => handleMobileNavClick("nosotros")}
+              >
+                Nosotros
+              </button>
+              <button 
+                className={`${styles.mobileNavButton} ${activeSection === "footer" ? styles.active : ""}`} 
+                onClick={() => handleMobileNavClick("footer")}
+              >
+                Contacto
+              </button>
+            </nav>
+          </div>
         </div>
       )}
     </header>
