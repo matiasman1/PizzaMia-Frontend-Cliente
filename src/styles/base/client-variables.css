@@ -1,0 +1,24 @@
+/* Colores específicos del cliente */
+:root {
+    --client-primary-color: #FFFFFF;
+    --client-text-color: #333333;
+    --client-accent-color: #FF6B21;
+    --client-secondary-color: #F0F5FA;
+    --client-border-color: #e0e0e0;
+    --client-background-color: #ffffff;
+
+    /* Tipografía para cliente */
+    --client-font-family: 'Sen', sans-serif;
+
+    /* Tamaños de texto */
+    --client-title-size: 22px;
+    --client-subtitle-size: 18px;
+    --client-body-size: 16px;
+    --client-small-size: 14px;
+
+    /* Peso de fuente */
+    --client-font-weight-regular: 400;
+    --client-font-weight-medium: 500;
+    --client-font-weight-semibold: 600;
+    --client-font-weight-bold: 700;
+}

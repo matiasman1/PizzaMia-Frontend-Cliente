@@ -1,0 +1,240 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modalContent {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    position: relative;
+    font-family: 'Sen', sans-serif;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 24px 24px 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+.backButton {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    color: #6c757d;
+    margin-right: 16px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.backButton:hover {
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    color: #495057;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.iconContainer {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.pizzaIcon {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe8d6 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    box-shadow: 0 8px 24px rgba(255, 118, 34, 0.15);
+    border: 3px solid #fff;
+}
+
+.orderInfo {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 0 24px;
+}
+
+.orderTitle {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.orderDate {
+    font-size: 15px;
+    color: #718096;
+    margin: 6px 0;
+    font-weight: 500;
+}
+
+.orderNumber {
+    font-size: 15px;
+    color: #718096;
+    margin: 6px 0;
+    font-weight: 500;
+}
+
+.itemsList {
+    margin: 0 24px 30px 24px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f3f4;
+    transition: all 0.2s ease;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item:hover {
+    background-color: #fafbfc;
+    margin: 14px -12px 14px -12px;
+    padding: 14px 12px;
+    border-radius: 10px;
+}
+
+.itemName {
+    font-size: 15px;
+    color: #2d3748;
+    font-weight: 600;
+    flex: 1;
+}
+
+.itemPrice {
+    font-size: 15px;
+    color: #718096;
+    font-weight: 600;
+    text-align: right;
+}
+
+.totals {
+    margin: 0 24px 30px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 15px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.totalRowFinal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0 0 0;
+    border-top: 2px solid #dee2e6;
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.downloadButton {
+    width: calc(100% - 48px);
+    margin: 0 24px 24px 24px;
+    background: linear-gradient(135deg, #FF6B21 0%, #FF7622 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Sen', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3);
+}
+
+.downloadButton:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e55a2b 0%, #e55a2b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 33, 0.4);
+}
+
+.downloadButton:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3);
+}
+
+.downloadButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3) !important;
+}

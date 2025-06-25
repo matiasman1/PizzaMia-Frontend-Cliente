@@ -1,0 +1,103 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.navContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logoSection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: -10px;
+}
+
+.logo {
+    width: 25px;
+    height: 25px;
+}
+
+.dashboardTitle {
+    margin-left: 40px;
+    font-size: var(--h4-size);
+    color: var(--text-color);
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar h3 {
+    font-size: var(--h3-size);
+    color: var(--text-color);
+    margin: 0;
+}
+
+.navbar a {
+    color: var(--text-color);
+    font-size: var(--button-text-size);
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid var(--button-color);
+    background: #fff;
+    transition: box-shadow 0.2s;
+}
+
+.avatar:hover {
+    box-shadow: 0 0 0 2px var(--button-color);
+}
+
+.avatarMenu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--primary-color);
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 10px 14px;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.logoutButton {
+    background: var(--button-color);
+    color: #fff;
+    font-size: var(--button-text-size);
+    border-radius: 6px;
+    padding: 6px 12px;
+    min-width: 90px;
+    margin: 0;
+}
+
+.logoutButton:hover {
+    background: #4567B6;
+    color: #fff;
+}

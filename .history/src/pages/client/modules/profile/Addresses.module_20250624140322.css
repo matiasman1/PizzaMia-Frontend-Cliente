@@ -1,0 +1,273 @@
+.container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: var(--client-title-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: var(--client-body-size);
+    color: #666;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #ddd;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.emptyState h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.emptyState p {
+    color: #666;
+    margin-bottom: 30px;
+    font-family: var(--client-font-family);
+}
+
+.addressesList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.addressCard {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.addressCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardContent {
+    padding: 20px;
+}
+
+.addressHeader {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.locationIconContainer {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.locationIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.addressInfo {
+    flex: 1;
+}
+
+.typeAndPrimary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.addressType {
+    font-size: var(--client-body-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.primaryCheckbox {
+    display: flex;
+    align-items: center;
+}
+
+.hiddenCheckbox {
+    display: none;
+}
+
+.checkmarkLabel {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.customCheckbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.hiddenCheckbox:checked + .checkmarkLabel .customCheckbox {
+    border-color: var(--client-accent-color);
+    background-color: var(--client-accent-color);
+}
+
+.checkmark {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.addressText {
+    font-size: var(--client-body-size);
+    color: #555;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.addressActions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.eliminateButton,
+.modifyButton {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: var(--client-small-size);
+    font-weight: var(--client-font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--client-font-family);
+}
+
+.eliminateButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.eliminateButton:hover {
+    background-color: #d32f2f;
+}
+
+.modifyButton {
+    background-color: #2196f3;
+    color: white;
+}
+
+.modifyButton:hover {
+    background-color: #1976d2;
+}
+
+.addLocationButton {
+    background-color: var(--client-accent-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: var(--client-body-size);
+    font-weight: var(--client-font-weight-medium);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: var(--client-font-family);
+    align-self: flex-start;
+}
+
+.addLocationButton:hover {
+    background-color: #E65D11;
+}
+
+.note {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.note p {
+    margin: 0;
+    font-size: var(--client-small-size);
+    color: #856404;
+    font-family: var(--client-font-family);
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.error {
+    text-align: center;
+    padding: 40px;
+    color: #c33;
+}
+
+.error h2 {
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+    .typeAndPrimary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .addressActions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .eliminateButton,
+    .modifyButton {
+        width: 100%;
+    }
+    
+    .emptyState {
+        padding: 40px 15px;
+    }
+}

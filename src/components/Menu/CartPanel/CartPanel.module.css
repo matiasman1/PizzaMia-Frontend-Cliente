@@ -1,0 +1,422 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.cartPanel {
+    position: fixed;
+    top: 0;
+    right: -33.33%;
+    width: 33.33%;
+    height: 100vh;
+    background: white;
+    z-index: 999;
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.cartPanel.open {
+    right: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: white;
+    z-index: 1;
+}
+
+.header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+    background: #f5f5f5;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cartItems {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 40vh;
+}
+
+.cartItem {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 15px;
+    gap: 15px;
+}
+
+.itemImage {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.itemInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.itemName {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #333;
+}
+
+.itemSize {
+    font-size: 12px;
+    color: #666;
+}
+
+.removeButton {
+    background: none;
+    border: none;
+    color: #ff6b35;
+    cursor: pointer;
+    padding: 2px;
+    font-size: 12px;
+}
+
+.itemFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.priceTag {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantityButton {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.quantityButton:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.quantityValue {
+    font-size: 12px;
+    width: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.orderSummary {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.paymentOptions {
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.paymentTabs {
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.tabButton {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 12px 0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.activeTab {
+    color: #ff6b35;
+    border-bottom: 2px solid #ff6b35;
+}
+
+.paymentMethods {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+}
+
+.paymentMethod {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    background: white;
+}
+
+.paymentMethod img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.paymentMethod span {
+    font-size: 10px;
+    color: #666;
+}
+
+.selectedPayment {
+    border-color: #ff6b35;
+}
+
+.deliveryAddress {
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.addressHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.addressHeader h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.editButton {
+    background: none;
+    border: none;
+    color: #ff6b35;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.addressContent {
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.selectedAddress {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.addressList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.expanded .addressList {
+    max-height: 200px;
+}
+
+.addressOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.addressOption:hover {
+    background: #f0f0f0;
+}
+
+.radioButton {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    position: relative;
+    transition: border-color 0.2s;
+}
+
+.radioButton.selected {
+    border-color: #FFC736;
+}
+
+.radioFill {
+    width: 8px;
+    height: 8px;
+    background: #FFC736;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: radioFill 0.2s ease;
+}
+
+@keyframes radioFill {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.addressDetails {
+    flex: 1;
+}
+
+.addressName {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.addressText {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.3;
+}
+
+.orderSummaryDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+}
+
+.totalRow {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+.checkoutButton {
+    width: 100%;
+    background: #ff6b35;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.checkoutButton:hover {
+    background: #e55a2b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .cartPanel {
+        width: 40%;
+        right: -40%;
+    }
+}
+
+@media (max-width: 768px) {
+    .cartPanel {
+        width: 100%;
+        right: -100%;
+    }
+}

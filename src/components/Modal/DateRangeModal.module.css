@@ -1,0 +1,306 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modalContent {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    position: relative;
+    font-family: 'Sen', sans-serif;
+    animation: slideUp 0.3s ease-out;
+    overflow: hidden;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    padding: 24px 24px 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+    text-align: center;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+    font-weight: 500;
+}
+
+.dateRange {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #fff8f5 0%, #ffe8d6 100%);
+    border-bottom: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.dateRangeText {
+    font-size: 16px;
+    color: #FF6B21;
+    font-weight: 600;
+    margin: 0;
+}
+
+.calendar {
+    padding: 20px 24px;
+}
+
+.calendarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.navButton {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navButton:hover {
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    border-color: #FF6B21;
+    color: #FF6B21;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 107, 33, 0.15);
+}
+
+.monthYear {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    letter-spacing: -0.5px;
+}
+
+.calendarGrid {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #f1f3f4;
+}
+
+.weekDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.weekDay {
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.daysGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: white;
+}
+
+.dayButton {
+    border: none;
+    background: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d3748;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sen', sans-serif;
+}
+
+.dayButton:hover:not(:disabled) {
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe8d6 100%);
+    color: #FF6B21;
+    font-weight: 600;
+}
+
+.dayButton:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    color: #adb5bd;
+}
+
+.otherMonth {
+    opacity: 0.3;
+    color: #adb5bd;
+}
+
+.today {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    color: #1976d2;
+    font-weight: 600;
+}
+
+.startDate,
+.endDate {
+    background: linear-gradient(135deg, #FF6B21 0%, #FF7622 100%) !important;
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+.startDate:hover,
+.endDate:hover {
+    background: linear-gradient(135deg, #e55a2b 0%, #e55a2b 100%) !important;
+    transform: scale(1.05);
+}
+
+.inRange {
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe8d6 100%) !important;
+    color: #FF6B21 !important;
+    font-weight: 600 !important;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.cancelButton {
+    flex: 1;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Sen', sans-serif;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.cancelButton:hover {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-color: #adb5bd;
+    color: #495057;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.applyButton {
+    flex: 1;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #FF6B21 0%, #FF7622 100%);
+    border: 2px solid #FF6B21;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Sen', sans-serif;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3);
+}
+
+.applyButton:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e55a2b 0%, #e55a2b 100%);
+    border-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 33, 0.4);
+}
+
+.applyButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3) !important;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modalContent {
+        width: 95%;
+        max-width: 350px;
+    }
+    
+    .header {
+        padding: 20px 16px 16px 16px;
+    }
+    
+    .title {
+        font-size: 20px;
+    }
+    
+    .calendar {
+        padding: 16px;
+    }
+    
+    .actions {
+        padding: 16px;
+        flex-direction: column;
+    }
+    
+    .cancelButton,
+    .applyButton {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,459 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Cambiar de space-between a flex-start */
+  padding: 15px 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  gap: 30px; /* Aumentar el gap para mejor espaciado */
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Sección de autenticación a la izquierda */
+.authSection {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  order: -1;
+  flex-shrink: 0;
+  margin-right: 20px; /* Espacio adicional después de los botones */
+}
+
+.greeting {
+  color: #181C2E;
+  font-size: 20px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+  flex: 0 0 auto; /* No permitir que se expanda o comprima */
+  order: 1;
+  margin-right: 30px; /* Espacio adicional después del saludo */
+}
+
+.searchContainer {
+  flex: 1;
+  position: relative;
+  min-width: 250px; /* Aumentar ancho mínimo */
+  max-width: 500px; /* Aumentar ancho máximo */
+  order: 2;
+  margin-right: auto; /* Empujar el resto de elementos hacia la derecha */
+}
+
+.searchIcon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #676767;
+  font-size: 16px;
+}
+
+.searchBar {
+  width: 100%;
+  height: 56px;
+  background: #F2F2F3;
+  border-radius: 12px;
+  border: none;
+  padding: 0 15px 0 45px;
+  font-size: 16px;
+  font-family: 'Sen', sans-serif;
+  color: #676767;
+  box-sizing: border-box;
+}
+
+.searchBar::placeholder {
+  color: #676767;
+}
+
+.searchBar:focus {
+  outline: none;
+  background: #EAEAEB;
+}
+
+.authButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #FF7622;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.authButton:hover {
+  background: #E65D11;
+  transform: translateY(-1px);
+}
+
+.authIcon {
+  font-size: 16px;
+}
+
+.authText {
+  font-size: 14px;
+}
+
+/* Contenedor de usuario autenticado */
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Perfil de usuario expandible al hover - similar al logout */
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: transparent;
+  border: 2px solid #FF7622;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  width: 40px; /* Ancho inicial solo para el icono */
+  height: 40px;
+  position: relative;
+}
+
+.userProfile:hover {
+  width: 160px; /* Se expande al hacer hover para mostrar nombre y apellido */
+  background: #FF7622;
+  padding-right: 12px;
+}
+
+.userIcon {
+  color: #FF7622;
+  font-size: 18px; /* Icono un poco más grande que el logout */
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.userProfile:hover .userIcon {
+  color: white;
+}
+
+/* Contenedor para mostrar nombre y apellido en dos líneas */
+.userNameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.userProfile:hover .userNameContainer {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.firstName {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Sen', sans-serif;
+  color: white;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.lastName {
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Sen', sans-serif;
+  color: white;
+  margin: 0;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+/* Botón de logout con hover expandible */
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: transparent;
+  border: 2px solid #FF7622;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  width: 40px; /* Ancho inicial solo para el icono */
+  height: 40px;
+  position: relative;
+}
+
+.logoutButton:hover {
+  width: 140px; /* Se expande al hacer hover */
+  background: #FF7622;
+  padding-right: 12px;
+}
+
+.logoutIcon {
+  font-size: 16px;
+  color: #FF7622;
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logoutButton:hover .logoutIcon {
+  color: white;
+}
+
+.logoutText {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Sen', sans-serif;
+  color: white;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.logoutButton:hover .logoutText {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.locationInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+  order: 3; /* Último elemento */
+  margin-left: auto; /* Empujar completamente hacia la derecha */
+}
+
+.deliverLabel {
+  color: #FF7622;
+  font-size: 14px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+}
+
+.locationText {
+  color: #181C2E;
+  font-size: 16px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+}
+
+.cartContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.cartIconBg {
+  width: 45px;
+  height: 45px;
+  background: #FF7622;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.cartIconBg:hover {
+  background: #E65D11;
+  transform: translateY(-2px);
+}
+
+.cartIcon {
+  color: white;
+  font-size: 18px;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #FF0000;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Sen', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .header {
+    padding: 15px 3%;
+    gap: 25px;
+  }
+  
+  .greeting {
+    font-size: 18px;
+    margin-right: 25px;
+  }
+  
+  .searchContainer {
+    min-width: 200px;
+    max-width: 400px;
+  }
+  
+  .firstName {
+    font-size: 13px;
+  }
+  
+  .lastName {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px 5%;
+    justify-content: flex-start; /* Mantener alineación a la izquierda */
+  }
+  
+  .authSection {
+    order: -1;
+    width: auto;
+    margin-right: 15px;
+  }
+  
+  .greeting {
+    order: 1;
+    width: auto;
+    margin-right: 20px;
+  }
+  
+  .searchContainer {
+    order: 2;
+    width: calc(100% - 40px); /* Ocupar el ancho disponible menos márgenes */
+    max-width: none;
+    margin-right: 0;
+  }
+  
+  .locationInfo {
+    order: 3;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  
+  .userProfile:hover {
+    width: 140px; /* Reducir ancho en móviles */
+  }
+  
+  .logoutButton:hover {
+    width: 120px; /* Reducir ancho en móviles */
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    gap: 12px;
+  }
+  
+  .greeting {
+    font-size: 16px;
+    margin-right: 15px;
+  }
+  
+  .searchContainer {
+    min-width: 180px;
+  }
+  
+  .firstName {
+    font-size: 12px;
+  }
+  
+  .lastName {
+    font-size: 10px;
+  }
+  
+  .userIcon {
+    font-size: 16px;
+  }
+  
+  .userProfile:hover {
+    width: 120px;
+  }
+  
+  .logoutButton:hover {
+    width: 100px;
+  }
+  
+  .logoutText {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 3%;
+    gap: 10px;
+  }
+  
+  .greeting {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+  .searchContainer {
+    min-width: 150px;
+  }
+  
+  .firstName {
+    font-size: 11px;
+  }
+  
+  .lastName {
+    font-size: 9px;
+  }
+  
+  .userIcon {
+    font-size: 14px;
+  }
+  
+  .userProfile {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .userProfile:hover {
+    width: 100px;
+  }
+  
+  .logoutButton {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .logoutButton:hover {
+    width: 90px;
+  }
+  
+  .logoutIcon {
+    font-size: 14px;
+  }
+  
+  .logoutText {
+    font-size: 11px;
+  }
+}

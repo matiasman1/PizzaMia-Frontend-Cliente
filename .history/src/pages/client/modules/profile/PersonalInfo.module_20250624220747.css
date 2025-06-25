@@ -1,0 +1,614 @@
+/* Usar variables CSS del proyecto */
+@import '../../../../styles/base/client-variables.css';
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--client-font-family);
+    background-color: var(--client-background-color);
+}
+
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* Estados de carga y error */
+.loading,
+.error {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.loading {
+    font-size: 16px;
+    color: #7f8c8d;
+    font-family: var(--client-font-family);
+}
+
+.error {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    color: #dc2626;
+}
+
+.error h2 {
+    color: #dc2626;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.error p {
+    color: #7f8c8d;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+}
+
+/* Mensajes de operación */
+.errorMessage,
+.successMessage {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--client-font-family);
+    animation: fadeIn 0.3s ease;
+}
+
+.errorMessage {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.successMessage {
+    background-color: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+/* Contenido principal */
+.content {
+    width: 100%;
+}
+
+/* Tarjeta principal de información - ESTA ES LA CLAVE */
+.personalInfoCard {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent;
+    margin-bottom: 24px;
+}
+
+.personalInfoCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #e9ecef;
+    border-left-color: var(--client-accent-color);
+}
+
+.cardContent {
+    padding: 24px;
+}
+
+/* Header de la tarjeta con ícono de usuario */
+.infoHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.userIconContainer {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    color: var(--client-accent-color);
+    font-size: 24px;
+    transition: all 0.2s ease;
+}
+
+.userIconContainer:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+}
+
+.infoHeaderText {
+    flex: 1;
+}
+
+.infoTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 4px 0;
+    font-family: var(--client-font-family);
+}
+
+.infoSubtitle {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* Formulario estilizado */
+.formContainer {
+    width: 100%;
+}
+
+.formSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup.fullWidth {
+    grid-column: 1 / -1;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+    font-family: var(--client-font-family);
+}
+
+.label.required::after {
+    content: " *";
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    background-color: #f9fafb;
+    color: #374151;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--client-accent-color);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.input:disabled {
+    background-color: #f3f4f6;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.input.readOnly {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    color: #6c757d;
+    cursor: default;
+}
+
+.input.error {
+    border-color: #dc2626;
+    background-color: #fef2f2;
+}
+
+.input.success {
+    border-color: #16a34a;
+    background-color: #f0fdf4;
+}
+
+.input:invalid {
+    border-color: #fbbf24;
+    background-color: #fffbeb;
+}
+
+/* Campo de teléfono especial */
+.phoneContainer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.countrySelector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+    font-family: var(--client-font-family);
+    position: relative;
+}
+
+.countrySelector:hover {
+    border-color: var(--client-accent-color);
+    background-color: white;
+}
+
+.countrySelector:focus {
+    outline: 2px solid var(--client-accent-color);
+    outline-offset: 2px;
+}
+
+.countryFlag {
+    font-size: 16px;
+}
+
+.countryInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.countryName {
+    font-size: 12px;
+    color: #374151;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.countryCode {
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1;
+}
+
+.phoneInput {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Dropdown de países */
+.countryDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 4px;
+}
+
+.countryOption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--client-font-family);
+}
+
+.countryOption:hover {
+    background-color: #f3f4f6;
+    transform: translateX(2px);
+}
+
+.countryOption.selected {
+    background-color: rgba(255, 107, 53, 0.1);
+    color: var(--client-accent-color);
+}
+
+/* Enlace de cambio de contraseña */
+.changePasswordLink {
+    color: var(--client-accent-color);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    margin-top: 8px;
+    font-family: var(--client-font-family);
+}
+
+.changePasswordLink:hover {
+    background-color: rgba(255, 107, 53, 0.1);
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
+
+.changePasswordLink:focus {
+    outline: 2px solid var(--client-accent-color);
+    outline-offset: 2px;
+}
+
+/* Botones de acción */
+.actionButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #f1f3f4;
+}
+
+.acceptButton,
+.cancelButton {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--client-font-family);
+    min-width: 100px;
+    border: 1px solid transparent;
+}
+
+.acceptButton {
+    background-color: var(--client-accent-color);
+    color: white;
+    border-color: var(--client-accent-color);
+}
+
+.acceptButton:hover:not(:disabled) {
+    background-color: #e55a2b;
+    border-color: #e55a2b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.acceptButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.acceptButton:focus {
+    outline: 2px solid var(--client-accent-color);
+    outline-offset: 2px;
+}
+
+.cancelButton {
+    background-color: white;
+    color: #6b7280;
+    border-color: #d1d5db;
+}
+
+.cancelButton:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+.cancelButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cancelButton:focus {
+    outline: 2px solid var(--client-accent-color);
+    outline-offset: 2px;
+}
+
+/* Estado de carga en botones */
+.acceptButton.loading {
+    position: relative;
+    color: transparent;
+}
+
+.acceptButton.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Texto de ayuda */
+.helpText {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    font-family: var(--client-font-family);
+}
+
+.helpText.error {
+    color: #dc2626;
+}
+
+.helpText.success {
+    color: #16a34a;
+}
+
+/* Efectos de focus en grupos */
+.formGroup:focus-within .label {
+    color: var(--client-accent-color);
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+        margin: 0 8px;
+    }
+
+    .sectionTitle {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .cardContent {
+        padding: 20px;
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .infoHeader {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .userIconContainer {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .infoTitle {
+        font-size: 18px;
+    }
+
+    .actionButtons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .acceptButton,
+    .cancelButton {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .phoneContainer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .countrySelector {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+        margin: 0 4px;
+    }
+
+    .cardContent {
+        padding: 16px;
+    }
+
+    .infoHeader {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .input,
+    .countrySelector {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.personalInfoCard {
+    animation: fadeIn 0.3s ease;
+}
+
+.successMessage,
+.errorMessage {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Espaciado consistente con Addresses */
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.content {
+    margin-bottom: 32px;
+}

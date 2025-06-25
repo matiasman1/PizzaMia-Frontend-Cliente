@@ -1,0 +1,607 @@
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* Estados de carga y error */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FF6B21;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #7f8c8d;
+    font-family: var(--client-font-family);
+    margin: 0;
+    font-size: 16px;
+}
+
+.error {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    color: #dc2626;
+}
+
+.error h2 {
+    color: #dc2626;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.error p {
+    color: #7f8c8d;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    margin: 0;
+}
+
+/* Estado vacío */
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+.emptyIcon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.emptyState h3 {
+    font-size: 20px;
+    color: #495057;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.emptyState p {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* SOBRESCRIBIR COMPLETAMENTE GenericTable */
+.tableContainer {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    margin-bottom: 24px;
+    animation: fadeIn 0.3s ease;
+    width: 100% !important;
+    max-height: none !important; /* CRÍTICO: Eliminar cualquier limitación de altura */
+    height: auto !important; /* CRÍTICO: Altura automática */
+}
+
+/* Sobrescribir TODOS los elementos internos de GenericTable */
+.tableContainer * {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.tableContainer table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    background: transparent !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.tableContainer thead {
+    display: none !important;
+}
+
+.tableContainer tbody {
+    display: block !important;
+    padding: 0 !important;
+    background: transparent !important;
+    width: 100% !important;
+    max-height: none !important; /* CRÍTICO */
+    height: auto !important; /* CRÍTICO */
+    overflow: visible !important; /* CRÍTICO */
+}
+
+/* ELIMINAR cualquier contenedor con scroll de GenericTable */
+.tableContainer div {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* TARJETAS HORIZONTALES SIN LIMITACIONES */
+.tableContainer tr {
+    display: flex !important;
+    align-items: center !important;
+    background: white !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    border-left: 4px solid transparent !important;
+    margin-bottom: 12px !important;
+    padding: 16px 20px !important;
+    transition: all 0.2s ease !important;
+    animation: fadeIn 0.3s ease !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 80px !important;
+    max-height: none !important; /* Sin límite de altura */
+    height: auto !important;
+}
+
+.tableContainer tr:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    border-left-color: #FF6B21 !important;
+    transform: translateY(-1px) !important;
+}
+
+.tableContainer tr:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* CELDAS CON DISTRIBUCIÓN HORIZONTAL */
+.tableContainer td {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* Ícono y número de pedido - Primera columna */
+.tableContainer td:first-child {
+    flex: 0 0 160px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.tableContainer td:first-child::before {
+    content: "📦" !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #fff8f5 !important;
+    border-radius: 8px !important;
+    color: #FF6B21 !important;
+    font-size: 20px !important;
+    flex-shrink: 0 !important;
+}
+
+.tableContainer td:first-child::after {
+    content: "#" attr(data-label) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Fecha - Segunda columna */
+.tableContainer td:nth-child(2) {
+    flex: 1 !important;
+    min-width: 140px !important;
+    text-align: left !important;
+}
+
+.tableContainer td:nth-child(2)::before {
+    content: "Fecha" !important;
+    display: block !important;
+    font-size: 10px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 2px !important;
+    font-weight: 500 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Total - Tercera columna */
+.tableContainer td:nth-child(3) {
+    flex: 0 0 100px !important;
+    text-align: center !important;
+}
+
+.tableContainer td:nth-child(3)::before {
+    content: "Total" !important;
+    display: block !important;
+    font-size: 10px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 2px !important;
+    font-weight: 500 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Estado - Cuarta columna */
+.tableContainer td:nth-child(4) {
+    flex: 0 0 120px !important;
+    text-align: center !important;
+}
+
+.tableContainer td:nth-child(4)::before {
+    content: "Estado" !important;
+    display: block !important;
+    font-size: 10px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 2px !important;
+    font-weight: 500 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Tipo - Quinta columna */
+.tableContainer td:nth-child(5) {
+    flex: 0 0 100px !important;
+    text-align: center !important;
+}
+
+.tableContainer td:nth-child(5)::before {
+    content: "Tipo" !important;
+    display: block !important;
+    font-size: 10px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 2px !important;
+    font-weight: 500 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Valores de los campos */
+.tableContainer td:nth-child(2),
+.tableContainer td:nth-child(3),
+.tableContainer td:nth-child(5) {
+    font-size: 14px !important;
+    color: #2c3e50 !important;
+    font-weight: 500 !important;
+    font-family: var(--client-font-family) !important;
+    line-height: 1.2 !important;
+}
+
+/* Estado con badge compacto */
+.tableContainer td:nth-child(4) {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-family: var(--client-font-family) !important;
+}
+
+.tableContainer td:nth-child(4) span {
+    display: inline-block !important;
+    padding: 4px 8px !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+    margin-top: 2px !important;
+    min-width: 70px !important;
+    font-size: 10px !important;
+}
+
+/* Colores de estados - Con !important para sobrescribir */
+.tableContainer td:nth-child(4) span[style*="background-color: #FFC736"] {
+    background-color: #FFC736 !important;
+    color: #1d1d1d !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #16a34a"] {
+    background-color: #16a34a !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #FF7622"] {
+    background-color: #FF7622 !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #2196F3"] {
+    background-color: #2196F3 !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #F44336"] {
+    background-color: #F44336 !important;
+    color: white !important;
+}
+
+/* Botones de acción - Última columna */
+.tableContainer td:last-child {
+    flex: 0 0 140px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.tableContainer td:last-child button {
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: var(--client-font-family) !important;
+    border: 1px solid !important;
+    min-width: 65px !important;
+}
+
+.tableContainer td:last-child button:first-child {
+    background-color: #FF6B21 !important;
+    color: white !important;
+    border-color: #FF6B21 !important;
+}
+
+.tableContainer td:last-child button:first-child:hover {
+    background-color: #e55a2b !important;
+    border-color: #e55a2b !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3) !important;
+}
+
+/* PAGINACIÓN MEJORADA */
+.pagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 24px !important;
+    padding: 16px 0 !important;
+}
+
+.paginationButton {
+    background-color: white !important;
+    border: 1px solid #d1d5db !important;
+    color: #6b7280 !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    font-family: var(--client-font-family) !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    min-width: 40px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.paginationButton:hover:not(:disabled) {
+    background-color: #f9fafb !important;
+    border-color: #9ca3af !important;
+    color: #374151 !important;
+}
+
+.paginationButton:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    background-color: #f9fafb !important;
+}
+
+.pageNumbers {
+    display: flex !important;
+    gap: 4px !important;
+}
+
+.pageNumber {
+    background-color: white !important;
+    border: 1px solid #d1d5db !important;
+    color: #6b7280 !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    font-family: var(--client-font-family) !important;
+    font-weight: 500 !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+}
+
+.pageNumber:hover {
+    background-color: #f9fafb !important;
+    border-color: #9ca3af !important;
+    color: #374151 !important;
+}
+
+.activePage {
+    background-color: #FF6B21 !important;
+    border-color: #FF6B21 !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.activePage:hover {
+    background-color: #e55a2b !important;
+    border-color: #e55a2b !important;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+        margin: 0 8px;
+        max-width: none;
+    }
+    
+    .sectionTitle {
+        font-size: 24px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    .tableContainer tr {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 16px !important;
+        min-height: auto !important;
+    }
+    
+    .tableContainer td {
+        width: 100% !important;
+        margin-bottom: 8px !important;
+        text-align: left !important;
+    }
+    
+    .tableContainer td:first-child {
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        margin-bottom: 12px !important;
+        padding-bottom: 8px !important;
+        border-bottom: 1px solid #f1f3f4 !important;
+    }
+    
+    .tableContainer td:last-child {
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        margin-top: 8px !important;
+        padding-top: 8px !important;
+        border-top: 1px solid #f1f3f4 !important;
+    }
+    
+    .tableContainer td:last-child button {
+        flex: 1 !important;
+        min-width: auto !important;
+    }
+    
+    .pagination {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+        padding: 12px 0 !important;
+    }
+    
+    .pageNumbers {
+        order: 2 !important;
+        width: 100% !important;
+        justify-content: center !important;
+        margin: 8px 0 !important;
+    }
+    
+    .paginationButton {
+        order: 1 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+        margin: 0 4px;
+    }
+    
+    .tableContainer tr {
+        padding: 12px !important;
+    }
+    
+    .tableContainer td:last-child {
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+    
+    .tableContainer td:last-child button {
+        width: 100% !important;
+    }
+}
+
+/* Estados de focus */
+.tableContainer td:last-child button:focus,
+.paginationButton:focus,
+.pageNumber:focus {
+    outline: 2px solid #FF6B21 !important;
+    outline-offset: 2px !important;
+}
+
+/* Espaciado consistente */
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tableContainer {
+    margin-bottom: 24px;
+}

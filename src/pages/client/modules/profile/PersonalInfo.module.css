@@ -1,0 +1,438 @@
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+/* Tarjeta principal de información personal */
+.personalInfoCard {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent;
+    margin-bottom: 24px;
+    transition: all 0.2s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+.personalInfoCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left-color: var(--client-accent-color);
+}
+
+.cardContent {
+    padding: 24px;
+}
+
+/* Header con ícono de usuario */
+.infoHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.userIconContainer {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    color: var(--client-accent-color);
+    font-size: 24px;
+    transition: all 0.2s ease;
+}
+
+.userIconContainer:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+}
+
+.infoTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 4px 0;
+    font-family: var(--client-font-family);
+}
+
+.infoSubtitle {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* Formulario mejorado */
+.formSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    transition: margin-bottom 0.3s ease;
+}
+
+.formGroup.fullWidth {
+    grid-column: 1 / -1;
+}
+
+.formGroup label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #374151;
+    font-family: var(--client-font-family);
+}
+
+.inputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #374151;
+    background-color: #f9fafb;
+    transition: all 0.2s ease;
+    font-family: var(--client-font-family);
+    box-sizing: border-box;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: var(--client-accent-color);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(255, 107, 33, 0.1);
+}
+
+.readOnlyInput {
+    background-color: #f8f9fa !important;
+    border-color: #e9ecef !important;
+    color: #6c757d !important;
+    cursor: default;
+}
+
+.placeholderValue {
+    color: #999 !important;
+    font-style: italic;
+}
+
+.editIcon {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 16px;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+.editIcon:hover:not(:disabled) {
+    color: var(--client-accent-color);
+}
+
+.editIcon:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Campo de teléfono mejorado */
+.phoneInputGroup {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.countrySelect {
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9fafb;
+    min-width: 120px;
+    font-family: var(--client-font-family);
+    transition: all 0.2s ease;
+}
+
+.countrySelect:focus {
+    outline: none;
+    border-color: var(--client-accent-color);
+    background-color: white;
+}
+
+.phoneInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    background-color: #f9fafb;
+    transition: all 0.2s ease;
+}
+
+.phoneInput:focus {
+    outline: none;
+    border-color: var(--client-accent-color);
+    background-color: white;
+}
+
+.helpText {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    font-family: var(--client-font-family);
+}
+
+/* Botones de acción mejorados */
+.actionButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #f1f3f4;
+    transition: all 0.3s ease;
+}
+
+.acceptButton,
+.cancelButton {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--client-font-family);
+    min-width: 100px;
+    border: 1px solid transparent;
+}
+
+.acceptButton {
+    background-color: var(--client-accent-color);
+    color: white;
+    border-color: var(--client-accent-color);
+}
+
+.acceptButton:hover:not(:disabled) {
+    background-color: #e55a2b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3);
+}
+
+.acceptButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.cancelButton {
+    background-color: white;
+    color: #6b7280;
+    border-color: #d1d5db;
+}
+
+.cancelButton:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+.cancelButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Estados de error y éxito mejorados */
+.errorMessage {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.successMessage {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #16a34a;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 16px;
+    color: #7f8c8d;
+    font-family: var(--client-font-family);
+}
+
+.error {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    color: #dc2626;
+}
+
+.error h2 {
+    color: #dc2626;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.error p {
+    color: #7f8c8d;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efectos de focus mejorados */
+.formGroup:focus-within label {
+    color: var(--client-accent-color);
+    font-weight: 600;
+}
+
+.acceptButton:focus,
+.cancelButton:focus,
+.editIcon:focus {
+    outline: 2px solid var(--client-accent-color);
+    outline-offset: 2px;
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+        margin: 0 8px;
+    }
+    
+    .sectionTitle {
+        font-size: 24px;
+    }
+    
+    .cardContent {
+        padding: 20px;
+    }
+    
+    .formRow {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .infoHeader {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .userIconContainer {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .infoTitle {
+        font-size: 18px;
+    }
+    
+    .actionButtons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .acceptButton,
+    .cancelButton {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .phoneInputGroup {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .countrySelect {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+        margin: 0 4px;
+    }
+    
+    .cardContent {
+        padding: 16px;
+    }
+    
+    .infoHeader {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}

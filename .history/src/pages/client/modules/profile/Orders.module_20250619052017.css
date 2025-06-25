@@ -1,0 +1,262 @@
+.container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.sectionTitle {
+    font-size: var(--client-title-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.filterButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filterButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.filterIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.ordersTable {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.tabHeader {
+    display: flex;
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.tabButton {
+    padding: 14px 20px;
+    border: none;
+    background: none;
+    font-family: var(--client-font-family);
+    font-size: var(--client-body-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.activeTab {
+    color: var(--client-accent-color);
+    border-bottom: 2px solid var(--client-accent-color);
+}
+
+.ordersList {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderItem {
+    display: flex;
+    padding: 16px 20px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.orderIconContainer {
+    margin-right: 20px;
+}
+
+.orderIcon {
+    width: 42px;
+    height: 42px;
+}
+
+.orderDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.orderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.orderIdContainer {
+    display: flex;
+    align-items: center;
+}
+
+.orderIdLabel {
+    font-weight: var(--client-font-weight-medium);
+    font-size: var(--client-subtitle-size);
+}
+
+.orderDate {
+    color: #757575;
+    font-size: var(--client-small-size);
+    margin-left: 10px;
+}
+
+.orderInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.orderTotals,
+.orderQuantity {
+    display: flex;
+    align-items: center;
+}
+
+.totalLabel,
+.quantityLabel {
+    font-weight: var(--client-font-weight-medium);
+    margin-right: 5px;
+    color: #333;
+}
+
+.totalAmount,
+.quantityValue {
+    color: #666;
+}
+
+.orderActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.detailsButton,
+.invoiceButton {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: var(--client-font-family);
+    font-weight: var(--client-font-weight-medium);
+    font-size: var(--client-small-size);
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.detailsButton {
+    background-color: transparent;
+    border: 1px solid var(--client-accent-color);
+    color: var(--client-accent-color);
+}
+
+.detailsButton:hover {
+    background-color: rgba(255, 107, 33, 0.05);
+}
+
+.invoiceButton {
+    background-color: var(--client-accent-color);
+    border: none;
+    color: white;
+}
+
+.invoiceButton:hover {
+    opacity: 0.9;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 16px 0;
+    gap: 8px;
+}
+
+.pageButton,
+.pageNavButton {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    font-family: var(--client-font-family);
+    font-size: var(--client-small-size);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pageButton:hover,
+.pageNavButton:hover {
+    background-color: #F0F0F0;
+}
+
+.activePage {
+    background-color: var(--client-accent-color);
+    color: white;
+}
+
+.activePage:hover {
+    background-color: var(--client-accent-color);
+    opacity: 0.9;
+}
+
+.disabledButton {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ellipsis {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+}
+
+@media (max-width: 768px) {
+    .orderInfo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .orderActions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .detailsButton,
+    .invoiceButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .orderItem {
+        flex-direction: column;
+    }
+
+    .orderIconContainer {
+        margin-right: 0;
+        margin-bottom: 16px;
+        align-self: center;
+    }
+}

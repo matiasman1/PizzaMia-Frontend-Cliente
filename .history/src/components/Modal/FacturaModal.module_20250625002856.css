@@ -1,0 +1,162 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px;
+    position: relative;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.backButton {
+    background: #f5f5f5;
+    border: none;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.iconContainer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pizzaIcon {
+    width: 80px;
+    height: 80px;
+    background: #fff5f0;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.orderInfo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.orderTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.orderDate {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.orderNumber {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.itemsList {
+    margin-bottom: 30px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.itemName {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.itemPrice {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.totals {
+    margin-bottom: 30px;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.totalRowFinal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 1px solid #e0e0e0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.downloadButton {
+    width: 100%;
+    background: #FF6B21;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.downloadButton:hover:not(:disabled) {
+    background: #e55a2b;
+}
+
+.downloadButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

@@ -1,0 +1,148 @@
+.container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: var(--client-title-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: var(--client-body-size);
+    color: #666;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #ddd;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.emptyState h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.emptyState p {
+    color: #666;
+    margin-bottom: 30px;
+    font-family: var(--client-font-family);
+}
+
+.addressesList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.addressCard {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.addressCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0,/* filepath: src/pages/client/modules/profile/Addresses.module.css */
+.container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: var(--client-title-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: var(--client-body-size);
+    color: #666;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #ddd;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.emptyState h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.emptyState p {
+    color: #666;
+    margin-bottom: 30px;
+    font-family: var(--client-font-family);
+}
+
+.addressesList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.addressCard {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.addressCard:hover {
+    box-shadow: 0 4px 12px

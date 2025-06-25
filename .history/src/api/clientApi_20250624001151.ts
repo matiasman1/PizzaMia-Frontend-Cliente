@@ -1,0 +1,1 @@
+stockStore.ts:3 Uncaught SyntaxError: The requested module '/src/api/clientApi.ts?t=1750734388280' does not provide an export named 'verificarDisponibilidadManufacturado' (at stockStore.ts:3:10)

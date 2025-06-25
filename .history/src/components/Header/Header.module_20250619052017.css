@@ -1,0 +1,178 @@
+.navbarSections {
+  height: 86px;
+  background: #FFC736;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pizzaMia {
+  font-family: 'Sen', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: #1D1D1D;
+  white-space: nowrap;
+}
+
+.foodIcon {
+  margin-left: 10px;
+  transform: rotate(20deg);
+  flex-shrink: 0;
+}
+
+.menuItems {
+  display: flex;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  color: rgba(28, 28, 28, 0.70);
+  white-space: nowrap;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.navButton.active {
+  color: #1D1D1D;
+  position: relative;
+}
+
+.navButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #FF7622;
+  border-radius: 2px;
+}
+
+@media (max-width: 1200px) {
+  .navbarSections {
+    padding: 0 3%;
+  }
+  
+  .pizzaMia {
+    font-size: 40px;
+  }
+  
+  .menuItems {
+    gap: 20px;
+  }
+  
+  .navButton {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbarSections {
+    padding: 0 3%;
+  }
+  
+  .menuItems {
+    gap: 16px;
+  }
+  
+  .navButton {
+    font-size: 16px;
+    padding: 5px 8px;
+  }
+  
+  .pizzaMia {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbarSections {
+    height: auto;
+    flex-direction: column;
+    padding: 10px 3%;
+    gap: 10px;
+  }
+  
+  .logoContainer {
+    margin-bottom: 10px;
+  }
+  
+  .pizzaMia {
+    font-size: 32px;
+  }
+  
+  .menuItems {
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .navButton {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pizzaMia {
+    font-size: 28px;
+  }
+  
+  .menuItems {
+    gap: 8px;
+  }
+  
+  .navButton {
+    font-size: 12px;
+  }
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  font-size: 14px;
+}
+
+.userIcon {
+  color: #FF7622;
+  font-size: 16px;
+}
+
+.userName {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}

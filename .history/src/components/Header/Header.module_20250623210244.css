@@ -1,0 +1,182 @@
+.navbarSections {
+  height: 86px;
+  background: #FFC736;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pizzaMia {
+  color: #1D1D1D;
+  font-size: 32px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.foodIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuItems {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  color: #1D1D1D;
+  font-size: 18px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.navButton.active {
+  background-color: #1D1D1D;
+  color: #FFC736;
+  font-weight: 600;
+}
+
+.navButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #FF7622;
+  border-radius: 50%;
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  font-size: 14px;
+}
+
+.userIcon {
+  color: #FF7622;
+  font-size: 16px;
+}
+
+.userName {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .navbarSections {
+    padding: 0 3%;
+  }
+  
+  .menuItems {
+    gap: 25px;
+  }
+  
+  .navButton {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  .pizzaMia {
+    font-size: 28px;
+  }
+  
+  .menuItems {
+    gap: 20px;
+  }
+  
+  .navButton {
+    font-size: 15px;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbarSections {
+    height: 76px;
+    padding: 0 4%;
+  }
+  
+  .pizzaMia {
+    font-size: 26px;
+  }
+  
+  .menuItems {
+    gap: 15px;
+  }
+  
+  .navButton {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .menuItems {
+    gap: 10px;
+  }
+  
+  .navButton {
+    font-size: 13px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pizzaMia {
+    font-size: 28px;
+  }
+  
+  .menuItems {
+    gap: 8px;
+  }
+  
+  .navButton {
+    font-size: 12px;
+  }
+}

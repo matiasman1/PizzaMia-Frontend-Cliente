@@ -1,0 +1,555 @@
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* Estados de carga y error */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FF6B21;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #7f8c8d;
+    font-family: var(--client-font-family);
+    margin: 0;
+    font-size: 16px;
+}
+
+.error {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    color: #dc2626;
+}
+
+.error h2 {
+    color: #dc2626;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.error p {
+    color: #7f8c8d;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    margin: 0;
+}
+
+/* Estado vacío */
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+.emptyIcon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.emptyState h3 {
+    font-size: 20px;
+    color: #495057;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.emptyState p {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* TRANSFORMAR TABLA EN TARJETAS */
+.tableContainer {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 24px;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Ocultar encabezados de tabla en desktop y crear estructura de tarjetas */
+.tableContainer table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.tableContainer thead {
+    display: none; /* Ocultar encabezados originales */
+}
+
+.tableContainer tbody {
+    display: block;
+    padding: 20px;
+}
+
+.tableContainer tr {
+    display: block;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent;
+    margin-bottom: 16px;
+    padding: 20px;
+    transition: all 0.2s ease;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+.tableContainer tr:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left-color: #FF6B21;
+    transform: translateY(-1px);
+}
+
+.tableContainer tr:last-child {
+    margin-bottom: 0;
+}
+
+/* Crear estructura de tarjeta con las celdas */
+.tableContainer td {
+    display: block;
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+/* Header de la tarjeta (primera celda - N° Pedido) */
+.tableContainer td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.tableContainer td:first-child::before {
+    content: "📦";
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff8f5;
+    border-radius: 12px;
+    color: #FF6B21;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.tableContainer td:first-child::after {
+    content: "Order " attr(data-label);
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: var(--client-font-family);
+}
+
+/* Información del pedido en grid */
+.tableContainer td:nth-child(2),
+.tableContainer td:nth-child(3),
+.tableContainer td:nth-child(4),
+.tableContainer td:nth-child(5) {
+    display: inline-block;
+    width: 48%;
+    margin-right: 4%;
+    margin-bottom: 12px;
+    vertical-align: top;
+}
+
+.tableContainer td:nth-child(2)::before {
+    content: "Fecha y Hora";
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-family: var(--client-font-family);
+}
+
+.tableContainer td:nth-child(3)::before {
+    content: "Total";
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-family: var(--client-font-family);
+}
+
+.tableContainer td:nth-child(4)::before {
+    content: "Estado";
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-family: var(--client-font-family);
+}
+
+.tableContainer td:nth-child(5)::before {
+    content: "Tipo";
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-family: var(--client-font-family);
+}
+
+/* Estilos para los valores */
+.tableContainer td:nth-child(2),
+.tableContainer td:nth-child(3),
+.tableContainer td:nth-child(5) {
+    font-size: 16px;
+    color: #2c3e50;
+    font-weight: 600;
+    font-family: var(--client-font-family);
+}
+
+/* Estados especiales */
+.tableContainer td:nth-child(4) {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--client-font-family);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 4px;
+}
+
+/* Colores de estados */
+.tableContainer td:nth-child(4)[style*="EN ESPERA"] {
+    background-color: #FFC736 !important;
+    color: #1d1d1d !important;
+}
+
+.tableContainer td:nth-child(4)[style*="COMPLETADO"] {
+    background-color: #16a34a !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4)[style*="PREPARACION"] {
+    background-color: #FF7622 !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4)[style*="LISTO"] {
+    background-color: #2196F3 !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4)[style*="CANCELADO"] {
+    background-color: #F44336 !important;
+    color: white !important;
+}
+
+/* Botones de acción (última celda) */
+.tableContainer td:last-child {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid #f1f3f4;
+    margin-top: 16px;
+}
+
+.tableContainer td:last-child button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--client-font-family);
+    border: 1px solid;
+    min-width: 100px;
+}
+
+/* Botón "Ver Detalles" */
+.tableContainer td:last-child button:first-child {
+    background-color: #FF6B21;
+    color: white;
+    border-color: #FF6B21;
+}
+
+.tableContainer td:last-child button:first-child:hover {
+    background-color: #e55a2b;
+    border-color: #e55a2b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3);
+}
+
+/* Paginación mejorada */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    padding: 20px;
+}
+
+.paginationButton {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginationButton:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+.paginationButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f9fafb;
+}
+
+.pageNumbers {
+    display: flex;
+    gap: 4px;
+}
+
+.pageNumber {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    font-weight: 500;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pageNumber:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+.activePage {
+    background-color: #FF6B21;
+    border-color: #FF6B21;
+    color: white;
+    font-weight: 600;
+}
+
+.activePage:hover {
+    background-color: #e55a2b;
+    border-color: #e55a2b;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+        margin: 0 8px;
+    }
+    
+    .sectionTitle {
+        font-size: 24px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    .tableContainer tbody {
+        padding: 16px;
+    }
+    
+    .tableContainer tr {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .tableContainer td:nth-child(2),
+    .tableContainer td:nth-child(3),
+    .tableContainer td:nth-child(4),
+    .tableContainer td:nth-child(5) {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+    
+    .tableContainer td:last-child {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .tableContainer td:last-child button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 16px;
+    }
+    
+    .pageNumbers {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        margin: 10px 0;
+        gap: 2px;
+    }
+    
+    .paginationButton {
+        order: 1;
+        padding: 6px 10px;
+        font-size: 12px;
+        min-width: 40px;
+        height: 36px;
+    }
+    
+    .pageNumber {
+        padding: 6px 8px;
+        font-size: 12px;
+        min-width: 32px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+        margin: 0 4px;
+    }
+    
+    .tableContainer tr {
+        padding: 12px;
+    }
+    
+    .tableContainer td:first-child {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .tableContainer td:first-child::before {
+        align-self: center;
+    }
+}
+
+/* Estados de focus para accesibilidad */
+.tableContainer td:last-child button:focus,
+.paginationButton:focus,
+.pageNumber:focus {
+    outline: 2px solid #FF6B21;
+    outline-offset: 2px;
+}
+
+/* Espaciado consistente con otras páginas */
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tableContainer {
+    margin-bottom: 32px;
+}

@@ -1,0 +1,795 @@
+.container {
+    width: 100%;
+    max-width: 1300px; /* Aumentado de 1200px a 1300px para más espacio */
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* Estados de carga y error */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FF6B21;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #7f8c8d;
+    font-family: var(--client-font-family);
+    margin: 0;
+    font-size: 16px;
+}
+
+.error {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    color: #dc2626;
+}
+
+.error h2 {
+    color: #dc2626;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: var(--client-font-family);
+}
+
+.error p {
+    color: #7f8c8d;
+    font-size: 14px;
+    font-family: var(--client-font-family);
+    margin: 0;
+}
+
+/* Estado vacío */
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+.emptyIcon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.emptyState h3 {
+    font-size: 20px;
+    color: #495057;
+    margin: 0 0 8px 0;
+    font-family: var(--client-font-family);
+}
+
+.emptyState p {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+/* CONTENEDOR COMPLETAMENTE EXPANDIDO PARA DOS BOTONES */
+.tableContainer {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    margin-bottom: 24px;
+    animation: fadeIn 0.3s ease;
+    width: calc(100% + 120px) !important; /* CRÍTICO: Expandir aún más para dos botones */
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    /* MOVER HACIA LA IZQUIERDA */
+    margin-left: -60px !important; /* Más hacia la izquierda para centrar */
+    padding-left: 0 !important;
+    transform: translateX(0) !important;
+    position: relative !important;
+}
+
+/* Sobrescribir TODOS los elementos internos de GenericTable */
+.tableContainer *,
+.tableContainer > *,
+.tableContainer div,
+.tableContainer > div {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-width: none !important;
+    width: auto !important;
+}
+
+.tableContainer table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    background: transparent !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-width: none !important;
+}
+
+.tableContainer thead {
+    display: none !important;
+}
+
+.tableContainer tbody {
+    display: block !important;
+    padding: 0 !important;
+    background: transparent !important;
+    width: 100% !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-width: none !important;
+}
+
+/* ELIMINAR cualquier contenedor con scroll de GenericTable */
+.tableContainer div {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-width: none !important;
+    width: 100% !important;
+}
+
+/* TARJETAS HORIZONTALES CON ESPACIO PARA DOS BOTONES */
+.tableContainer tr {
+    display: flex !important;
+    align-items: center !important;
+    background: white !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+    border-left: 5px solid transparent !important;
+    margin-bottom: 20px !important;
+    padding: 24px 32px !important;
+    transition: all 0.2s ease !important;
+    animation: fadeIn 0.3s ease !important;
+    width: calc(100% - 120px) !important; /* Ajustado para el nuevo ancho */
+    min-width: 1100px !important; /* CRÍTICO: Ancho mínimo para que quepan ambos botones */
+    box-sizing: border-box !important;
+    min-height: 110px !important;
+    max-height: none !important;
+    height: auto !important;
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.tableContainer tr:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+    border-left-color: #FF6B21 !important;
+    transform: translateY(-2px) !important;
+}
+
+.tableContainer tr:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* CELDAS CON DISTRIBUCIÓN HORIZONTAL */
+.tableContainer td {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    height: auto !important;
+    max-height: none !important;
+    flex-shrink: 0 !important;
+}
+
+/* Ícono y número de pedido - Primera columna */
+.tableContainer td:first-child {
+    flex: 0 0 200px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* ÍCONO SVG CORREGIDO */
+.tableContainer td:first-child::before {
+    content: "" !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #fff8f5 !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+    /* MÚLTIPLES RUTAS PARA EL SVG */
+    background-image: url('/src/assets/client/order-icon.svg'), url('./assets/client/order-icon.svg'), url('../../../assets/client/order-icon.svg') !important;
+    background-size: 32px 32px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border: 2px solid #FFE5D1 !important;
+    /* FALLBACK CON EMOJI */
+    font-family: 'Segoe UI Emoji', 'Noto Color Emoji', 'Apple Color Emoji', sans-serif !important;
+    font-size: 24px !important;
+    color: #FF6B21 !important;
+}
+
+/* Fallback del emoji si el SVG no carga */
+.tableContainer td:first-child::before:empty {
+    content: "📦" !important;
+}
+
+.tableContainer td:first-child::after {
+    content: "Pedido #" attr(data-label) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    font-family: var(--client-font-family) !important;
+    line-height: 1.3 !important;
+}
+
+/* Fecha - Segunda columna */
+.tableContainer td:nth-child(2) {
+    flex: 0 0 180px !important;
+    min-width: 180px !important;
+    text-align: left !important;
+}
+
+.tableContainer td:nth-child(2)::before {
+    content: "Fecha y Hora" !important;
+    display: block !important;
+    font-size: 11px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Total - Tercera columna */
+.tableContainer td:nth-child(3) {
+    flex: 0 0 140px !important;
+    min-width: 140px !important;
+    text-align: center !important;
+}
+
+.tableContainer td:nth-child(3)::before {
+    content: "Total" !important;
+    display: block !important;
+    font-size: 11px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Estado - Cuarta columna */
+.tableContainer td:nth-child(4) {
+    flex: 0 0 160px !important;
+    min-width: 160px !important;
+    text-align: center !important;
+}
+
+.tableContainer td:nth-child(4)::before {
+    content: "Estado" !important;
+    display: block !important;
+    font-size: 11px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Tipo - Quinta columna */
+.tableContainer td:nth-child(5) {
+    flex: 0 0 140px !important;
+    min-width: 140px !important;
+    text-align: center !important;
+}
+
+.tableContainer td:nth-child(5)::before {
+    content: "Tipo" !important;
+    display: block !important;
+    font-size: 11px !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+    font-family: var(--client-font-family) !important;
+}
+
+/* Valores de los campos */
+.tableContainer td:nth-child(2),
+.tableContainer td:nth-child(3),
+.tableContainer td:nth-child(5) {
+    font-size: 15px !important;
+    color: #2c3e50 !important;
+    font-weight: 500 !important;
+    font-family: var(--client-font-family) !important;
+    line-height: 1.3 !important;
+}
+
+/* Estado con badge mejorado */
+.tableContainer td:nth-child(4) {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-family: var(--client-font-family) !important;
+}
+
+.tableContainer td:nth-child(4) span {
+    display: inline-block !important;
+    padding: 6px 12px !important;
+    border-radius: 14px !important;
+    text-align: center !important;
+    margin-top: 4px !important;
+    min-width: 80px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+/* Colores de estados */
+.tableContainer td:nth-child(4) span[style*="background-color: #FFC736"] {
+    background-color: #FFC736 !important;
+    color: #1d1d1d !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #16a34a"] {
+    background-color: #16a34a !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #FF7622"] {
+    background-color: #FF7622 !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #2196F3"] {
+    background-color: #2196F3 !important;
+    color: white !important;
+}
+
+.tableContainer td:nth-child(4) span[style*="background-color: #F44336"] {
+    background-color: #F44336 !important;
+    color: white !important;
+}
+
+/* BOTONES DE ACCIÓN - ESPACIO GARANTIZADO PARA DOS BOTONES */
+.tableContainer td:last-child {
+    flex: 0 0 240px !important; /* CRÍTICO: Aumentado de 180px a 240px para dos botones */
+    min-width: 240px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 12px !important; /* Espacio entre botones */
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    overflow: visible !important;
+}
+
+.tableContainer td:last-child button {
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: var(--client-font-family) !important;
+    border: 1px solid !important;
+    min-width: 90px !important; /* Ancho mínimo para cada botón */
+    white-space: nowrap !important;
+    text-align: center !important;
+}
+
+/* Botón "Ver Detalles" - Primario */
+.tableContainer td:last-child button:first-child {
+    background-color: #FF6B21 !important;
+    color: white !important;
+    border-color: #FF6B21 !important;
+}
+
+
+.tableContainer td:last-child button:first-child:hover {
+    background-color: #e55a2b !important;
+    border-color: #e55a2b !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3) !important;
+}
+
+/* Botón "Ver Factura" - Secundario */
+.tableContainer td:last-child button:nth-child(2) {
+    background-color: white !important;
+    color: #6c757d !important;
+    border-color: #d1d5db !important;
+}
+
+.tableContainer td:last-child button:nth-child(2):hover {
+    background-color: #f8f9fa !important;
+    color: #495057 !important;
+    border-color: #adb5bd !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* PAGINACIÓN MEJORADA */
+.pagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 32px !important;
+    padding: 20px 0 !important;
+}
+.paginationButton {
+    background-color: white !important;
+    border: 1px solid #d1d5db !important;
+    color: #6b7280 !important;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    font-family: var(--client-font-family) !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    min-width: 44px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.paginationButton:hover:not(:disabled) {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-color: #FF6B21 !important;
+    color: #FF6B21 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 16px rgba(255, 107, 33, 0.15) !important;
+}
+
+.paginationButton:disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-color: #dee2e6 !important;
+    color: #adb5bd !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.pageNumbers {
+    display: flex !important;
+    gap: 4px !important;
+    margin: 0 12px !important;
+}
+
+.pageNumber {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%) !important;
+    border: 2px solid #e9ecef !important;
+    color: #6c757d !important;
+    padding: 12px 16px !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    font-family: 'Sen', sans-serif !important;
+    font-weight: 600 !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.pageNumber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 33, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.pageNumber:hover::before {
+    left: 100%;
+}
+
+.pageNumber:hover {
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe8d6 100%) !important;
+    border-color: #FF6B21 !important;
+    color: #FF6B21 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 16px rgba(255, 107, 33, 0.15) !important;
+}
+
+.activePage {
+    background: linear-gradient(135deg, #FF6B21 0%, #FF7622 100%) !important;
+    border-color: #FF6B21 !important;
+    color: white !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 33, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+.activePage::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.activePage:hover {
+    background: linear-gradient(135deg, #e55a2b 0%, #e55a2b 100%) !important;
+    border-color: #e55a2b !important;
+    color: white !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 20px rgba(255, 107, 33, 0.4) !important;
+}
+
+/* Animación de entrada para los botones de paginación */
+.pagination .paginationButton,
+.pagination .pageNumber {
+    animation: slideInUp 0.3s ease-out forwards;
+}
+
+.pageNumber:nth-child(n+10) {
+    min-width: 52px;
+}
+
+/* Animaciones */
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+        margin: 0 8px;
+        max-width: none;
+    }
+    
+    /* RESET del margin-left en móvil */
+    .tableContainer {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .tableContainer tr {
+        width: 100% !important;
+        min-width: auto !important;
+    }
+    
+    .sectionTitle {
+        font-size: 24px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    /* En móvil volver a layout vertical */
+    .tableContainer tr {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 20px !important;
+        min-height: auto !important;
+    }
+    
+    .tableContainer td {
+        width: 100% !important;
+        margin-bottom: 12px !important;
+        text-align: left !important;
+        flex: none !important;
+        min-width: auto !important;
+    }
+    
+    .tableContainer td:first-child {
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        margin-bottom: 16px !important;
+        padding-bottom: 12px !important;
+        border-bottom: 1px solid #f1f3f4 !important;
+    }
+    
+    .tableContainer td:last-child {
+        flex-direction: row !important; /* Horizontal en móvil para dos botones */
+        justify-content: center !important;
+        gap: 10px !important;
+        margin-top: 12px !important;
+        padding-top: 12px !important;
+        border-top: 1px solid #f1f3f4 !important;
+        flex: none !important;
+        min-width: auto !important;
+    }
+    
+    .tableContainer td:last-child button {
+        flex: 1 !important;
+        min-width: 120px !important; /* Ancho mínimo en móvil */
+        max-width: 140px !important; /* Ancho máximo en móvil */
+    }
+    
+    .pagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 40px !important;
+    padding: 24px 0 !important;
+    }
+    
+    .pageNumbers {
+        order: 2 !important;
+        width: 100% !important;
+        justify-content: center !important;
+        margin: 12px 0 !important;
+    }
+    
+    .paginationButton {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%) !important;
+    border: 2px solid #e9ecef !important;
+    color: #6c757d !important;
+    padding: 12px 16px !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    font-family: 'Sen', sans-serif !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.paginationButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.paginationButton:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+        margin: 0 4px;
+    }
+    
+    .tableContainer tr {
+        padding: 16px !important;
+    }
+    
+.tableContainer td:last-child {
+    flex: 0 0 120px !important; /* Reducido porque ahora están en vertical */
+    min-width: 120px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: flex-start !important; /* Cambio para alineación vertical */
+    gap: 8px !important; /* Espacio entre botones en vertical */
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    overflow: visible !important;
+}
+    
+   .tableContainer td:last-child button {
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: var(--client-font-family) !important;
+    border: 1px solid !important;
+    min-width: 90px !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+}
+}
+
+/* Estados de focus */
+.tableContainer td:last-child button:focus,
+.paginationButton:focus,
+.pageNumber:focus {
+    outline: 2px solid #FF6B21 !important;
+    outline-offset: 2px !important;
+}
+
+/* Espaciado consistente */
+.header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tableContainer {
+    margin-bottom: 32px;
+}

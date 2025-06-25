@@ -1,0 +1,213 @@
+.container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px 0;
+    font-family: var(--client-font-family);
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.sectionTitle {
+    font-size: var(--client-title-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #333;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.addressesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.addressCard {
+    display: flex;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.addressIconContainer {
+    margin-right: 20px;
+}
+
+.locationIcon {
+    width: 42px;
+    height: 42px;
+}
+
+.addressContent {
+    flex: 1;
+}
+
+.addressTypeRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.addressType {
+    font-size: var(--client-subtitle-size);
+    font-weight: var(--client-font-weight-medium);
+    color: #FF6B21;
+    margin: 0;
+    font-family: var(--client-font-family);
+}
+
+.addressText {
+    font-size: var(--client-body-size);
+    color: #333;
+    margin: 4px 0 16px 0;
+    line-height: 1.5;
+    font-family: var(--client-font-family);
+}
+
+.checkboxContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.primaryCheckbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmarkLabel {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customCheckbox {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.primaryCheckbox:checked ~ .checkmarkLabel .customCheckbox {
+  background-color: #FF6B21;
+  border-color: #FF6B21; 
+}
+
+.checkmark {
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 3px;
+}
+
+.addressActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+.eliminateButton,
+.modifyButton {
+    padding: 8px 16px;
+    font-size: var(--client-small-size);
+    cursor: pointer;
+    font-weight: var(--client-font-weight-medium);
+    font-family: var(--client-font-family);
+    border-radius: 6px;
+}
+
+.eliminateButton {
+    background: none;
+    border: 1px solid #FF6B21;
+    color: #FF6B21;
+}
+
+.modifyButton {
+    background-color: #FF6B21;
+    border: none;
+    color: white;
+}
+
+
+
+.actionButton {
+    background: none;
+    border: none;
+    padding: 8px 10px;
+    font-size: var(--client-small-size);
+    color: #FF6B21;
+    cursor: pointer;
+    font-weight: var(--client-font-weight-medium);
+    font-family: var(--client-font-family);
+    transition: opacity 0.2s;
+}
+
+.actionButton:hover {
+    opacity: 0.8;
+}
+
+.addLocationButton {
+    background-color: #FF6B21;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-weight: var(--client-font-weight-semibold);
+    font-size: var(--client-body-size);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 20px;
+    font-family: var(--client-font-family);
+    text-align: center;
+    align-self: center;
+    width: 100%;
+    max-width: 320px;
+    text-transform: uppercase;
+}
+
+.addLocationButton:hover {
+    background-color: #E65D11;
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .addressCard {
+        flex-direction: row;
+    }
+
+    .addressActions {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+    .addressCard {
+        flex-direction: column;
+    }
+
+    .addressIconContainer {
+        margin-right: 0;
+        margin-bottom: 16px;
+    }
+}

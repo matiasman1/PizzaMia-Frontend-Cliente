@@ -1,0 +1,829 @@
+.productPageDesktop {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  background: white;
+  font-family: 'Sen', sans-serif;
+  padding-bottom: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 5%;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+.menuIcon {
+  min-width: 59px;
+  flex-shrink: 0;
+}
+
+.menuIconBg {
+  width: 58px;
+  height: 58px;
+  background: #ECF0F4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuLines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menuLines span {
+  width: 20px;
+  height: 2px;
+  background: #181C2E;
+  border-radius: 1px;
+}
+
+.greeting {
+  color: #1A1817;
+  font-size: 20px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+  text-transform: capitalize;
+  white-space: nowrap;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.searchContainer {
+  flex: 1;
+  max-width: 600px;
+  min-width: 200px;
+  position: relative;
+}
+
+.searchBar {
+  width: 100%;
+  height: 55px;
+  background: #F6F6F6;
+  border-radius: 9px;
+  border: none;
+  padding: 0 20px 0 50px;
+  font-size: 14px;
+  color: #676767;
+  font-family: 'Open Sans', sans-serif;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.searchBar::placeholder {
+  color: #676767;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #403F3E;
+  font-size: 16px;
+}
+
+.locationInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.deliverLabel {
+  color: #FFC736;
+  font-size: 16px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.locationText {
+  color: #676767;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+.cartContainer {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  background: #181C2E;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cartContainer:hover {
+  transform: scale(1.05);
+}
+
+.cartIcon {
+  color: white;
+  font-size: 20px;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  background: #FFC736;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Categories Section */
+.categoriesSection {
+  padding: 40px 5%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.categoriesTitle {
+  color: #32343E;
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 30px;
+}
+
+.categoriesGrid {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.categoryCard {
+  width: 101px;
+  height: 142px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.categoryCard:hover {
+  transform: translateY(-5px);
+}
+
+.categoryCard.active .categoryBackground {
+  background: #FFC736;
+}
+
+.categoryBackground {
+  width: 101px;
+  height: 101px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(215, 218, 224, 0.68);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: background-color 0.2s;
+}
+
+.categoryIcon {
+  font-size: 30px;
+}
+
+.categoryLabel {
+  color: #32343E;
+  font-size: 18px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+/* Popular Section */
+.popularSection {
+  padding: 40px 5%;
+}
+
+.popularTitle {
+  color: #32343E;
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 30px;
+}
+
+.pizzaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pizzaCard {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 15px 35px rgba(150, 150, 156, 0.15);
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pizzaCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(150, 150, 156, 0.2);
+}
+
+.pizzaImage {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+}
+
+.pizzaTitle {
+  color: #32343E;
+  font-size: 18px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+.pizzaPrice {
+  color: #32343E;
+  font-size: 19px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+.addButton {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: #FFC736;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.addButton:hover {
+  transform: scale(1.1);
+  background: #FFB000;
+}
+
+/* Promotions Section */
+.promosSection {
+  padding: 40px 5%;
+  margin-bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.promosTitle {
+  color: #181C2E;
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 30px;
+}
+
+.promosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.promoCard {
+  background: #FFC736;
+  border-radius: 14px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  transition: transform 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.promoCard:hover {
+  transform: translateY(-3px);
+}
+
+.promoContent {
+  flex: 1;
+}
+
+.promoTitle {
+  color: black;
+  font-size: 30px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.promoSubtitle {
+  color: black;
+  font-size: 17px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.promoPrice {
+  color: #32343E;
+  font-size: 22px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+
+.promoDetails {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timeIcon {
+  color: #FF7622;
+  font-size: 18px;
+}
+
+.promoTime {
+  color: #181C2E;
+  font-size: 18px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 400;
+}
+
+.promoImage {
+  width: 200px;
+  height: 150px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  flex-shrink: 0;
+}
+
+/* Content Section */
+.contentSection {
+  padding: 40px 5%;
+  min-height: 60vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sectionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.menuSection {
+  margin-bottom: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sectionTitle {
+  color: #32343E;
+  font-size: 24px;
+  font-family: 'Sen', sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #FFC736;
+  display: inline-block;
+}
+
+.pizzaTime {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #676767;
+}
+
+.timeIcon {
+  color: #FF7622;
+  font-size: 12px;
+}
+
+.stockInfo {
+  font-size: 12px;
+  color: #676767;
+  margin-bottom: 10px;
+}
+
+.categoryIconBebida {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
+/* Fixed navbar styles */
+.headerFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+
+.categoriesFixed {
+  position: fixed;
+  top: 98px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.contentWithFixedNav {
+  margin-top: 240px;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.loadingText {
+  font-size: 20px;
+  color: #676767;
+  font-family: 'Sen', sans-serif;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.pagination button {
+  background: #FFC736;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 16px;
+  color: #181C2E;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  color: #676767;
+  font-size: 16px;
+  font-family: 'Sen', sans-serif;
+}
+
+/* New Styles for All Items and Ver Mas Button */
+.allItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.verMasContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.verMasButton {
+  background: #FFC736;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #181C2E;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.verMasButton:hover {
+  background: #FFB000;
+  transform: translateY(-2px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  color: #676767;
+  font-size: 18px;
+  font-family: 'Sen', sans-serif;
+}
+
+/* Main Content Margin */
+.mainContent {
+  margin-top: 98px; /* Altura del header */
+  width: 100%;
+}
+
+/* Si el header puede cambiar de altura en responsive, ajustar estos valores */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-top: 110px; /* Ajustar según la altura del header en móviles */
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    margin-top: 130px; /* Ajustar según la altura del header en pantallas muy pequeñas */
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .header {
+    padding: 15px 3%;
+    gap: 15px;
+  }
+  
+  .greeting {
+    font-size: 18px;
+    min-width: 180px;
+  }
+  
+  .pizzaGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+  }
+  
+  .promosGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px 5%;
+  }
+  
+  .greeting {
+    order: 1;
+    width: auto;
+    min-width: auto;
+  }
+  
+  .locationInfo {
+    order: 2;
+    min-width: auto;
+  }
+  
+  .searchContainer {
+    order: 3;
+    width: 100%;
+    max-width: none;
+    margin-top: 10px;
+  }
+  
+  .categoriesGrid {
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .pizzaGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+  }
+  
+  .promoCard {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .promoImage {
+    width: 100%;
+    height: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .productPageDesktop {
+    overflow-x: hidden;
+  }
+  
+  .header {
+    padding: 10px 3%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  
+  .greeting {
+    font-size: 16px;
+    text-align: center;
+    order: 1;
+  }
+  
+  .locationInfo {
+    justify-content: center;
+    order: 2;
+  }
+  
+  .searchContainer {
+    order: 3;
+    width: 100%;
+  }
+  
+  .categoriesSection,
+  .contentSection,
+  .promosSection {
+    padding: 30px 3%;
+  }
+  
+  .categoriesGrid {
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .categoryCard {
+    width: 80px;
+    height: 120px;
+  }
+  
+  .categoryBackground {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .categoryIcon {
+    font-size: 24px;
+  }
+  
+  .categoryLabel {
+    font-size: 14px;
+  }
+  
+  .pizzaGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+  }
+  
+  .promosGrid {
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  
+  .promoTitle {
+    font-size: 24px;
+  }
+  
+  .promoSubtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 2%;
+  }
+  
+  .categoriesSection,
+  .contentSection,
+  .promosSection {
+    padding: 20px 2%;
+  }
+  
+  .pizzaGrid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  .pizzaImage {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+  }
+  
+  .pizzaTitle {
+    font-size: 14px;
+  }
+  
+  .pizzaPrice {
+    font-size: 16px;
+  }
+  
+  .addButton {
+    width: 30px;
+    height: 30px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 14px;
+  }
+  
+  .categoriesGrid {
+    gap: 10px;
+  }
+  
+  .categoryCard {
+    width: 70px;
+    height: 100px;
+  }
+  
+  .categoryBackground {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}

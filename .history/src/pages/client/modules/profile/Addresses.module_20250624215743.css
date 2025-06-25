@@ -1,0 +1,437 @@
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+/* Estados de carga y error */
+.loading, .error {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.loading p {
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+.error h2 {
+  color: #e74c3c;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.error p {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+/* Mensajes de operación */
+.errorMessage, .successMessage {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.errorMessage {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.successMessage {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* Contenido principal */
+.content {
+  width: 100%;
+}
+
+/* Estado vacío */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #dee2e6;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyState h3 {
+  font-size: 20px;
+  color: #495057;
+  margin: 0 0 8px 0;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 0 0 24px 0;
+}
+
+/* Lista de direcciones */
+.addressesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Tarjeta de dirección */
+.addressCard {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.addressCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #ff6b35;
+}
+
+.cardContent {
+  padding: 20px;
+}
+
+/* Header de la tarjeta */
+.addressHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.locationIconContainer {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.locationIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.addressInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.typeAndPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.addressType {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Checkbox personalizado */
+.primaryCheckbox {
+  display: flex;
+  align-items: center;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmarkLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.customCheckbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #dee2e6;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.hiddenCheckbox:checked + .checkmarkLabel .customCheckbox {
+  background-color: #16a34a;
+  border-color: #16a34a;
+}
+
+.checkmark {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+/* Texto de la dirección */
+.addressText {
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  padding-left: 56px; /* Alinear con el contenido */
+}
+
+/* Acciones de la dirección */
+.addressActions {
+  display: flex;
+  gap: 12px;
+  padding-left: 56px; /* Alinear con el contenido */
+  align-items: center;
+}
+
+.eliminateButton, .modifyButton {
+  padding: 8px 16px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  min-width: 80px;
+}
+
+.eliminateButton {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.eliminateButton:hover {
+  background-color: #fef2f2;
+  border-color: #dc2626;
+}
+
+.modifyButton {
+  color: #ff6b35;
+  border-color: #ff6b35;
+  background-color: #ff6b35;
+  color: white;
+}
+
+.modifyButton:hover {
+  background-color: #e55a2b;
+  border-color: #e55a2b;
+}
+
+.eliminateButton:disabled, 
+.modifyButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Botón agregar ubicación */
+.addLocationButton {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.addLocationButton:hover {
+  background-color: #e55a2b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.addLocationButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .sectionTitle {
+    font-size: 24px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+  }
+  
+  .cardContent {
+    padding: 16px;
+  }
+  
+  .addressHeader {
+    gap: 12px;
+  }
+  
+  .typeAndPrimary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .addressText {
+    padding-left: 0;
+    margin-bottom: 12px;
+  }
+  
+  .addressActions {
+    padding-left: 0;
+    flex-wrap: wrap;
+  }
+  
+  .eliminateButton, 
+  .modifyButton {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .addressActions {
+    flex-direction: column;
+  }
+  
+  .eliminateButton, 
+  .modifyButton {
+    width: 100%;
+  }
+}
+
+/* Estados especiales */
+.addressCard.isSelected {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 1px #16a34a;
+}
+
+.addressCard.isSelected .addressType {
+  color: #16a34a;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.addressCard {
+  animation: fadeIn 0.3s ease;
+}
+
+.successMessage, .errorMessage {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Efectos adicionales */
+.locationIconContainer:hover {
+  background-color: #e9ecef;
+}
+
+.checkmarkLabel:hover .customCheckbox {
+  border-color: #16a34a;
+}
+
+/* Para mejor accesibilidad */
+.hiddenCheckbox:focus + .checkmarkLabel .customCheckbox {
+  outline: 2px solid #16a34a;
+  outline-offset: 2px;
+}
+
+.eliminateButton:focus,
+.modifyButton:focus,
+.addLocationButton:focus {
+  outline: 2px solid #ff6b35;
+  outline-offset: 2px;
+}
+
+/* Ajustes específicos para el diseño del modelo */
+.addressCard {
+  border-left: 4px solid transparent;
+}
+
+.addressCard.isSelected {
+  border-left-color: #16a34a;
+}
+
+.primaryCheckbox {
+  align-items: center;
+  gap: 4px;
+}
+
+.checkmarkLabel {
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* Espaciado mejorado */
+.addressesList {
+  margin-bottom: 32px;
+}
+
+.header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e9ecef;
+}
