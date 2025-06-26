@@ -101,14 +101,28 @@ export type PedidoVentaDetalle = {
   cantidad: number;
   articuloInsumo?: {
     id: number;
+    denominacion?: string;
+    precioVenta?: number;
+    imagen?: ImagenApi;
   };
   articuloManufacturado?: {
     id: number;
+    denominacion?: string;
+    precioVenta?: number;
+    imagen?: ImagenApi;
   };
   promocion?: {
     id: number;
+    denominacion?: string;
+    precioVenta?: number;
+    imagen?: ImagenApi;
   };
 };
+
+export type ImagenApi = {
+  id?: number;
+  urlImagen: string;
+}
 
 // Tipo para el pedido completo
 export type PedidoVentaRequest = {
@@ -170,7 +184,8 @@ export type DomicilioApi = {
 };
 
 export type UsuarioApi = {
-  id: number;
+  id?: number;
+  authOId: string;
   username: string;
   // Otros campos relevantes del usuario
 };
@@ -185,4 +200,56 @@ export type ClienteApi = {
   domicilios: DomicilioApi[];
   fechaAlta: string;
   fechaBaja: string | null;
+};
+
+// Añadir después de ClienteApi
+
+export type ClienteUpdateDTO = {
+  nombre: string;
+  apellido: string;
+  telefono: number;
+  email: string;
+  auth0Id: string;
+};
+
+// Añadir estos nuevos tipos al final del archivo
+
+// Tipo para los detalles de una promoción
+export type PromocionDetalleApi = {
+    id: number;
+    cantidad: number;
+    articuloInsumo?: {
+        id: number;
+        denominacion?: string;
+        precioVenta?: number;
+        imagen?: ImagenApi;
+    };
+    articuloManufacturado?: {
+        id: number;
+        denominacion?: string;
+        precioVenta?: number;
+        imagen?: ImagenApi;
+    };
+};
+
+// Tipo para una promoción completa
+export type PromocionApi = {
+    id: number;
+    fechaInicio: string; // En formato ISO: "2025-06-01"
+    fechaFin: string;    // En formato ISO: "2025-06-30"
+    descuento: number;   // Porcentaje de descuento (ej: 10, 20)
+    precio: number;      // Precio calculado con el descuento
+    denominacion: string; // Nombre de la promoción
+    descripcion?: string; // Descripción opcional
+    detalles: PromocionDetalleApi[];
+    imagen?: ImagenApi;   // Imagen de la promoción
+    fechaAlta?: string;
+    fechaBaja?: string | null;
+    estado?: string;     // Calculado en el frontend (ACTIVO/INACTIVO)
+};
+
+// Tipo para la vista de una promoción en la interfaz
+export type PromocionItemType = {
+    item: PromocionApi;
+    esPromocion: true;
 };

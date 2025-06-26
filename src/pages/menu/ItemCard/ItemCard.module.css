@@ -132,3 +132,40 @@
   color: #666;
   margin-top: 5px;
 }
+
+.promotionBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e4002b;
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+}
+
+.itemDescription {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

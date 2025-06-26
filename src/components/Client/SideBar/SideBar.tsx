@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import styles from './SideBar.module.css';
 
 // Importar los iconos SVG
 import goBackIcon from '../../../assets/client/goback-icon.svg';
 import personalInfoIcon from '../../../assets/client/personalinfo-icon.svg';
 import directionsIcon from '../../../assets/client/directions-icon.svg';
-import cartIcon from '../../../assets/client/cart-icon.svg';
 import ordersIcon from '../../../assets/client/orders-icon.svg';
 import logoutIcon from '../../../assets/client/logout-icon.svg';
 
@@ -16,23 +16,35 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ userName }) => {
     const location = useLocation();
+    const { logout } = useAuth0();
 
     // Función para verificar si un enlace está activo
     const isActive = (path: string) => {
         return location.pathname.includes(path);
     };
 
+    // Función para manejar el cierre de sesión
+    const handleLogout = () => {
+        // Limpiar localStorage o cualquier otro almacenamiento local si es necesario
+        localStorage.removeItem('auth_token');
+        
+        // Cerrar sesión en Auth0 y redirigir al inicio
+        logout({ 
+            logoutParams: {
+                returnTo: window.location.origin 
+            }
+        });
+    };
+
     return (
         <div className={styles.sidebarContainer}>
             <div className={styles.headerSection}>
                 <div className={styles.navigationHeader}>
-                    <Link to="/" className={styles.backButton}>
-                        {/* Reemplazado el span por la imagen del icono */}
+                    <Link to="/menu" className={styles.backButton}>
                         <img src={goBackIcon} alt="Volver" className={styles.backIcon} />
                         <h1 className={styles.title}>Perfil Usuario</h1>
                     </Link>
                 </div>
-                {/* Movido userName fuera del navigationHeader para que esté alineado con el menú */}
                 <h2 className={styles.userName}>{userName}</h2>
             </div>
 
@@ -66,18 +78,6 @@ const SideBar: React.FC<SideBarProps> = ({ userName }) => {
 
                 {/* Grupo 2: Carrito y Mis Pedidos */}
                 <div className={styles.menuGroup}>
-                    {/* Elemento 3: Carrito */}
-                    <Link
-                        to="/client/cart"
-                        className={`${styles.menuItem} ${isActive('/cart') ? styles.active : ''}`}
-                    >
-                        <div className={styles.menuIconContainer}>
-                            <img src={cartIcon} alt="Carrito" className={styles.menuIcon} />
-                        </div>
-                        <span className={styles.menuText}>Carrito</span>
-                        <span className={styles.arrow}>›</span>
-                    </Link>
-
                     {/* Elemento 4: Mis Pedidos */}
                     <Link
                         to="/client/orders"
@@ -91,17 +91,17 @@ const SideBar: React.FC<SideBarProps> = ({ userName }) => {
                     </Link>
                 </div>
 
-                {/* Elemento 5: Cerrar Sesión (separado) */}
-                <Link
-                    to="/logout"
-                    className={`${styles.menuItem} ${styles.logout}`}
+                {/* Elemento 5: Cerrar Sesión (separado) - Ahora como botón */}
+                <button 
+                    className={styles.menuItem} 
+                    onClick={handleLogout}
                 >
                     <div className={styles.menuIconContainer}>
                         <img src={logoutIcon} alt="Cerrar Sesión" className={styles.menuIcon} />
                     </div>
                     <span className={styles.menuText}>Cerrar Sesión</span>
                     <span className={styles.arrow}>›</span>
-                </Link>
+                </button>
             </div>
         </div>
     );

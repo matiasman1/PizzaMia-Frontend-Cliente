@@ -10,6 +10,12 @@ import { ProtectedRoute } from '../auth/ProtectedRoute';
 import ClientPage from '../pages/client/ClientPage';
 import AccessDenied from '../pages/AccessDenied';
 
+// Importar componentes de perfil de cliente
+import PersonalInfo from '../pages/client/modules/profile/PersonalInfo';
+import Addresses from '../pages/client/modules/profile/Addresses';
+import Orders from '../pages/client/modules/profile/Orders';
+import ProfileWrapper from '../components/Client/ProfileWrapper/ProfileWrapper';
+
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -22,11 +28,23 @@ const AppRoutes: React.FC = () => {
       <Route path="/mercadopago/return" element={<MercadoPagoReturn />} />
       <Route path="/access-denied" element={<AccessDenied />} />
 
+      {/* Rutas protegidas del cliente */}
       <Route
-        path="/cliente"
+        path="/client/*"
         element={
           <ProtectedRoute allowedRoles={["Cliente"]}>
-            <ClientPage/>
+            <ProfileWrapper>
+              <Routes>
+              {/* Ruta base del cliente */}
+              <Route index element={<ClientPage />} />
+              
+              {/* Rutas del perfil de usuario */}
+              <Route path="profile/personal-info" element={<PersonalInfo />} />
+              <Route path="profile/addresses" element={<Addresses />} />
+              <Route path="orders" element={<Orders />} />
+            </Routes>
+            </ProfileWrapper>
+            
           </ProtectedRoute>
         }
       />

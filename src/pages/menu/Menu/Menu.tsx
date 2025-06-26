@@ -2,33 +2,42 @@ import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import Header from "../Header/Header";
 import ItemCard from "../ItemCard/ItemCard";
+import PromocionCard from "../PromocionCard/PromocionCard"; // Importar el nuevo componente
 import CartDrawer from "../modules/SideCarrito/CartDrawer";
 import {
   obtenerTodosLosRubros,
   obtenerManufacturadosPorRubro,
   obtenerInsumosNoElaborables,
+  obtenerPromocionesActivas, // Importar la función para obtener promociones
 } from "../../../api/clientApi";
 import {
   ArticuloManufacturadoApi,
   InsumoApi,
-  RubroApi
+  RubroApi,
+  PromocionApi, // Importar el tipo para promociones
 } from "../../../types/typesClient";
 import { useCartStore } from "../../../store/cartStore";
 import { useClienteStore } from '../../../store/clienteStore';
 
-// Definir tipo para los items que mostramos
+// Ampliar el tipo para incluir promociones
 type MenuItemType = {
   item: ArticuloManufacturadoApi | InsumoApi;
   esManufacturado: boolean;
 };
 
+// Tipo separado para promociones
+type PromocionItemType = {
+  item: PromocionApi;
+};
+
 const ITEMS_PER_PAGE = 6;
 
-// Nombres de los rubros que queremos mostrar (sin acento en "Bebidas no alcoholicas")
+// Nombres de los rubros que queremos mostrar 
 const RUBROS_A_MOSTRAR = ["Pizzas", "Bebidas no alcoholicas"];
 
-// Valor especial para la opción "Todos"
+// Valor especial para la opción "Todos" y "Promociones"
 const TODOS_ID = "todos";
+const PROMOCIONES_ID = "promociones";
 
 const Menu: React.FC = () => {
   // Estado de la UI
@@ -46,6 +55,7 @@ const Menu: React.FC = () => {
   const [allItems, setAllItems] = useState<MenuItemType[]>([]);
   const [pizzaItems, setPizzaItems] = useState<MenuItemType[]>([]);
   const [bebidaItems, setBebidaItems] = useState<MenuItemType[]>([]);
+  const [promociones, setPromociones] = useState<PromocionItemType[]>([]); // Nuevo estado para promociones
   const [loading, setLoading] = useState(true);
   
   // Estado de paginación
@@ -89,7 +99,7 @@ const Menu: React.FC = () => {
     loadRubros();
   }, []);
   
-  // Cargar datos para cada rubro específicamente
+  // Cargar datos para cada rubro específicamente y promociones
   useEffect(() => {
     if (rubros.length === 0) return;
     
@@ -144,6 +154,17 @@ const Menu: React.FC = () => {
           console.log("Bebidas cargadas:", bebidas.length);
         }
         
+        // Cargar promociones activas
+        try {
+          const promocionesData = await obtenerPromocionesActivas();
+          const promocionesItems = promocionesData.map(item => ({ item }));
+          setPromociones(promocionesItems);
+          console.log("Promociones cargadas:", promocionesItems.length);
+        } catch (error) {
+          console.error("Error al cargar promociones:", error);
+          setPromociones([]);
+        }
+        
         // Guardar por separado para la vista "Todos"
         setPizzaItems(pizzas);
         setBebidaItems(bebidas);
@@ -172,6 +193,11 @@ const Menu: React.FC = () => {
     // Si es "Todos", usar los items ya cargados
     if (activeRubro === TODOS_ID) {
       setMenuItems(allItems);
+      return;
+    }
+    
+    // Si es "Promociones", no necesitamos hacer otra petición
+    if (activeRubro === PROMOCIONES_ID) {
       return;
     }
     
@@ -224,7 +250,7 @@ const Menu: React.FC = () => {
     };
     
     loadItemsByRubro();
-  }, [activeRubro, currentPage, rubros]);
+  }, [activeRubro, currentPage, rubros, allItems]);
   
   // Resetear página cuando cambia el rubro
   useEffect(() => {
@@ -240,10 +266,20 @@ const Menu: React.FC = () => {
     );
   };
   
+  // Filtrado por búsqueda para promociones
+  const getFilteredPromociones = (items: PromocionItemType[]) => {
+    if (!searchQuery.trim()) return items;
+    
+    return items.filter(({ item }) => 
+      item.denominacion?.toLowerCase().includes(searchQuery.toLowerCase()) || false
+    );
+  };
+  
   // Filtrar los items según la búsqueda para cada sección
   const filteredMenuItems = getFilteredItems(menuItems);
   const filteredPizzaItems = getFilteredItems(pizzaItems);
   const filteredBebidaItems = getFilteredItems(bebidaItems);
+  const filteredPromociones = getFilteredPromociones(promociones);
 
   return (
     <div className={styles.productPageDesktop}>
@@ -292,6 +328,17 @@ const Menu: React.FC = () => {
                 <div className={styles.categoryLabel}>{rubro.denominacion}</div>
               </div>
             ))}
+            
+            {/* Opción "Promociones" */}
+            <div
+              className={`${styles.categoryCard} ${activeRubro === PROMOCIONES_ID ? styles.active : ""}`}
+              onClick={() => setActiveRubro(PROMOCIONES_ID)}
+            >
+              <div className={styles.categoryBackground}>
+                <div className={styles.categoryIcon}>🎁</div>
+              </div>
+              <div className={styles.categoryLabel}>Promociones</div>
+            </div>
           </div>
         </div>
 
@@ -302,7 +349,7 @@ const Menu: React.FC = () => {
               <div className={styles.loadingText}>Cargando...</div>
             </div>
           ) : activeRubro === TODOS_ID ? (
-            // Vista "Todos": mostrar secciones de Pizzas y Bebidas
+            // Vista "Todos": mostrar secciones de Pizzas, Bebidas y Promociones
             <div className={styles.allItemsContainer}>
               {/* Sección Pizzas */}
               {filteredPizzaItems.length > 0 && (
@@ -362,12 +409,61 @@ const Menu: React.FC = () => {
                 </div>
               )}
               
+              {/* Sección Promociones */}
+              {filteredPromociones.length > 0 && (
+                <div className={styles.menuSection}>
+                  <div className={styles.sectionHeader}>
+                    <div className={styles.sectionTitle}>Promociones</div>
+                    {filteredPromociones.length > 6 && (
+                      <button 
+                        className={styles.verMasButton}
+                        onClick={() => setActiveRubro(PROMOCIONES_ID)}
+                      >
+                        Ver más
+                      </button>
+                    )}
+                  </div>
+                  <div className={styles.pizzaGrid}>
+                    {filteredPromociones.slice(0, 6).map(({ item }) => (
+                      <PromocionCard
+                        key={`promo-${item.id}`}
+                        item={item}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               {/* Mensaje si no hay items que coincidan con la búsqueda */}
-              {filteredPizzaItems.length === 0 && filteredBebidaItems.length === 0 && (
+              {filteredPizzaItems.length === 0 && 
+               filteredBebidaItems.length === 0 && 
+               filteredPromociones.length === 0 && (
                 <div className={styles.emptyState}>
                   {searchQuery.trim() 
                     ? `No se encontraron productos que coincidan con "${searchQuery}".` 
                     : "No se encontraron productos en las categorías seleccionadas."}
+                </div>
+              )}
+            </div>
+          ) : activeRubro === PROMOCIONES_ID ? (
+            // Vista de Promociones
+            <div className={styles.menuSection}>
+              <div className={styles.sectionTitle}>Promociones</div>
+              
+              {filteredPromociones.length > 0 ? (
+                <div className={styles.pizzaGrid}>
+                  {filteredPromociones.map(({ item }) => (
+                    <PromocionCard
+                      key={`promo-${item.id}`}
+                      item={item}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.emptyState}>
+                  {searchQuery.trim() 
+                    ? `No se encontraron promociones que coincidan con "${searchQuery}".` 
+                    : "No hay promociones disponibles en este momento."}
                 </div>
               )}
             </div>

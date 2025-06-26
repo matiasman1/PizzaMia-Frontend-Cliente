@@ -19,12 +19,6 @@ const ProfileMenu: React.FC = () => {
                     <span className="arrow">›</span>
                 </Link>
 
-                <Link to="/client/cart" className="menu-item">
-                    <span className="menu-icon">🛒</span>
-                    <span className="menu-text">Carrito</span>
-                    <span className="arrow">›</span>
-                </Link>
-
                 <Link to="/client/orders" className="menu-item">
                     <span className="menu-icon">📋</span>
                     <span className="menu-text">Mis Pedidos</span>

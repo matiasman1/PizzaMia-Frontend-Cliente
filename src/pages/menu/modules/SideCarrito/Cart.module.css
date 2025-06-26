@@ -376,6 +376,22 @@
     font-size: 36px;
 }
 
+/* Estilo para el indicador de promoción */
+.itemPromo {
+  background-color: #e4002b;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+/* Opcional: Estilo para resaltar elementos de promoción */
+.cartItem:has(.itemPromo) {
+  border-left: 3px solid #e4002b;
+}
+
 /* Media queries */
 @media (max-width: 900px) {
     .cartContent {

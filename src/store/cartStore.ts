@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { ArticuloManufacturadoApi, InsumoApi } from '../types/typesClient';
+import { ArticuloManufacturadoApi, InsumoApi, PromocionApi } from '../types/typesClient';
 
 // Tipo para los items del carrito
 export interface CartItem {
@@ -9,9 +9,10 @@ export interface CartItem {
   precioVenta: number;
   quantity: number;
   esManufacturado: boolean;
+  esPromocion?: boolean; // Añadido para promociones
   imagen?: string;
   tiempoEstimadoProduccion?: number; // Solo para artículos manufacturados
-  originalItem: ArticuloManufacturadoApi | InsumoApi; // Guardamos el objeto original completo para referencia
+  originalItem: ArticuloManufacturadoApi | InsumoApi | PromocionApi; // Actualizado para incluir promociones
 }
 
 // Interfaz para el estado del carrito
@@ -22,11 +23,11 @@ interface CartState {
   total: number;
   
   // Acciones
-  addItem: (item: ArticuloManufacturadoApi | InsumoApi, esManufacturado: boolean) => void;
-  // Modificar para recibir también el tipo del producto
-  removeItem: (itemId: number, esManufacturado: boolean) => void;
-  increaseQuantity: (itemId: number, esManufacturado: boolean) => void;
-  decreaseQuantity: (itemId: number, esManufacturado: boolean) => void;
+  addItem: (item: ArticuloManufacturadoApi | InsumoApi | PromocionApi, esManufacturado: boolean, esPromocion?: boolean) => void;
+  // Modificar para recibir también si es promoción
+  removeItem: (itemId: number, esManufacturado: boolean, esPromocion?: boolean) => void;
+  increaseQuantity: (itemId: number, esManufacturado: boolean, esPromocion?: boolean) => void;
+  decreaseQuantity: (itemId: number, esManufacturado: boolean, esPromocion?: boolean) => void;
   clearCart: () => void;
   updateDeliveryFee: (fee: number) => void;
   calculateTotals: () => void;
@@ -42,12 +43,14 @@ export const useCartStore = create<CartState>()(
       total: 0,
       
       // Añadir un item al carrito
-      addItem: (item, esManufacturado) => {
+      addItem: (item, esManufacturado, esPromocion = false) => {
         const currentItems = get().items;
         
-        // Modificar la búsqueda para considerar tanto el ID como el tipo de producto
+        // Modificar la búsqueda para considerar el ID, tipo de producto y si es promoción
         const existingItemIndex = currentItems.findIndex(
-          i => i.id === item.id && i.esManufacturado === esManufacturado
+          i => i.id === item.id && 
+               i.esManufacturado === esManufacturado && 
+               (i.esPromocion || false) === esPromocion
         );
         
         if (existingItemIndex !== -1) {
@@ -61,9 +64,10 @@ export const useCartStore = create<CartState>()(
           const newItem: CartItem = {
             id: item.id,
             denominacion: item.denominacion,
-            precioVenta: item.precioVenta,
+            precioVenta: esPromocion ? (item as PromocionApi).precio : (item as InsumoApi).precioVenta,
             quantity: 1,
             esManufacturado,
+            esPromocion,
             imagen: item.imagen?.urlImagen,
             originalItem: item,
           };
@@ -80,12 +84,13 @@ export const useCartStore = create<CartState>()(
         get().calculateTotals();
       },
       
-      // Eliminar un item del carrito considerando tanto el ID como el tipo
-      removeItem: (itemId, esManufacturado) => {
+      // Eliminar un item del carrito considerando ID, tipo y si es promoción
+      removeItem: (itemId, esManufacturado, esPromocion = false) => {
         set(state => ({
           items: state.items.filter(item => 
-            // Filtrar por ID Y tipo del producto
-            !(item.id === itemId && item.esManufacturado === esManufacturado)
+            !(item.id === itemId && 
+              item.esManufacturado === esManufacturado && 
+              (item.esPromocion || false) === esPromocion)
           )
         }));
         
@@ -94,11 +99,12 @@ export const useCartStore = create<CartState>()(
       },
       
       // Aumentar la cantidad de un item
-      increaseQuantity: (itemId, esManufacturado) => {
+      increaseQuantity: (itemId, esManufacturado, esPromocion = false) => {
         set(state => ({
           items: state.items.map(item => 
-            // Comprobar tanto ID como tipo
-            (item.id === itemId && item.esManufacturado === esManufacturado)
+            (item.id === itemId && 
+             item.esManufacturado === esManufacturado && 
+             (item.esPromocion || false) === esPromocion)
               ? { ...item, quantity: item.quantity + 1 } 
               : item
           )
@@ -109,23 +115,27 @@ export const useCartStore = create<CartState>()(
       },
       
       // Disminuir la cantidad de un item
-      decreaseQuantity: (itemId, esManufacturado) => {
+      decreaseQuantity: (itemId, esManufacturado, esPromocion = false) => {
         const item = get().items.find(item => 
-          item.id === itemId && item.esManufacturado === esManufacturado
+          item.id === itemId && 
+          item.esManufacturado === esManufacturado && 
+          (item.esPromocion || false) === esPromocion
         );
         
         if (item && item.quantity > 1) {
           // Si hay más de 1, disminuimos la cantidad
           set(state => ({
             items: state.items.map(item => 
-              (item.id === itemId && item.esManufacturado === esManufacturado)
+              (item.id === itemId && 
+               item.esManufacturado === esManufacturado && 
+               (item.esPromocion || false) === esPromocion)
                 ? { ...item, quantity: item.quantity - 1 } 
                 : item
             )
           }));
         } else {
           // Si solo hay 1, eliminamos el item
-          get().removeItem(itemId, esManufacturado);
+          get().removeItem(itemId, esManufacturado, esPromocion);
         }
         
         // Recalcular totales

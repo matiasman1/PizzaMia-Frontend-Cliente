@@ -247,6 +247,10 @@ const Cart: React.FC = () => {
                     detalle.articuloManufacturado = {
                         id: item.id
                     };
+                } else if (item.esPromocion) {
+                    detalle.promocion = {
+                        id: item.id
+                    };
                 } else {
                     detalle.articuloInsumo = {
                         id: item.id
@@ -395,7 +399,7 @@ const Cart: React.FC = () => {
                                         <img src={item.imagen} alt={item.denominacion} />
                                     ) : (
                                         <div className={styles.placeholderImage}>
-                                            {item.esManufacturado ? "🍕" : "🥤"}
+                                            {item.esManufacturado ? "🍕" : item.esPromocion ? "🎁" : "🥤"}
                                         </div>
                                     )}
                                 </div>
@@ -408,10 +412,15 @@ const Cart: React.FC = () => {
                                                     {item.tiempoEstimadoProduccion} min
                                                 </span>
                                             )}
+                                            {item.esPromocion && (
+                                                <span className={styles.itemPromo}>
+                                                    Promoción
+                                                </span>
+                                            )}
                                         </div>
                                         <button
                                             className={styles.removeButton}
-                                            onClick={() => removeItem(item.id, item.esManufacturado)}
+                                            onClick={() => removeItem(item.id, item.esManufacturado, item.esPromocion)}
                                         >
                                             <FaTimes />
                                         </button>
@@ -421,7 +430,7 @@ const Cart: React.FC = () => {
                                         <div className={styles.quantityControls}>
                                             <button
                                                 className={styles.quantityButton}
-                                                onClick={() => decreaseQuantity(item.id, item.esManufacturado)}
+                                                onClick={() => decreaseQuantity(item.id, item.esManufacturado, item.esPromocion)}
                                                 disabled={item.quantity <= 1}
                                                 aria-label="Disminuir cantidad"
                                             >
@@ -430,7 +439,7 @@ const Cart: React.FC = () => {
                                             <span className={styles.quantityValue}>{item.quantity}</span>
                                             <button
                                                 className={styles.quantityButton}
-                                                onClick={() => increaseQuantity(item.id, item.esManufacturado)}
+                                                onClick={() => increaseQuantity(item.id, item.esManufacturado, item.esPromocion)}
                                                 aria-label="Aumentar cantidad"
                                             >
                                                 <FaPlus size={12} />

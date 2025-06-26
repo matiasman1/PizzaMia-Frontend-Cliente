@@ -54,6 +54,7 @@ export const LoginRedirect = () => {
               },
             }
           );
+          console.log("Respuesta del backend:", response.data);
           // Si existe, reviso firstLogin
           if (!response.data) {
             navigate("/post-login");

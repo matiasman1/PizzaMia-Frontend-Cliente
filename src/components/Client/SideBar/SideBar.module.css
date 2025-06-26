@@ -84,12 +84,20 @@
 .menuItem {
     display: flex;
     align-items: center;
-    padding: 16px 20px;
+    padding: 16px;
+    color: var(--client-text-color);
     text-decoration: none;
-    color: #333;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s;
     position: relative;
-    transition: background-color 0.2s;
-    font-family: var(--client-font-family);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .menuGroup .menuItem:not(:last-child) {
