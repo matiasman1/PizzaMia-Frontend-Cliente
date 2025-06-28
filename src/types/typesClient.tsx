@@ -180,7 +180,17 @@ export type DomicilioApi = {
   numero: number;
   codigoPostal: number;
   localidad: LocalidadApi;
-  isActive: boolean;
+  active: boolean; // Cambiar isActive por active
+};
+
+export type DomicilioCreateRequest = {
+  calle: string;
+  numero: number;
+  codigoPostal: number;
+  localidad: {
+    id: number;
+  };
+  isActive: boolean; // Este mantenerlo como isActive porque así lo espera tu endpoint de creación
 };
 
 export type UsuarioApi = {

@@ -81,7 +81,7 @@ const Cart: React.FC = () => {
                     // Si el cliente tiene domicilios, seleccionar el primero
                     if (cliente.domicilios && cliente.domicilios.length > 0) {
                         // Buscar un domicilio activo por defecto
-                        const activeDomicilio = cliente.domicilios.find((d: DomicilioApi) => d.isActive);
+                        const activeDomicilio = cliente.domicilios.find((d: DomicilioApi) => d.active);
                         if (activeDomicilio) {
                             setSelectedAddressId(activeDomicilio.id);
                         } else {
@@ -339,9 +339,20 @@ const Cart: React.FC = () => {
             );
         }
         
+        // Filtrar solo domicilios activos
+        const domiciliosActivos = clienteData.domicilios.filter(d => d.active === true);
+        
+        if (domiciliosActivos.length === 0) {
+            return (
+                <div className={styles.noAddresses}>
+                    <p>No tienes direcciones activas. Por favor, agrega una dirección en tu perfil.</p>
+                </div>
+            );
+        }
+        
         return (
             <div className={styles.addressSelector}>
-                {clienteData.domicilios.map(domicilio => (
+                {domiciliosActivos.map(domicilio => (
                     <div 
                         key={domicilio.id}
                         className={`${styles.addressOption} ${selectedAddressId === domicilio.id ? styles.selectedAddress : ''}`}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ArticuloManufacturadoApi, InsumoApi, RubroApi, PedidoVentaRequest, PedidoVentaResponse, ClienteApi, ClienteUpdateDTO, PromocionApi } from '../types/typesClient';
+import { ArticuloManufacturadoApi, InsumoApi, RubroApi, PedidoVentaRequest, PedidoVentaResponse, ClienteApi, ClienteUpdateDTO, PromocionApi, DomicilioCreateRequest } from '../types/typesClient';
 
 const API_BASE_URL = 'http://localhost:8080/api'; // Ajusta esta URL a tu API real
 
@@ -250,10 +250,10 @@ export const postLogin = async (
       email: email,
       nombre: nombre,
       apellido: apellido,
-      telefono: telefono || '',
+      telefono: telefono,
       rol: {
         id: 2, // ID del rol cliente en tu backend
-        auth0RoleId: "rol_ppLLSWBfeXIXbdza" // ID del rol en Auth0 (ajústalo según tu configuración)
+        auth0RoleId: "rol_7Z51zfMbX01320hQ" // ID del rol en Auth0 (ajústalo según tu configuración)
       }
     };
     
@@ -346,6 +346,38 @@ export const actualizarTelefonoCliente = async (clienteId: number, telefono: num
     return await actualizarCliente(clienteId, datosActualizados, token);
   } catch (error) {
     console.error('Error al actualizar teléfono del cliente:', error);
+    throw error;
+  }
+};
+
+// Agregar domicilio a un cliente específico
+export const agregarDomicilioCliente = async (
+  clienteId: number, 
+  domicilio: DomicilioCreateRequest, 
+  token: string
+): Promise<ClienteApi> => {
+  try {
+    console.log(`Agregando domicilio para cliente ${clienteId}:`, domicilio);
+    
+    const response = await axios.post(
+      `${API_BASE_URL}/clientes/${clienteId}/domicilios`,
+      domicilio,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    
+    // El endpoint devuelve el cliente completo actualizado
+    return response.data;
+  } catch (error) {
+    console.error('Error al agregar domicilio al cliente:', error);
+    if (axios.isAxiosError(error)) {
+      const errorMsg = error.response?.data?.error || error.message;
+      throw new Error(`Error al agregar domicilio: ${errorMsg}`);
+    }
     throw error;
   }
 };
@@ -472,6 +504,74 @@ export const obtenerPromocionesActivas = async (token?: string): Promise<Promoci
     if (axios.isAxiosError(error)) {
       const errorMsg = error.response?.data?.error || error.message;
       throw new Error(`Error al obtener promociones activas: ${errorMsg}`);
+    }
+    throw error;
+  }
+};
+
+// Toggle estado de domicilio (activar/desactivar)
+export const toggleEstadoDomicilio = async (
+  clienteId: number, 
+  domicilioId: number, 
+  token: string
+): Promise<ClienteApi> => {
+  try {
+    console.log(`Cambiando estado del domicilio ${domicilioId} para cliente ${clienteId}`);
+    
+    const response = await axios.patch(
+      `${API_BASE_URL}/clientes/${clienteId}/domicilios/${domicilioId}/toggle-estado`,
+      {},
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    
+    console.log('Respuesta del servidor:', response.data.mensaje);
+    
+    // El endpoint devuelve el cliente completo actualizado
+    return response.data.cliente;
+  } catch (error) {
+    console.error('Error al cambiar estado del domicilio:', error);
+    if (axios.isAxiosError(error)) {
+      const errorMsg = error.response?.data?.error || error.message;
+      throw new Error(`Error al cambiar estado del domicilio: ${errorMsg}`);
+    }
+    throw error;
+  }
+};
+
+// Actualizar domicilio existente
+export const actualizarDomicilioCliente = async (
+  clienteId: number,
+  domicilioId: number,
+  domicilio: DomicilioCreateRequest,
+  token: string
+): Promise<ClienteApi> => {
+  try {
+    console.log(`Actualizando domicilio ${domicilioId} para cliente ${clienteId}:`, domicilio);
+    
+    const response = await axios.put(
+      `${API_BASE_URL}/clientes/${clienteId}/domicilios/${domicilioId}`,
+      domicilio,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    
+    console.log('Respuesta del servidor:', response.data.mensaje);
+    
+    // El endpoint devuelve el cliente completo actualizado
+    return response.data.cliente;
+  } catch (error) {
+    console.error('Error al actualizar domicilio:', error);
+    if (axios.isAxiosError(error)) {
+      const errorMsg = error.response?.data?.error || error.message;
+      throw new Error(`Error al actualizar domicilio: ${errorMsg}`);
     }
     throw error;
   }

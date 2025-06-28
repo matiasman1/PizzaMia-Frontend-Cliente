@@ -1,29 +1,33 @@
 .itemCard {
-  background: white;
+  background: #fefdfa; /* Color crema suave para contrastar con el fondo blanco */
   border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 15px 35px rgba(150, 150, 156, 0.15);
+  padding: 0; /* Quitar padding para que la imagen ocupe todo el ancho */
+  box-shadow: 0 6px 24px rgba(150, 150, 156, 0.08); /* Sombra más sutil y difusa */
   text-align: center;
   position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease; /* Transición más suave */
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden; /* Para que las imágenes no sobresalgan de las esquinas redondeadas */
+  border: 1px solid rgba(227, 217, 193, 0.5); /* Borde semi-transparente para difuminar */
 }
 
 .itemCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(150, 150, 156, 0.2);
+  box-shadow: 0 15px 30px rgba(150, 150, 156, 0.15); /* Sombra más pronunciada al hacer hover */
+  background: #faf8f3; /* Ligeramente más claro al hacer hover */
+  border-color: rgba(227, 217, 193, 0.2); /* Borde aún más difuminado al hacer hover */
 }
 
 .itemImage {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 20px;
-  background: #f5f5f5;
-  border-radius: 50%;
+  width: 100%; /* Ahora ocupa todo el ancho */
+  height: 160px; /* Altura fija para todas las imágenes */
+  margin: 0 0 15px; /* Quitar margen horizontal, mantener un poco abajo */
+  background: #f0ece3; /* Un tono más oscuro para el fondo de la imagen */
+  border-radius: 14px 14px 0 0; /* Redondear solo las esquinas superiores */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +39,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 0; /* Quitar el border-radius para las imágenes */
 }
 
 .placeholderIcon {
@@ -44,6 +48,7 @@
 
 .itemInfo {
   width: 100%;
+  padding: 0 20px 20px; /* Agregar padding para contenido, compensar el que quitamos en itemCard */
 }
 
 .itemTitle {
@@ -77,8 +82,39 @@
   font-size: 12px;
 }
 
+/* Contenedor de botones */
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Botón de detalles */
+.detailButton {
+  width: 40px;
+  height: 40px;
+  background: #FF7622;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.detailButton:hover {
+  transform: scale(1.1);
+  background: #e65c00;
+}
+
+/* Actualizar el botón del carrito para que funcione en el contenedor flex */
 .cartButton {
-  margin-top: 10px;
+  margin: 0; /* Quitar el margen anterior */
   width: 40px;
   height: 40px;
   background: #FFC736;
@@ -114,7 +150,7 @@
   font-size: 14px;
   font-weight: bold;
   text-align: center;
-  border-radius: 10px 10px 0 0;
+  border-radius: 14px 14px 0 0; /* Ajustar a la nueva forma de la card */
 }
 
 .disabledButton {
@@ -125,6 +161,20 @@
 .disabledButton:hover {
   transform: none !important;
   background-color: #ccc !important;
+}
+
+/* Loading dots animation */
+.loadingDots {
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0%, 80%, 100% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
 }
 
 .stockInfo {

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ItemCard.module.css";
 import { ArticuloManufacturadoApi, InsumoApi } from "../../../types/typesClient";
-import { FaClock, FaShoppingCart } from "react-icons/fa";
+import { FaClock, FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import { useCartStore } from "../../../store/cartStore";
 import { useStockStore } from '../../../store/stockStore';
+import DetalleProductoModal from './DetalleProductoModal';
 
 type ItemCardProps = {
   item: ArticuloManufacturadoApi | InsumoApi;
@@ -19,6 +20,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, esManufacturado, onAdd }) => 
   // Estado local para disponibilidad
   const [disponible, setDisponible] = useState<boolean | null>(null);
   const [verificando, setVerificando] = useState(false);
+  
+  // Estado para el modal
+  const [showModal, setShowModal] = useState(false);
   
   // Verificar disponibilidad al cargar el componente
   useEffect(() => {
@@ -54,55 +58,90 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, esManufacturado, onAdd }) => 
     if (onAdd) onAdd();
   };
 
+  const handleShowDetails = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <div className={`${styles.itemCard} ${disponible === false ? styles.noStock : ''}`}>
-      <div className={styles.itemImage}>
-        {imagenUrl ? (
-          <img src={imagenUrl} alt={item.denominacion} />
-        ) : (
-          <span className={styles.placeholderIcon}>
-            {esManufacturado ? "🍕" : "🥤"}
-          </span>
-        )}
-        
-        {/* Indicador de sin stock */}
-        {disponible === false && (
-          <div className={styles.stockBadge}>
-            Sin stock
-          </div>
-        )}
-      </div>
-      <div className={styles.itemInfo}>
-        <div className={styles.itemTitle}>{item.denominacion}</div>
-        <div className={styles.itemPrice}>${item.precioVenta}</div>
-        {esManufacturado && (
-          <div className={styles.itemTime}>
-            <FaClock className={styles.timeIcon} />
-            <span>
-              {(item as ArticuloManufacturadoApi).tiempoEstimadoProduccion} min
+    <>
+      <div className={`${styles.itemCard} ${disponible === false ? styles.noStock : ''}`}>
+        <div className={styles.itemImage}>
+          {imagenUrl ? (
+            <img src={imagenUrl} alt={item.denominacion} />
+          ) : (
+            <span className={styles.placeholderIcon}>
+              {esManufacturado ? "🍕" : "🥤"}
             </span>
-          </div>
-        )}
+          )}
+          
+          {/* Indicador de sin stock */}
+          {disponible === false && (
+            <div className={styles.stockBadge}>
+              Sin stock
+            </div>
+          )}
+        </div>
+        <div className={styles.itemInfo}>
+          <div className={styles.itemTitle}>{item.denominacion}</div>
+          <div className={styles.itemPrice}>${item.precioVenta}</div>
+          {esManufacturado && (
+            <div className={styles.itemTime}>
+              <FaClock className={styles.timeIcon} />
+              <span>
+                {(item as ArticuloManufacturadoApi).tiempoEstimadoProduccion} min
+              </span>
+            </div>
+          )}
+          
+          {/* Mostrar stock para bebidas */}
+          {!esManufacturado && (
+            <div className={styles.stockInfo}>
+              Stock: {(item as InsumoApi).stockActual} unidades
+            </div>
+          )}
+        </div>
         
-        {/* Mostrar stock para bebidas */}
-        {!esManufacturado && (
-          <div className={styles.stockInfo}>
-            Stock: {(item as InsumoApi).stockActual} unidades
-          </div>
-        )}
+        {/* Contenedor de botones */}
+        <div className={styles.buttonContainer}>
+          {/* Botón de detalles solo para manufacturados */}
+          {esManufacturado && (
+            <button 
+              className={styles.detailButton} 
+              onClick={handleShowDetails}
+              title="Ver detalles"
+            >
+              <FaInfoCircle />
+            </button>
+          )}
+          
+          {/* Botón de agregar al carrito */}
+          <button 
+            className={`${styles.cartButton} ${disponible === false ? styles.disabledButton : ''}`} 
+            onClick={handleAddToCart}
+            disabled={disponible === false || verificando}
+          >
+            {verificando ? (
+              <span className={styles.loadingDots}>•••</span>
+            ) : (
+              <FaShoppingCart />
+            )}
+          </button>
+        </div>
       </div>
-      <button 
-        className={`${styles.cartButton} ${disponible === false ? styles.disabledButton : ''}`} 
-        onClick={handleAddToCart}
-        disabled={disponible === false || verificando}
-      >
-        {verificando ? (
-          <span className={styles.loadingDots}>•••</span>
-        ) : (
-          <FaShoppingCart />
-        )}
-      </button>
-    </div>
+      
+      {/* Modal de detalles */}
+      {esManufacturado && (
+        <DetalleProductoModal
+          isOpen={showModal}
+          onClose={handleCloseModal}
+          producto={item as ArticuloManufacturadoApi}
+        />
+      )}
+    </>
   );
 };
 
