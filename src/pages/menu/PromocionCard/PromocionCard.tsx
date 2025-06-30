@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "../ItemCard/ItemCard.module.css";
 import { PromocionApi } from "../../../types/typesClient";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import { useCartStore } from "../../../store/cartStore";
+import DetallePromocionModal from './DetallePromocionModal';
 
 type PromocionCardProps = {
   item: PromocionApi;
@@ -15,6 +16,9 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
   
   // Estado para el botón
   const [verificando, setVerificando] = useState(false);
+  
+  // Estado para el modal
+  const [showModal, setShowModal] = useState(false);
   
   // Las promociones siempre están disponibles si están activas
   const disponible = item.estado === 'ACTIVO';
@@ -35,60 +39,91 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
     }, 500);
   };
 
+  const handleShowDetails = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   // Calcular precio original basado en el descuento
   const precioOriginal = (item.precio / (1 - (item.descuento / 100))).toFixed(2);
 
   return (
-    <div className={`${styles.itemCard} ${!disponible ? styles.noStock : ''}`}>
-      <div className={styles.itemImage}>
-        {imagenUrl ? (
-          <img src={imagenUrl} alt={item.denominacion} />
-        ) : (
-          <span className={styles.placeholderIcon}>
-            🎁
-          </span>
-        )}
-        
-        {/* Badge de descuento */}
-        <div className={styles.promotionBadge}>
-          {item.descuento}% OFF
+    <>
+      <div className={`${styles.itemCard} ${!disponible ? styles.noStock : ''}`}>
+        <div className={styles.itemImage}>
+          {imagenUrl ? (
+            <img src={imagenUrl} alt={item.denominacion} />
+          ) : (
+            <span className={styles.placeholderIcon}>
+              🎁
+            </span>
+          )}
+          
+          {/* Badge de descuento */}
+          <div className={styles.promotionBadge}>
+            {item.descuento}% OFF
+          </div>
+          
+          {/* Indicador de no disponible */}
+          {!disponible && (
+            <div className={styles.stockBadge}>
+              Promo finalizada
+            </div>
+          )}
+        </div>
+        <div className={styles.itemInfo}>
+          <div className={styles.itemTitle}>{item.denominacion}</div>
+          
+          {/* Mostrar precio original y con descuento */}
+          <div className={styles.priceContainer}>
+            <span className={styles.originalPrice}>${precioOriginal}</span>
+            <div className={styles.itemPrice}>${item.precio}</div>
+          </div>
+          
+          {/* Descripción de la promoción */}
+          {item.descripcion && (
+            <div className={styles.itemDescription}>
+              {item.descripcion}
+            </div>
+          )}
         </div>
         
-        {/* Indicador de no disponible */}
-        {!disponible && (
-          <div className={styles.stockBadge}>
-            Promo finalizada
-          </div>
-        )}
-      </div>
-      <div className={styles.itemInfo}>
-        <div className={styles.itemTitle}>{item.denominacion}</div>
-        
-        {/* Mostrar precio original y con descuento */}
-        <div className={styles.priceContainer}>
-          <span className={styles.originalPrice}>${precioOriginal}</span>
-          <div className={styles.itemPrice}>${item.precio}</div>
+        {/* Contenedor de botones */}
+        <div className={styles.buttonContainer}>
+          {/* Botón de detalles */}
+          <button 
+            className={styles.detailButton} 
+            onClick={handleShowDetails}
+            title="Ver detalles de la promoción"
+          >
+            <FaInfoCircle />
+          </button>
+          
+          {/* Botón de agregar al carrito */}
+          <button 
+            className={`${styles.cartButton} ${!disponible ? styles.disabledButton : ''}`} 
+            onClick={handleAddToCart}
+            disabled={!disponible || verificando}
+          >
+            {verificando ? (
+              <span className={styles.loadingDots}>•••</span>
+            ) : (
+              <FaShoppingCart />
+            )}
+          </button>
         </div>
-        
-        {/* Descripción de la promoción */}
-        {item.descripcion && (
-          <div className={styles.itemDescription}>
-            {item.descripcion}
-          </div>
-        )}
       </div>
-      <button 
-        className={`${styles.cartButton} ${!disponible ? styles.disabledButton : ''}`} 
-        onClick={handleAddToCart}
-        disabled={!disponible || verificando}
-      >
-        {verificando ? (
-          <span className={styles.loadingDots}>•••</span>
-        ) : (
-          <FaShoppingCart />
-        )}
-      </button>
-    </div>
+      
+      {/* Modal de detalles */}
+      <DetallePromocionModal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        promocion={item}
+      />
+    </>
   );
 };
 

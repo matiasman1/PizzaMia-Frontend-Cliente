@@ -1,0 +1,347 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease-out;
+}
+
+.promotionHeader {
+  position: relative;
+  height: 220px;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+
+.promotionImageBackground {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-color: #e4002b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.placeholderEmoji {
+  font-size: 80px;
+  z-index: 1;
+}
+
+.discountBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  color: #e4002b;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 1rem;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.promotionHeaderContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  z-index: 2;
+}
+
+.promotionHeaderContent h2 {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Sen', sans-serif;
+}
+
+.priceSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+}
+
+.promotionPrice {
+  font-size: 28px;
+  font-weight: 700;
+  color: #FFC736;
+}
+
+.discountInfo {
+  font-size: 16px;
+  color: #FFC736;
+  font-weight: 600;
+}
+
+.promotionDetails {
+  padding: 30px;
+}
+
+.validitySection {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #e4002b;
+}
+
+.validitySection h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #32343E;
+  font-family: 'Sen', sans-serif;
+}
+
+.validityDates {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dateItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dateLabel {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.dateValue {
+  font-size: 16px;
+  color: #32343E;
+  font-weight: 600;
+}
+
+.promotionDetails h3 {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #32343E;
+  font-family: 'Sen', sans-serif;
+}
+
+.noDetails {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f7f2;
+  border-radius: 10px;
+}
+
+.detailsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detailItem {
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.detailItem:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
+}
+
+.itemImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #32343E;
+  font-size: 16px;
+}
+
+.itemQuantity {
+  font-weight: 500;
+  color: #e4002b;
+  background-color: #fff3f3;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  width: fit-content;
+}
+
+.itemPrice {
+  font-size: 14px;
+  color: #666;
+}
+
+.promotionDescription {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.promotionDescription h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #32343E;
+}
+
+.promotionDescription p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.modalActions {
+  padding: 20px 30px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: center;
+}
+
+.closeButton {
+  background: #e4002b;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  background: #c2001f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(228, 0, 43, 0.3);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .promotionHeader {
+    height: 180px;
+  }
+  
+  .promotionHeaderContent h2 {
+    font-size: 24px;
+  }
+  
+  .promotionPrice {
+    font-size: 24px;
+  }
+  
+  .promotionDetails {
+    padding: 20px;
+  }
+  
+  .validityDates {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .itemInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .itemImage {
+    align-self: center;
+  }
+  
+  .modalActions {
+    padding: 15px 20px;
+  }
+}

@@ -1,28 +1,40 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./LandingPage.module.css";
 // Import components
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Button from "../../components/UI/Button/Button";
 
-// Import icons and images
+// Import API
+import { obtenerTodosLosManufacturados } from "../../api/clientApi";
+import { ArticuloManufacturadoApi } from "../../types/typesClient";
+
+// Import static images (mantener para hero y otras secciones)
 import heroMainImg from "../../assets/landing/Lovepik_com-400595226-pizza 1.svg";
 import heroSideImg1 from "../../assets/landing/image 13.svg";
 import heroSideImg2 from "../../assets/landing/image 14.svg";
 import easyToOrderImg from "../../assets/landing/order 1.svg";
 import fastDeliveryImg from "../../assets/landing/delivery 1.svg";
 import bestQualityImg from "../../assets/landing/courier 1.svg";
-import pizzaMargherita from "../../assets/landing/pizza-margherita.svg";
-import pizzaPepperoni from "../../assets/landing/pizza-pepperoni.svg";
-import pizzaFugazzeta from "../../assets/landing/pizza-fugazzetta.svg";
-import pizzaStromboli from "../../assets/landing/pizza-stromboli.png";
 import promoCokePizza from "../../assets/landing/promo-coke-pizza.svg";
 import { FaChevronLeft, FaChevronRight, FaShoppingBag, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+  
+  // Estados existentes
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [carouselPosition, setCarouselPosition] = useState<number>(0);
   const carouselTrackRef = useRef<HTMLDivElement>(null);
+
+  // Nuevos estados para pizzas de la API
+  const [pizzas, setPizzas] = useState<ArticuloManufacturadoApi[]>([]);
+  const [loadingPizzas, setLoadingPizzas] = useState<boolean>(true);
+  const [errorPizzas, setErrorPizzas] = useState<string | null>(null);
+
+  // 🔧 VARIABLE DE FÁCIL ACCESO PARA CANTIDAD DE PIZZAS
+  const PIZZAS_CAROUSEL_SIZE = 4; // ⭐ Cambia este número cuando tengas más pizzas
 
   const sectionRefs = {
     hero: useRef<HTMLDivElement>(null),
@@ -30,6 +42,41 @@ const LandingPage: React.FC = () => {
     menu: useRef<HTMLDivElement>(null),
     nosotros: useRef<HTMLDivElement>(null),
     footer: useRef<HTMLDivElement>(null),
+  };
+
+  // Función para cargar pizzas de la API
+  const cargarPizzas = async () => {
+    try {
+      setLoadingPizzas(true);
+      setErrorPizzas(null);
+      
+      console.log(`🍕 Cargando ${PIZZAS_CAROUSEL_SIZE} pizzas para el carousel...`);
+      
+      const response = await obtenerTodosLosManufacturados(
+        0, // página 0
+        PIZZAS_CAROUSEL_SIZE, // tamaño configurable
+        'denominacion' // ordenar por nombre
+      );
+      
+      console.log('✅ Pizzas cargadas:', response.content);
+      setPizzas(response.content);
+      
+    } catch (error) {
+      console.error('❌ Error al cargar pizzas:', error);
+      setErrorPizzas('Error al cargar las pizzas.');
+    } finally {
+      setLoadingPizzas(false);
+    }
+  };
+
+  // Cargar pizzas al montar el componente
+  useEffect(() => {
+    cargarPizzas();
+  }, []);
+
+  // Función para navegar al menú
+  const handleGoToMenu = () => {
+    navigate('/menu');
   };
 
   // Handle scroll to update active section
@@ -80,6 +127,12 @@ const LandingPage: React.FC = () => {
     setCarouselPosition(newPosition);
   };
 
+  // Función para formatear precio correctamente
+  const formatPrice = (price: number): string => {
+    // El precio ya viene en formato correcto desde la API
+    return `$${price.toFixed(2)}`;
+  };
+
   return (
     <div className={styles.landingPageDesktop}>
       {/* Header component */}
@@ -94,7 +147,7 @@ const LandingPage: React.FC = () => {
           <p className={styles.heroDescription}>
             No esperes más. Tu pizza perfecta está saliendo del horno antes de que termines de decidir.
           </p>
-          <Button text="EMPEZAR" onClick={() => console.log('Start clicked')} />
+          <Button text="EMPEZAR" onClick={handleGoToMenu} />
         </div>
         <div className={styles.images}>
           <img src={heroMainImg} className={styles.heroMainImg} alt="Pizza" />
@@ -158,78 +211,60 @@ const LandingPage: React.FC = () => {
             </p>
           </div>
           
-          <div className={styles.carouselContainer}>
-            <button className={`${styles.carouselButton} ${styles.left}`} onClick={() => moveCarousel(-1)}>
-              <FaChevronLeft />
-            </button>
-            
-            <div 
-              className={styles.carouselTrack} 
-              ref={carouselTrackRef}
-              style={{transform: `translateX(${carouselPosition}px)`}}
-            >
-              <div className={styles.pizzaCard}>
-                <div className={styles.pizzaImage}>
-                  <img src={pizzaMargherita} alt="Pizza Margherita" />
-                </div>
-                <h3 className={styles.pizzaTitle}>Clásica Margherita</h3>
-                <p className={styles.pizzaPrice}>$35.00</p>
-                <div className={styles.cartIcon}>
-                  <FaShoppingBag />
-                </div>
-              </div>
-              
-              <div className={styles.pizzaCard}>
-                <div className={styles.pizzaImage}>
-                  <img src={pizzaPepperoni} alt="Pepperoni Power" />
-                </div>
-                <h3 className={styles.pizzaTitle}>Peperoni Power</h3>
-                <p className={styles.pizzaPrice}>$35.00</p>
-                <div className={styles.cartIcon}>
-                  <FaShoppingBag />
-                </div>
-              </div>
-              
-              <div className={styles.pizzaCard}>
-                <div className={styles.pizzaImage}>
-                  <img src={pizzaFugazzeta} alt="La Fugazzeta" />
-                </div>
-                <h3 className={styles.pizzaTitle}>La Fugazzeta</h3>
-                <p className={styles.pizzaPrice}>$35.00</p>
-                <div className={styles.cartIcon}>
-                  <FaShoppingBag />
-                </div>
-              </div>
-              
-              <div className={styles.pizzaCard}>
-                <div className={styles.pizzaImage}>
-                  <img src={pizzaFugazzeta} alt="La Fugazzeta Rellena" />
-                </div>
-                <h3 className={styles.pizzaTitle}>La Fugazzeta Rellena</h3>
-                <p className={styles.pizzaPrice}>$35.00</p>
-                <div className={styles.cartIcon}>
-                  <FaShoppingBag />
-                </div>
-              </div>
-              
-              <div className={styles.pizzaCard}>
-                <div className={styles.pizzaImage}>
-                  <img src={pizzaStromboli} alt="Stromboli Deluxe" />
-                </div>
-                <h3 className={styles.pizzaTitle}>Stromboli Deluxe</h3>
-                <p className={styles.pizzaPrice}>$40.00</p>
-                <div className={styles.cartIcon}>
-                  <FaShoppingBag />
-                </div>
-              </div>
+          {/* Mostrar estado de carga */}
+          {loadingPizzas ? (
+            <div className={styles.loadingPizzas}>
+              <p>Cargando nuestras deliciosas pizzas...</p>
             </div>
-            
-            <button className={`${styles.carouselButton} ${styles.right}`} onClick={() => moveCarousel(1)}>
-              <FaChevronRight />
-            </button>
-          </div>
+          ) : errorPizzas ? (
+            <div className={styles.errorPizzas}>
+              <p>{errorPizzas}</p>
+            </div>
+          ) : pizzas.length === 0 ? (
+            <div className={styles.errorPizzas}>
+              <p>No hay pizzas disponibles en este momento.</p>
+            </div>
+          ) : (
+            <div className={styles.carouselContainer}>
+              <button className={`${styles.carouselButton} ${styles.left}`} onClick={() => moveCarousel(-1)}>
+                <FaChevronLeft />
+              </button>
+              
+              <div 
+                className={styles.carouselTrack} 
+                ref={carouselTrackRef}
+                style={{transform: `translateX(${carouselPosition}px)`}}
+              >
+                {pizzas.map((pizza) => (
+                  <div key={pizza.id} className={styles.pizzaCard}>
+                    <div className={styles.pizzaImage}>
+                      {pizza.imagen && pizza.imagen.urlImagen ? (
+                        <img 
+                          src={pizza.imagen.urlImagen} 
+                          alt={pizza.denominacion}
+                        />
+                      ) : (
+                        <div className={styles.pizzaImagePlaceholder}>
+                          🍕
+                        </div>
+                      )}
+                    </div>
+                    <h3 className={styles.pizzaTitle}>{pizza.denominacion}</h3>
+                    <p className={styles.pizzaPrice}>{formatPrice(pizza.precioVenta)}</p>
+                    <div className={styles.cartIcon}>
+                      <FaShoppingBag />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <button className={`${styles.carouselButton} ${styles.right}`} onClick={() => moveCarousel(1)}>
+                <FaChevronRight />
+              </button>
+            </div>
+          )}
           
-          <Button text="EXPLORAR MENÚ" onClick={() => console.log('Explore menu clicked')} />
+          <Button text="EXPLORAR MENÚ" onClick={handleGoToMenu} />
         </div>
 
         {/* Promocion section */}
@@ -246,7 +281,7 @@ const LandingPage: React.FC = () => {
               <h3 className={styles.promoCategory}>Combo de pizza + bebida</h3>
               <h2 className={styles.promoTitle}>¡Promoción <br/>Especial!</h2>
               <p className={styles.promoTime}>Solo por tiempo limitado</p>
-              <Button text="EXPLORAR MENÚ" onClick={() => console.log('Explore menu clicked')} />
+              <Button text="EXPLORAR MENÚ" onClick={handleGoToMenu} />
             </div>
             <div className={styles.promoImage}>
               <img src={promoCokePizza} alt="Promoción Especial" />

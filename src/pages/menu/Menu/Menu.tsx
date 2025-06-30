@@ -313,7 +313,18 @@ const Menu: React.FC = () => {
               <div className={styles.categoryLabel}>Todos</div>
             </div>
             
-            {/* Rubros específicos */}
+            {/* Opción "Promociones" - MOVIDA ANTES DE LOS RUBROS */}
+            <div
+              className={`${styles.categoryCard} ${activeRubro === PROMOCIONES_ID ? styles.active : ""}`}
+              onClick={() => setActiveRubro(PROMOCIONES_ID)}
+            >
+              <div className={styles.categoryBackground}>
+                <div className={styles.categoryIcon}>🎁</div>
+              </div>
+              <div className={styles.categoryLabel}>Promociones</div>
+            </div>
+            
+            {/* Rubros específicos - DESPUÉS DE PROMOCIONES */}
             {rubros.map((rubro) => (
               <div
                 key={rubro.id}
@@ -328,17 +339,6 @@ const Menu: React.FC = () => {
                 <div className={styles.categoryLabel}>{rubro.denominacion}</div>
               </div>
             ))}
-            
-            {/* Opción "Promociones" */}
-            <div
-              className={`${styles.categoryCard} ${activeRubro === PROMOCIONES_ID ? styles.active : ""}`}
-              onClick={() => setActiveRubro(PROMOCIONES_ID)}
-            >
-              <div className={styles.categoryBackground}>
-                <div className={styles.categoryIcon}>🎁</div>
-              </div>
-              <div className={styles.categoryLabel}>Promociones</div>
-            </div>
           </div>
         </div>
 
@@ -351,7 +351,32 @@ const Menu: React.FC = () => {
           ) : activeRubro === TODOS_ID ? (
             // Vista "Todos": mostrar secciones de Pizzas, Bebidas y Promociones
             <div className={styles.allItemsContainer}>
-              {/* Sección Pizzas */}
+              {/* Sección Promociones - PRIMERA */}
+              {filteredPromociones.length > 0 && (
+                <div className={styles.menuSection}>
+                  <div className={styles.sectionHeader}>
+                    <div className={styles.sectionTitle}>Promociones</div>
+                    {filteredPromociones.length > 6 && (
+                      <button 
+                        className={styles.verMasButton}
+                        onClick={() => setActiveRubro(PROMOCIONES_ID)}
+                      >
+                        Ver más
+                      </button>
+                    )}
+                  </div>
+                  <div className={styles.pizzaGrid}>
+                    {filteredPromociones.slice(0, 6).map(({ item }) => (
+                      <PromocionCard
+                        key={`promo-${item.id}`}
+                        item={item}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Sección Pizzas - SEGUNDA */}
               {filteredPizzaItems.length > 0 && (
                 <div className={styles.menuSection}>
                   <div className={styles.sectionHeader}>
@@ -380,7 +405,7 @@ const Menu: React.FC = () => {
                 </div>
               )}
               
-              {/* Sección Bebidas */}
+              {/* Sección Bebidas - TERCERA */}
               {filteredBebidaItems.length > 0 && (
                 <div className={styles.menuSection}>
                   <div className={styles.sectionHeader}>
@@ -403,31 +428,6 @@ const Menu: React.FC = () => {
                         key={`${esManufacturado ? "m" : "i"}-${item.id}`}
                         item={item}
                         esManufacturado={esManufacturado}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              {/* Sección Promociones */}
-              {filteredPromociones.length > 0 && (
-                <div className={styles.menuSection}>
-                  <div className={styles.sectionHeader}>
-                    <div className={styles.sectionTitle}>Promociones</div>
-                    {filteredPromociones.length > 6 && (
-                      <button 
-                        className={styles.verMasButton}
-                        onClick={() => setActiveRubro(PROMOCIONES_ID)}
-                      >
-                        Ver más
-                      </button>
-                    )}
-                  </div>
-                  <div className={styles.pizzaGrid}>
-                    {filteredPromociones.slice(0, 6).map(({ item }) => (
-                      <PromocionCard
-                        key={`promo-${item.id}`}
-                        item={item}
                       />
                     ))}
                   </div>
