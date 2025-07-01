@@ -34,7 +34,7 @@ const LandingPage: React.FC = () => {
   const [errorPizzas, setErrorPizzas] = useState<string | null>(null);
 
   // 🔧 VARIABLE DE FÁCIL ACCESO PARA CANTIDAD DE PIZZAS
-  const PIZZAS_CAROUSEL_SIZE = 4; // ⭐ Cambia este número cuando tengas más pizzas
+  const PIZZAS_CAROUSEL_SIZE = 6; // ⭐ Cambia este número cuando tengas más pizzas
 
   const sectionRefs = {
     hero: useRef<HTMLDivElement>(null),

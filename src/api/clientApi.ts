@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ArticuloManufacturadoApi, InsumoApi, RubroApi, PedidoVentaRequest, PedidoVentaResponse, ClienteApi, ClienteUpdateDTO, PromocionApi, DomicilioCreateRequest } from '../types/typesClient';
+import { ArticuloManufacturadoApi, InsumoApi, RubroApi, PedidoVentaRequest, PedidoVentaResponse, ClienteApi, ClienteUpdateDTO, PromocionApi, DomicilioCreateRequest, LocalidadApi } from '../types/typesClient';
 
 const API_BASE_URL = 'http://localhost:8080/api'; // Ajusta esta URL a tu API real
 
@@ -572,6 +572,32 @@ export const actualizarDomicilioCliente = async (
     if (axios.isAxiosError(error)) {
       const errorMsg = error.response?.data?.error || error.message;
       throw new Error(`Error al actualizar domicilio: ${errorMsg}`);
+    }
+    throw error;
+  }
+};
+
+// Obtener todas las localidades
+export const obtenerTodasLasLocalidades = async (token?: string): Promise<LocalidadApi[]> => {
+  try {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await apiClient.get('/localidades', {
+      headers
+    });
+    
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener localidades:', error);
+    if (axios.isAxiosError(error)) {
+      const errorMsg = error.response?.data?.error || error.message;
+      throw new Error(`Error al obtener localidades: ${errorMsg}`);
     }
     throw error;
   }
