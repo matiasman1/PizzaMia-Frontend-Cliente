@@ -1,34 +1,98 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../ItemCard/ItemCard.module.css";
 import { PromocionApi } from "../../../types/typesClient";
 import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import { useCartStore } from "../../../store/cartStore";
+import { useStockStore } from '../../../store/stockStore';
 import DetallePromocionModal from './DetallePromocionModal';
 
 type PromocionCardProps = {
   item: PromocionApi;
-  onAdd?: () => void; // Mantenemos esto como opcional para compatibilidad
+  onAdd?: () => void;
 };
 
 const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
   const addItemToCart = useCartStore(state => state.addItem);
+  const verificarDisponibilidad = useStockStore(state => state.verificarDisponibilidad);
   const imagenUrl = item.imagen?.urlImagen || "";
   
-  // Estado para el botón
+  // Estado para disponibilidad y verificación
+  const [disponible, setDisponible] = useState<boolean>(true); // Comenzar como disponible
   const [verificando, setVerificando] = useState(false);
+  const [verificandoStock, setVerificandoStock] = useState(false);
   
   // Estado para el modal
   const [showModal, setShowModal] = useState(false);
   
-  // Las promociones siempre están disponibles si están activas
-  const disponible = item.estado === 'ACTIVO';
+  // Las promociones deben estar activas
+  const promocionActiva = item.estado === 'ACTIVO';
+
+  // Verificar disponibilidad de los detalles de la promoción
+  useEffect(() => {
+    // Si la promoción no está activa, marcar como no disponible
+    if (!promocionActiva) {
+      setDisponible(false);
+      return;
+    }
+
+    // Si no hay detalles, asumir que está disponible
+    if (!item.detalles || item.detalles.length === 0) {
+      setDisponible(true);
+      return;
+    }
+
+    const checkStock = async () => {
+      setVerificandoStock(true);
+      
+      try {
+        // Iterar sobre cada detalle y verificar disponibilidad
+        for (const detalle of item.detalles) {
+          const esManufacturado = !!detalle.articuloManufacturado;
+          const articulo = detalle.articuloManufacturado || detalle.articuloInsumo;
+          
+          if (!articulo) {
+            console.warn(`Detalle de promoción ${item.id} sin artículo válido`);
+            setDisponible(false);
+            return;
+          }
+
+          // Verificar disponibilidad usando la función existente (SIN pasar insumo)
+          const estaDisponible = await verificarDisponibilidad(
+            articulo.id, 
+            esManufacturado
+            // No pasamos el tercer parámetro para evitar problemas de tipos
+          );
+
+          // Si algún detalle no está disponible, la promoción no está disponible
+          if (!estaDisponible) {
+            console.log(`Promoción ${item.denominacion} sin stock: falta ${articulo.denominacion}`);
+            setDisponible(false);
+            return;
+          }
+        }
+
+        // Si llegamos aquí, todos los detalles están disponibles
+        console.log(`Promoción ${item.denominacion} disponible - todos los detalles tienen stock`);
+        setDisponible(true);
+
+      } catch (error) {
+        console.error(`Error verificando stock de promoción ${item.id}:`, error);
+        // En caso de error, asumir que está disponible para no bloquear innecesariamente
+        setDisponible(true);
+      } finally {
+        setVerificandoStock(false);
+      }
+    };
+
+    checkStock();
+  }, [item.id, item.detalles, promocionActiva, verificarDisponibilidad]);
 
   const handleAddToCart = () => {
-    if (!disponible) return;
+    if (!disponible || !promocionActiva) return;
     
     setVerificando(true);
     
-    // Añadir al carrito usando Zustand (false para esManufacturado, true para esPromocion)
+    // Añadir al carrito usando Zustand
     addItemToCart(item, false, true);
     
     // Llamar al callback onAdd si existe
@@ -50,9 +114,19 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
   // Calcular precio original basado en el descuento
   const precioOriginal = (item.precio / (1 - (item.descuento / 100))).toFixed(2);
 
+  // Determinar el mensaje de estado
+  const getStatusMessage = () => {
+    if (!promocionActiva) return "Promo finalizada";
+    if (!disponible) return "Sin stock";
+    return null;
+  };
+
+  // Determinar si el botón debe estar deshabilitado
+  const isDisabled = !promocionActiva || !disponible || verificando || verificandoStock;
+
   return (
     <>
-      <div className={`${styles.itemCard} ${!disponible ? styles.noStock : ''}`}>
+      <div className={`${styles.itemCard} ${isDisabled ? styles.noStock : ''}`}>
         <div className={styles.itemImage}>
           {imagenUrl ? (
             <img src={imagenUrl} alt={item.denominacion} />
@@ -67,20 +141,21 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
             {item.descuento}% OFF
           </div>
           
-          {/* Indicador de no disponible */}
-          {!disponible && (
+          {/* Indicador de estado */}
+          {getStatusMessage() && (
             <div className={styles.stockBadge}>
-              Promo finalizada
+              {getStatusMessage()}
             </div>
           )}
         </div>
+        
         <div className={styles.itemInfo}>
           <div className={styles.itemTitle}>{item.denominacion}</div>
           
           {/* Mostrar precio original y con descuento */}
           <div className={styles.priceContainer}>
             <span className={styles.originalPrice}>${precioOriginal}</span>
-            <div className={styles.itemPrice}>${item.precio}</div>
+            <div className={styles.itemPrice}>${item.precio.toFixed(2)}</div>
           </div>
           
           {/* Descripción de la promoción */}
@@ -104,11 +179,11 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
           
           {/* Botón de agregar al carrito */}
           <button 
-            className={`${styles.cartButton} ${!disponible ? styles.disabledButton : ''}`} 
+            className={`${styles.cartButton} ${isDisabled ? styles.disabledButton : ''}`} 
             onClick={handleAddToCart}
-            disabled={!disponible || verificando}
+            disabled={isDisabled}
           >
-            {verificando ? (
+            {verificando || verificandoStock ? (
               <span className={styles.loadingDots}>•••</span>
             ) : (
               <FaShoppingCart />

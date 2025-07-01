@@ -6,10 +6,10 @@ import { useAuthStore } from "../store/authStore";
 import { useShallow } from "zustand/shallow";
 
 const VITE_AUTH0_AUDIENCE = import.meta.env.VITE_AUTH0_AUDIENCE;
-const ALLOWED_ROLES = ["Cliente"]; // Definir roles permitidos
+const ALLOWED_ROLES = ["Cliente"];
 
 export const LoginRedirect = () => {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently, error } = useAuth0();
   const [isChecking, setIsChecking] = useState(true);
 
   const { setRol, setToken } = useAuthStore(
@@ -22,13 +22,32 @@ export const LoginRedirect = () => {
 
   useEffect(() => {
     const checkUserInDB = async () => {
-      if (isLoading || !isAuthenticated || !user) {
-        setIsChecking(false);
+      if (isLoading) {
+        return;
+      }
+
+      // Verificar si hay errores de Auth0 (usuarios bloqueados)
+      if (error) {
+        console.error("Error en LoginRedirect:", error);
+        
+        if (error.message?.includes('blocked') || 
+            error.message?.includes('account_blocked')) {
+          navigate("/user-blocked");
+          return;
+        }
+        
+        // Otros errores
+        navigate("/?error=auth_error");
+        return;
+      }
+
+      if (!isAuthenticated || !user) {
+        navigate("/");
         return;
       }
       
       const sub = user.sub;
-      const rol = user[`${VITE_AUTH0_AUDIENCE}/roles`]?.[0]; // extraer rol del token custom claim o user object
+      const rol = user[`${VITE_AUTH0_AUDIENCE}/roles`]?.[0];
   
       try {
         // Verificar si el rol es permitido
@@ -54,25 +73,33 @@ export const LoginRedirect = () => {
               },
             }
           );
+          
           console.log("Respuesta del backend:", response.data);
-          // Si existe, reviso firstLogin
+          
           if (!response.data) {
             navigate("/post-login");
           } else {
-            // Si el usuario existe pero no tiene rol asignado, le asignamos el rol Cliente
             setRol("Cliente");
             navigate("/menu");
           }
         } else {
           setRol(rol);
-          // Si el rol es cliente, redirigimos a menu
           navigate("/menu");
         }
+        
       } catch (error: any) {
+        console.error("Error al consultar usuario:", error);
+        
+        // Verificar si es error de usuario bloqueado en el backend
+        if (error.response?.status === 403 && 
+            error.response?.data?.message?.includes('blocked')) {
+          navigate("/user-blocked");
+          return;
+        }
+        
         if (error.response?.status === 404 && !rol) {
           navigate("/post-login");
         } else {
-          console.error("Error al consultar usuario", error);
           navigate("/");
         }
       } finally {
@@ -81,19 +108,17 @@ export const LoginRedirect = () => {
     };
 
     checkUserInDB();
-  }, [isAuthenticated, isLoading, user]);
+  }, [isAuthenticated, isLoading, user, error]);
 
   if (isLoading || isChecking) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "50dvh",
-        }}
-      >
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "50dvh",
+      }}>
         <h2>Verificando acceso...</h2>
         <div style={{ 
           width: '40px', 
@@ -115,15 +140,13 @@ export const LoginRedirect = () => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "50dvh",
-      }}
-    >
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "50dvh",
+    }}>
       <h2>Redirigiendo...</h2>
     </div>
   );

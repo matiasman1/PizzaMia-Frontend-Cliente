@@ -144,13 +144,7 @@ const MercadoPagoReturn: React.FC = () => {
         navigate('/menu');
     };
 
-    const handleGoToOrderTracking = () => {
-        if (pedidoId) {
-            navigate(`/pedidos/${pedidoId}`);
-        } else {
-            navigate('/pedidos');
-        }
-    };
+    
 
     const getStatusIcon = () => {
         switch (status) {
@@ -206,14 +200,7 @@ const MercadoPagoReturn: React.FC = () => {
                     <button className={styles.button} onClick={handleGoToMenu}>
                         Volver al Menú
                     </button>
-                    {status !== 'failure' && (
-                        <button 
-                            className={`${styles.button} ${styles.trackButton}`} 
-                            onClick={handleGoToOrderTracking}
-                        >
-                            Seguir Mi Pedido
-                        </button>
-                    )}
+                    
                 </div>
             </div>
         </div>

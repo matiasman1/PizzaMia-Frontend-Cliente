@@ -65,6 +65,11 @@ const Menu: React.FC = () => {
   // Usar el store del cliente
   const cargarCliente = useClienteStore(state => state.cargarCliente);
   
+  // Función para filtrar elementos activos (fechaBaja === null) - SOLO PARA PRODUCTOS
+  const filterActiveItems = <T extends { fechaBaja: string | null }>(items: T[]): T[] => {
+    return items.filter(item => item.fechaBaja === null);
+  };
+  
   // Cargar datos del cliente al montar el componente
   useEffect(() => {
     // ID fijo del cliente mientras no hay autenticación
@@ -129,12 +134,15 @@ const Menu: React.FC = () => {
             "denominacion"
           );
           
-          pizzas = pizzasRes.content.map(item => ({ 
+          // Filtrar solo pizzas activas (fechaBaja === null)
+          const pizzasActivas = filterActiveItems(pizzasRes.content);
+          
+          pizzas = pizzasActivas.map(item => ({ 
             item, 
             esManufacturado: true 
           }));
           
-          console.log("Pizzas cargadas:", pizzas.length);
+          console.log("Pizzas cargadas (activas):", pizzas.length);
         }
         
         if (bebidaRubro) {
@@ -146,15 +154,18 @@ const Menu: React.FC = () => {
             bebidaRubro.id as number
           );
           
-          bebidas = bebidasRes.content.map(item => ({ 
+          // Filtrar solo bebidas activas (fechaBaja === null)
+          const bebidasActivas = filterActiveItems(bebidasRes.content);
+          
+          bebidas = bebidasActivas.map(item => ({ 
             item, 
             esManufacturado: false 
           }));
           
-          console.log("Bebidas cargadas:", bebidas.length);
+          console.log("Bebidas cargadas (activas):", bebidas.length);
         }
         
-        // Cargar promociones activas
+        // Cargar promociones activas (SIN FILTRO fechaBaja)
         try {
           const promocionesData = await obtenerPromocionesActivas();
           const promocionesItems = promocionesData.map(item => ({ item }));
@@ -212,33 +223,59 @@ const Menu: React.FC = () => {
         const esRubroPizzas = rubros.find(r => r.id === activeRubro)?.denominacion === "Pizzas";
         
         if (esRubroPizzas) {
-          // Cargar manufacturados (pizzas)
+          // Cargar TODOS los manufacturados del rubro para filtrar correctamente
           const manuRes = await obtenerManufacturadosPorRubro(
             activeRubro, 
-            currentPage, 
-            ITEMS_PER_PAGE, 
+            0, // Cargar desde página 0
+            100, // Cargar muchos elementos (ajustar según necesidad)
             "denominacion"
           );
           
-          setMenuItems(manuRes.content.map(item => ({ 
+          // Filtrar solo manufacturados activos (fechaBaja === null)
+          const manufacturadosActivos = filterActiveItems(manuRes.content);
+          
+          // Calcular paginación correcta basada en elementos activos
+          const totalActivosElements = manufacturadosActivos.length;
+          const totalActivosPages = Math.ceil(totalActivosElements / ITEMS_PER_PAGE);
+          
+          // Obtener elementos para la página actual
+          const startIndex = currentPage * ITEMS_PER_PAGE;
+          const endIndex = startIndex + ITEMS_PER_PAGE;
+          const paginatedItems = manufacturadosActivos.slice(startIndex, endIndex);
+          
+          setMenuItems(paginatedItems.map(item => ({ 
             item, 
             esManufacturado: true 
           })));
-          setTotalPages(manuRes.totalPages);
+          
+          setTotalPages(totalActivosPages || 1);
         } else {
-          // Cargar insumos (bebidas)
+          // Cargar TODOS los insumos del rubro para filtrar correctamente
           const insuRes = await obtenerInsumosNoElaborables(
-            currentPage, 
-            ITEMS_PER_PAGE, 
+            0, // Cargar desde página 0
+            100, // Cargar muchos elementos (ajustar según necesidad)
             "denominacion", 
             activeRubro
           );
           
-          setMenuItems(insuRes.content.map(item => ({ 
+          // Filtrar solo insumos activos (fechaBaja === null)
+          const insumosActivos = filterActiveItems(insuRes.content);
+          
+          // Calcular paginación correcta basada en elementos activos
+          const totalActivosElements = insumosActivos.length;
+          const totalActivosPages = Math.ceil(totalActivosElements / ITEMS_PER_PAGE);
+          
+          // Obtener elementos para la página actual
+          const startIndex = currentPage * ITEMS_PER_PAGE;
+          const endIndex = startIndex + ITEMS_PER_PAGE;
+          const paginatedItems = insumosActivos.slice(startIndex, endIndex);
+          
+          setMenuItems(paginatedItems.map(item => ({ 
             item, 
             esManufacturado: false 
           })));
-          setTotalPages(insuRes.totalPages);
+          
+          setTotalPages(totalActivosPages || 1);
         }
       } catch (error) {
         console.error("Error al cargar productos por rubro:", error);

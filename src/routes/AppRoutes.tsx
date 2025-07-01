@@ -15,6 +15,7 @@ import PersonalInfo from '../pages/client/modules/profile/PersonalInfo';
 import Addresses from '../pages/client/modules/profile/Addresses';
 import Orders from '../pages/client/modules/profile/Orders';
 import ProfileWrapper from '../components/Client/ProfileWrapper/ProfileWrapper';
+import { UserBlocked } from '../pages/UserBlocked';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -27,6 +28,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/post-login" element={<PostLogin />} />
       <Route path="/mercadopago/return" element={<MercadoPagoReturn />} />
       <Route path="/access-denied" element={<AccessDenied />} />
+      <Route path="/user-blocked" element={<UserBlocked />} />
+
+
 
       {/* Rutas protegidas del cliente */}
       <Route

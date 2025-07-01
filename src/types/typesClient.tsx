@@ -253,8 +253,8 @@ export type PromocionApi = {
     descripcion?: string; // Descripción opcional
     detalles: PromocionDetalleApi[];
     imagen?: ImagenApi;   // Imagen de la promoción
-    fechaAlta?: string;
-    fechaBaja?: string | null;
+    fechaAlta: string;
+    fechaBaja: string | null;
     estado?: string;     // Calculado en el frontend (ACTIVO/INACTIVO)
 };
 
