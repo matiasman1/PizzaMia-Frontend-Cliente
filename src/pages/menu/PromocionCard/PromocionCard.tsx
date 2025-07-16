@@ -3,7 +3,7 @@ import styles from "../ItemCard/ItemCard.module.css";
 import { PromocionApi } from "../../../types/typesClient";
 import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import { useCartStore } from "../../../store/cartStore";
-import { useStockStore } from '../../../store/stockStore';
+import { verificarDisponibilidadManufacturado } from "../../../api/clientApi"; // Importar directamente
 import DetallePromocionModal from './DetallePromocionModal';
 
 type PromocionCardProps = {
@@ -13,7 +13,6 @@ type PromocionCardProps = {
 
 const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
   const addItemToCart = useCartStore(state => state.addItem);
-  const verificarDisponibilidad = useStockStore(state => state.verificarDisponibilidad);
   const imagenUrl = item.imagen?.urlImagen || "";
   
   // Estado para disponibilidad y verificación
@@ -27,7 +26,7 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
   // Las promociones deben estar activas
   const promocionActiva = item.estado === 'ACTIVO';
 
-  // Verificar disponibilidad de los detalles de la promoción
+  // Verificar disponibilidad de los detalles de la promoción SIN usar stockStore
   useEffect(() => {
     // Si la promoción no está activa, marcar como no disponible
     if (!promocionActiva) {
@@ -45,7 +44,7 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
       setVerificandoStock(true);
       
       try {
-        // Iterar sobre cada detalle y verificar disponibilidad
+        // Iterar sobre cada detalle y verificar disponibilidad DIRECTAMENTE
         for (const detalle of item.detalles) {
           const esManufacturado = !!detalle.articuloManufacturado;
           const articulo = detalle.articuloManufacturado || detalle.articuloInsumo;
@@ -56,12 +55,26 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
             return;
           }
 
-          // Verificar disponibilidad usando la función existente (SIN pasar insumo)
-          const estaDisponible = await verificarDisponibilidad(
-            articulo.id, 
-            esManufacturado
-            // No pasamos el tercer parámetro para evitar problemas de tipos
-          );
+          let estaDisponible = false;
+
+          if (esManufacturado) {
+            // Para manufacturados, verificar con la API directamente
+            try {
+              estaDisponible = await verificarDisponibilidadManufacturado(articulo.id);
+            } catch (error) {
+              console.error(`Error verificando manufacturado ${articulo.id}:`, error);
+              estaDisponible = false;
+            }
+          } else {
+            // Para insumos, asumir disponible por ahora 
+            // (no interferir con el stockStore de ItemCard)
+            estaDisponible = true;
+            
+            // Si el artículo tiene stockActual definido, verificar
+            if ('stockActual' in articulo && typeof articulo.stockActual === 'number') {
+              estaDisponible = articulo.stockActual >= (detalle.cantidad || 1);
+            }
+          }
 
           // Si algún detalle no está disponible, la promoción no está disponible
           if (!estaDisponible) {
@@ -85,7 +98,7 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ item, onAdd }) => {
     };
 
     checkStock();
-  }, [item.id, item.detalles, promocionActiva, verificarDisponibilidad]);
+  }, [item.id, item.detalles, promocionActiva]); // Quitar verificarDisponibilidad de las dependencias
 
   const handleAddToCart = () => {
     if (!disponible || !promocionActiva) return;
